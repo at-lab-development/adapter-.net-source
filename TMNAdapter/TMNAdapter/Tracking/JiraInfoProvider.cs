@@ -31,12 +31,12 @@ namespace TMNAdapter.Utilities
       //}
     }
 
-    public static void SaveValue(string title, string value)
+    public static void SaveValue<T>(string title, T value)
     {
       string key = FindJiraTestKey();
       if (key != null)
       {
-        TestParameters parameters = new TestParameters(); // TestParameters parameters = new TestParameters(title, value != null ? value : "null");
+        TestParameters parameters = new TestParameters(); // TestParameters parameters = new TestParameters(title, value != null ? value.ToString() : "null");
         if (jiraKeyParameters.ContainsKey(key))
         {
           jiraKeyParameters[key].Add(parameters);
@@ -48,26 +48,6 @@ namespace TMNAdapter.Utilities
           jiraKeyParameters.Add(title, newTestParameters);
         }
       }
-    }
-
-    public static void SaveValue(string title, int value)
-    {
-      SaveValue(title, value.ToString());
-    }
-
-    public static void SaveValue(string title, double value)
-    {
-      SaveValue(title, value.ToString());
-    }
-
-    public static void SaveValue(string title, bool value)
-    {
-      SaveValue(title, value.ToString());
-    }
-
-    public static void SaveValue(string title, object value)
-    {
-      SaveValue(title, value?.ToString());
     }
 
     public static void CleanFor(string issueKey)
