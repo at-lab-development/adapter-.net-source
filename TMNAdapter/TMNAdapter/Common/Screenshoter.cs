@@ -8,7 +8,7 @@ namespace TMNAdapter.Common
     {
         private static readonly string SCREENSHOT_FILE = "scr_%s.png";
         private static IWebDriver driverInstance;
-
+        
         public static void Initialize(IWebDriver driver)
         {
             driverInstance = driver;
