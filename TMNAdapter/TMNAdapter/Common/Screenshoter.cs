@@ -30,10 +30,9 @@ namespace TMNAdapter.Common
             }
 
             string screenshotName = String.Format(SCREENSHOT_FILE, DateTime.UtcNow.ToString().Replace(":", "-"));
-            var screenshot = (((ITakesScreenshot)driverInstance).GetScreenshot());
+            var screenshot = ((ITakesScreenshot)driverInstance).GetScreenshot();
             screenshot.SaveAsFile(screenshotName, ScreenshotImageFormat.Jpeg);
             string filePath = Path.GetFullPath(screenshotName);
-           // String filePath = FileUtils.SaveFile(screenshot, screenshotName);
 
             return filePath != null ? screenshotName : null;
         }
