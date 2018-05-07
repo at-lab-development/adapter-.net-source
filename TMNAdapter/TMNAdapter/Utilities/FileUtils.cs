@@ -1,37 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TMNAdapter.Utilities
 {
-    public class FileUtils
-    {
-        private readonly static string TARGET_DIR = "\\target\\"; 
-        private readonly static string ATTACHMENTS_DIR = TARGET_DIR + "attachments\\";
+	public class FileUtils
+	{
+		private readonly static string TARGET_DIR = "\\target\\";
+		private readonly static string ATTACHMENTS_DIR = TARGET_DIR + "attachments\\";
 
-        public static string Save()
-        {
-            return null;
-        }
+		public static string Save(Exception ex)
+		{
+			string message = null;
+			if (ex != null)
+			{
+				DateTime time = new DateTime();
+				string filePath = string.Format("stacktrace_%s.txt", time.ToShortTimeString().Replace(":", "-"));
+				string exceptionMessage = ex.ToString();
+				if (exceptionMessage.Contains("\n"))
+					exceptionMessage = exceptionMessage.Substring(0, exceptionMessage.IndexOf('\n'));
+				WriteStackTrace(ex, filePath);
+				message = "Failed due to: " + ex.Data.ToString() + ": " + exceptionMessage
+						+ ".\nFull stack trace attached as " + filePath;
+			}
+			return message;
+		}
 
-        private static void WriteStackTrace()
-        {
+		private static void WriteStackTrace(Exception ex, string filePath)
+		{
+			try
+			{
+				FileInfo file = new FileInfo(ATTACHMENTS_DIR + "\\stacktrace.tmp");
+				StreamWriter writer = File.CreateText(ATTACHMENTS_DIR + "\\stacktrace.tmp");
+				writer.WriteLine(ex.StackTrace.ToString());
+				writer.Close();
+				SaveFile(file, filePath);
+				writer.Dispose();
+			}
+			catch (IOException e)
+			{
+				e.StackTrace.ToString();
+			}
+		}
 
-        }
+		public static string SaveFile(FileInfo File, string newFilePath)
+		{
+			return null;
+		}
 
-        public static string SaveFile( )
-        {
-            return null;
-        }
+		public static void WriteXml()
+		{
 
-        public static void WriteXml()
-        {
+		}
 
-        }
-
-        static string GetTargetDir() => TARGET_DIR;
-        public static string GetAttachmentsDir() => ATTACHMENTS_DIR;
-    }
+		static string GetTargetDir() => TARGET_DIR;
+		public static string GetAttachmentsDir() => ATTACHMENTS_DIR;
+	}
 }
