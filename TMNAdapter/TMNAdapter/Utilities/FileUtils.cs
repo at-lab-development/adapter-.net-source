@@ -8,7 +8,7 @@ namespace TMNAdapter.Utilities
 {
     public class FileUtils
     {
-        private static string TARGET_DIR = "\\target\\"; 
+        private readonly static string TARGET_DIR = "\\target\\"; 
         private readonly static string ATTACHMENTS_DIR = TARGET_DIR + "attachments\\";
 
         public static string Save()
@@ -21,7 +21,7 @@ namespace TMNAdapter.Utilities
 
         }
 
-        public static string SaveFile()
+        public static string SaveFile( )
         {
             return null;
         }
