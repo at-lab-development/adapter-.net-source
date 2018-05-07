@@ -48,6 +48,7 @@
     <Compile Include="Tracking\AnnotationTracker.cs" />
     <Compile Include="Tracking\JiraIssueKey.cs" />
     <Compile Include="Tracking\JiraInfoProvider.cs" />
+    <Compile Include="Utilities\FileUtils.cs" />
     <Compile Include="Utilities\TestReporter.cs" />
   </ItemGroup>
   <ItemGroup>
