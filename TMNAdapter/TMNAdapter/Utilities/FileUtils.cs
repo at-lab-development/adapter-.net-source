@@ -70,13 +70,12 @@ namespace TMNAdapter.Utilities
             }
         }
     
-        public static void WriteXml(Issues issues, String filePath)
+        public static void WriteXml(TestResult result, String filePath)
         {
-            XmlSerializer formatter = new XmlSerializer(typeof(Issues));          
-
+            XmlSerializer formatter = new XmlSerializer(typeof(TestResult));
             using (FileStream fs = new FileStream("." + TARGET_DIR + filePath, FileMode.OpenOrCreate))
             {
-                formatter.Serialize(fs, issues);
+                formatter.Serialize(fs, result);
             }
 
         }
