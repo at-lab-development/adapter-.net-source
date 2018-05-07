@@ -1,7 +1,7 @@
 ﻿using System;
+using System.IO;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
-
 namespace TMNAdapter.Common
 {
     public class Screenshoter
@@ -19,7 +19,7 @@ namespace TMNAdapter.Common
             return driverInstance != null;
         }
 
-        public static String TakeScreenshot()
+        public static string TakeScreenshot()
         {
             if (!IsInitialized()) return null;
 
@@ -29,10 +29,11 @@ namespace TMNAdapter.Common
                 return null;
             }
 
-            var screenshot = ((ITakesScreenshot) driverInstance).GetScreenshot();
             string screenshotName = String.Format(SCREENSHOT_FILE, DateTime.UtcNow.ToString().Replace(":", "-"));
-            String filePath = "";
-           //    String filePath = FileUtils.saveFile(screenshot, screenshotName);
+            var screenshot = (((ITakesScreenshot)driverInstance).GetScreenshot());
+            screenshot.SaveAsFile(screenshotName, ScreenshotImageFormat.Jpeg);
+            string filePath = Path.GetFullPath(screenshotName);
+           // String filePath = FileUtils.SaveFile(screenshot, screenshotName);
 
             return filePath != null ? screenshotName : null;
         }
