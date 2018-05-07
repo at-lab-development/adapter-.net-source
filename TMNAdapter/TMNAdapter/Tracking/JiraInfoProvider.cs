@@ -33,10 +33,20 @@ namespace TMNAdapter.Utilities
 
     public static void SaveValue(string title, string value)
     {
-      string key = null; // key = FindJIRATestKey();
+      string key = FindJiraTestKey();
       if (key != null)
       {
-        //TODO: to write realization
+        TestParameters parameters = new TestParameters(); // TestParameters parameters = new TestParameters(title, value != null ? value : "null");
+        if (jiraKeyParameters.ContainsKey(key))
+        {
+          jiraKeyParameters[key].Add(parameters);
+        }
+        else
+        {
+          List <TestParameters> newTestParameters = new List<TestParameters>();
+          newTestParameters.Add(parameters);
+          jiraKeyParameters.Add(title, newTestParameters);
+        }
       }
     }
 
@@ -71,16 +81,15 @@ namespace TMNAdapter.Utilities
         jiraKeyAttachments.Remove(issueKey);
       }
     }
-
-    //Rewrite TestParameters
-    //public static List<TestParameters> GetIssueParameters(string issueKey)
-    //{
-    //  return jiraKeyParameters[issueKey] ?? null;// don't see any sence
-    //}
+    
+    public static List<TestParameters> GetIssueParameters(string issueKey)
+    {
+      return jiraKeyParameters[issueKey] ?? null;
+    }
 
     public static List<string> GetIssueAttachments(string issueKey)
     {
-      return jiraKeyAttachments[issueKey] ?? null;// don't see any sence
+      return jiraKeyAttachments[issueKey] ?? null;
     }
   }
 }
