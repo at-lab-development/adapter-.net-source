@@ -11,30 +11,39 @@ namespace TMNAdapter.Utilities
 	{
 		private readonly static string TARGET_DIR = "\\target\\";
 		private readonly static string ATTACHMENTS_DIR = TARGET_DIR + "attachments\\";
-
-		public static string Save(Exception ex)
+		
+		  
+		 //Generate name of file with unique exception stack trace
+			
+		/// <returns> Returns exception message  </returns>
+		public static string GetExceptionMessage(Exception ex)
 		{
-			string message = null;
+			string message = string.Empty;
 			if (ex != null)
 			{
-				DateTime time = new DateTime();
-				string filePath = string.Format("stacktrace_%s.txt", time.ToShortTimeString().Replace(":", "-"));
+				string filePath = ($"stacktrace_{DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss.fff")}.txt");
 				string exceptionMessage = ex.ToString();
 				if (exceptionMessage.Contains("\n"))
 					exceptionMessage = exceptionMessage.Substring(0, exceptionMessage.IndexOf('\n'));
 				WriteStackTrace(ex, filePath);
-				message = "Failed due to: " + ex.Data.ToString() + ": " + exceptionMessage
+				message = "Failed due to: "  + exceptionMessage
 						+ ".\nFull stack trace attached as " + filePath;
 			}
 			return message;
 		}
 
+	 /*
+     * Writes stack trace in temporary file and save it to attachments directory
+     * Exception ex The exception for getting stacktrace
+     * filePath The path for output file
+     */
+
 		private static void WriteStackTrace(Exception ex, string filePath)
 		{
 			try
 			{
-				FileInfo file = new FileInfo(ATTACHMENTS_DIR + "\\stacktrace.tmp");
-				StreamWriter writer = File.CreateText(ATTACHMENTS_DIR + "\\stacktrace.tmp");
+				FileInfo file = new FileInfo("stacktrace.tmp");
+				StreamWriter writer = File.CreateText("stacktrace.tmp");
 				writer.WriteLine(ex.StackTrace.ToString());
 				writer.Close();
 				SaveFile(file, filePath);
