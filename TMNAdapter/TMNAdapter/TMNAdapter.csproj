@@ -47,13 +47,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Screenshoter.cs" />
+    <Compile Include="Common\Validation\ValidationHelper.cs" />
     <Compile Include="Entities\Issue.cs" />
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\TestParameters.cs" />
     <Compile Include="Entities\TestResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tracking\AnnotationTracker.cs" />
-    <Compile Include="Tracking\JiraIssueKey.cs" />
+    <Compile Include="Tracking\JiraIssueKeyAttribute.cs" />
     <Compile Include="Tracking\JiraInfoProvider.cs" />
     <Compile Include="Utilities\FileUtils.cs" />
     <Compile Include="Utilities\TestReporter.cs" />
