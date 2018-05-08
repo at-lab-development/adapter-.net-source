@@ -13,14 +13,12 @@ namespace TMNAdapter.Utilities
     private static Dictionary<string, List<TestParameters>> jiraKeyParameters = new Dictionary<string, List<TestParameters>>();
     private static Dictionary<string, List<string>> jiraKeyAttachments = new Dictionary<string, List<string>>();
 
-    //TODO: to write methods SaveFile() and FindJIRATestKey();
-    private static string FindJiraTestKey()
+    private static string GetJiraTestKey()
     {
       return AnnotationTracker.GetAttributeInCallStack<JiraIssueKeyAttribute>()?.Key;
     }
 
-
-    public static void SaveFile(string filePath)
+    public static void SaveAttachment(string filePath)
     {
 
       //TODO: to write realization
@@ -31,9 +29,9 @@ namespace TMNAdapter.Utilities
       //}
     }
 
-    public static void SaveValue<T>(string title, T value)
+    public static void SaveParameter<T>(string title, T value)
     {
-      string key = FindJiraTestKey();
+      string key = GetJiraTestKey();
       if (key != null)
       {
         TestParameters parameters = new TestParameters(title, value != null ? value.ToString() : "null");
