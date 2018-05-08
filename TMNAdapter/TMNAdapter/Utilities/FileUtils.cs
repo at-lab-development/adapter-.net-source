@@ -9,45 +9,53 @@ using TMNAdapter.Entities;
 
 namespace TMNAdapter.Utilities
 {
-    /// FileUtils is a util class which provides useful methods for file writing.
-    public class FileUtils
-    {
-        private readonly static string TARGET_DIR = "\\target\\";
-        private readonly static string ATTACHMENTS_DIR = TARGET_DIR + "attachments\\";
+	public class FileUtils
+	{
+		private readonly static string TARGET_DIR = "\\target\\";
+		private readonly static string ATTACHMENTS_DIR = TARGET_DIR + "attachments\\";
+		
+		  
+		 //Generate name of file with unique exception stack trace
+			
+		/// <returns> Returns exception message  </returns>
+		public static string GetExceptionMessage(Exception ex)
+		{
+			string message = string.Empty;
+			if (ex != null)
+			{
+				string filePath = ($"stacktrace_{DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss.fff")}.txt");
+				string exceptionMessage = ex.ToString();
+				if (exceptionMessage.Contains("\n"))
+					exceptionMessage = exceptionMessage.Substring(0, exceptionMessage.IndexOf('\n'));
+				WriteStackTrace(ex, filePath);
+				message = "Failed due to: "  + exceptionMessage
+						+ ".\nFull stack trace attached as " + filePath;
+			}
+			return message;
+		}
 
-        public static string Save(Exception ex)
-        {
-            string message = null;
-            if (ex != null)
-            {
-                DateTime time = new DateTime();
-                string filePath = string.Format("stacktrace_%s.txt", time.ToShortTimeString().Replace(":", "-"));
-                string exceptionMessage = ex.ToString();
-                if (exceptionMessage.Contains("\n"))
-                    exceptionMessage = exceptionMessage.Substring(0, exceptionMessage.IndexOf('\n'));
-                WriteStackTrace(ex, filePath);
-                message = "Failed due to: " + ex.Data.ToString() + ": " + exceptionMessage
-                        + ".\nFull stack trace attached as " + filePath;
-            }
-            return message;
-        }
+	 /*
+     * Writes stack trace in temporary file and save it to attachments directory
+     * Exception ex The exception for getting stacktrace
+     * filePath The path for output file
+     */
 
-        private static void WriteStackTrace(Exception ex, string filePath)
-        {
-            try
-            {
-                FileInfo file = new FileInfo(ATTACHMENTS_DIR + "\\stacktrace.tmp");
-                StreamWriter writer = File.CreateText(ATTACHMENTS_DIR + "\\stacktrace.tmp");
-                writer.WriteLine(ex.StackTrace.ToString());
-                writer.Close();
-                SaveFile(file, filePath);
-                writer.Dispose();
-            }
-            catch (IOException e)
-            {
-                e.StackTrace.ToString();
-            }
-        }
+		private static void WriteStackTrace(Exception ex, string filePath)
+		{
+			try
+			{
+				FileInfo file = new FileInfo("stacktrace.tmp");
+				StreamWriter writer = File.CreateText("stacktrace.tmp");
+				writer.WriteLine(ex.StackTrace.ToString());
+				writer.Close();
+				SaveFile(file, filePath);
+				writer.Dispose();
+			}
+			catch (IOException e)
+			{
+				e.StackTrace.ToString();
+			}
+		}
 
         /// Copy and save file to the attachments default directory.If file in the
         /// default attachments directory already exists the file will be created in
