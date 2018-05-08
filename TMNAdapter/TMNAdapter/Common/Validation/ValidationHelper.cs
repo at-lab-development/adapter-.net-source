@@ -45,5 +45,16 @@ namespace TMNAdapter.Common.Validation
 
             Contract.EndContractBlock();
         }
+
+        [ContractArgumentValidator]
+        public static void InRange(int argument, string parameterName, int min, int max)
+        {
+            if(argument < min || argument > max)
+            {
+                throw new ArgumentOutOfRangeException(parameterName, argument, "The parameter is out of range.");
+            }
+
+            Contract.EndContractBlock();
+        }
     }
 }

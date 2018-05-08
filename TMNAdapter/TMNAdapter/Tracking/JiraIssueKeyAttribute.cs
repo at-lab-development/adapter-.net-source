@@ -18,7 +18,8 @@ namespace TMNAdapter.Tracking
 
         public JiraIssueKeyAttribute(string key, bool disabled = false, int retryCountOnFailure = 1, bool disableScreenshotOnFailure = false)
         {
-            ValidationHelper.MatchPattern(key, nameof(key), @"/((?<!([A-Za-z]{1,10})-?)[A-Z]+-\d+)/g");
+            ValidationHelper.MatchPattern(key, nameof(key), @"((?<!([A-Za-z]{1,10})-?)[A-Z]+-\d+)");
+            ValidationHelper.InRange(retryCountOnFailure, nameof(retryCountOnFailure), 1, 5);
             
             Key = key;
             Disabled = disabled;
