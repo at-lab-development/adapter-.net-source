@@ -9,6 +9,7 @@ using TMNAdapter.Entities;
 
 namespace TMNAdapter.Utilities
 {
+    /// FileUtils is a util class which provides useful methods for file writing.
     public class FileUtils
     {
         private readonly static string TARGET_DIR = "\\target\\";
@@ -48,6 +49,13 @@ namespace TMNAdapter.Utilities
             }
         }
 
+        /// Copy and save file to the attachments default directory.If file in the
+        /// default attachments directory already exists the file will be created in
+        /// child directory with name contains current time in milliseconds using
+        /// TimeInMillis method.
+        /// <param name="file">the file to save</param>  
+        /// <param name="newFilePath">the path relative to attachments dir</param>  
+        ///  <returns>the path where file was actually saved </returns> 
         public static string SaveFile(FileInfo file, string newFilePath)
         {
             try
@@ -69,7 +77,11 @@ namespace TMNAdapter.Utilities
                 return null;
             }
         }
-    
+
+        /// Parse xml file using XmlSerializer. The entities for serialization are the same as in
+        /// Test Management Jira plugin.
+        /// <param name="result"> the list of issues for writing</param>
+        /// <param name="filePath">the path to output file</param>
         public static void WriteXml(TestResult result, String filePath)
         {
             XmlSerializer formatter = new XmlSerializer(typeof(TestResult));
@@ -77,13 +89,12 @@ namespace TMNAdapter.Utilities
             {
                 formatter.Serialize(fs, result);
             }
-
         }
 
         static string GetTargetDir() => TARGET_DIR;
+
         public static string GetAttachmentsDir() => ATTACHMENTS_DIR;
 
         private static long TimeInMillis() => (long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
-
     }
 }
