@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TMNAdapter.Entities;
+using TMNAdapter.Tracking;
 
 namespace TMNAdapter.Utilities
 {
@@ -15,8 +16,7 @@ namespace TMNAdapter.Utilities
     //TODO: to write methods SaveFile() and FindJIRATestKey();
     private static string FindJiraTestKey()
     {
-      //TODO: to write realization
-      return null;
+      return AnnotationTracker.GetAttributeInCallStack<JiraIssueKeyAttribute>()?.Key;
     }
 
 
