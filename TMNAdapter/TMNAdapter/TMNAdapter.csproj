@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Screenshoter.cs" />
+    <Compile Include="Common\Validation\ValidationHelper.cs" />
     <Compile Include="Entities\Issue.cs" />
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\TestParameters.cs" />

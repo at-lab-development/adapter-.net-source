@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMNAdapter.Common.Validation;
 
 namespace TMNAdapter.Tracking
 {
@@ -17,6 +18,8 @@ namespace TMNAdapter.Tracking
 
         public JiraIssueKeyAttribute(string key, bool disabled = false, int retryCountOnFailure = 1, bool disableScreenshotOnFailure = false)
         {
+            ValidationHelper.MatchPattern(key, nameof(key), @"/((?<!([A-Za-z]{1,10})-?)[A-Z]+-\d+)/g");
+            
             Key = key;
             Disabled = disabled;
             RetryCountOnFailure = retryCountOnFailure;
