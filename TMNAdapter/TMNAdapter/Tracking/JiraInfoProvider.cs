@@ -25,13 +25,22 @@ namespace TMNAdapter.Utilities
                 return;
             }
 
-            string pathToFile = file.DirectoryName;
             string currentDirectory = Directory.GetCurrentDirectory();
-            bool isOutOfAttachmentsDir = pathToFile.StartsWith(currentDirectory + FileUtils.GetAttachmentsDir());
+            string targetFilePath = null;
 
-            string targetFilePath = isOutOfAttachmentsDir ?
-                               FileUtils.SaveFile(file, file.DirectoryName) :
-                               pathToFile.Replace(currentDirectory, String.Empty);
+            try
+            {
+                string pathToFile = file.DirectoryName;
+                bool isOutOfAttachmentsDir = pathToFile.StartsWith(currentDirectory + FileUtils.GetAttachmentsDir());
+
+                targetFilePath = isOutOfAttachmentsDir ?
+                                   FileUtils.SaveFile(file, file.DirectoryName) :
+                                   pathToFile.Replace(currentDirectory, String.Empty);
+            }
+            catch (IOException ex)
+            {
+                Console.Write(ex.StackTrace);
+            }
 
             if (jiraKeyAttachments.ContainsKey(key))
             {
