@@ -36,7 +36,7 @@ namespace TMNAdapter.Utilities
       string key = FindJiraTestKey();
       if (key != null)
       {
-        TestParameters parameters = new TestParameters(); // TestParameters parameters = new TestParameters(title, value != null ? value.ToString() : "null");
+        TestParameters parameters = new TestParameters(title, value != null ? value.ToString() : "null");
         if (jiraKeyParameters.ContainsKey(key))
         {
           jiraKeyParameters[key].Add(parameters);
