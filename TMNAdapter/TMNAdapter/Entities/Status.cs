@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace TMNAdapter.Entities
 {
-    class Status
-    {
-    }
+	public enum Status
+	{
+		Failed,
+		Passed,
+		Blocked,
+		Untested
+	}
 }
