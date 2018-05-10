@@ -6,7 +6,7 @@ namespace TMNAdapter.MSTest
 {
     public class ExecutionTracker
     {
-        private  List<Issue> issues = new List<Issue>();
+        private static List<Issue> issues = new List<Issue>();
 
         //must be invoked explicitly after each test completion
         public static void SendTestResult(TestContext testContext)
@@ -17,7 +17,7 @@ namespace TMNAdapter.MSTest
                     FailedTest();
                     break;
                 case UnitTestOutcome.Passed:
-                    PassedTest();
+                    PassedTest(testContext);
                     break;
                 default:
                     SkippedTest();
@@ -30,10 +30,15 @@ namespace TMNAdapter.MSTest
 
         }
 
-        static void PassedTest()
+        static void PassedTest(TestContext testContext)
         {
-
-        }
+			string key = testContext.TestName;
+			if (key != null)
+			{
+				Issue issue = new Issue(key, Status.Passed);
+				issues.Add(issue);
+			}
+		}
 
         static void SkippedTest()
         {
