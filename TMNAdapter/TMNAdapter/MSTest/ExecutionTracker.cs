@@ -19,21 +19,8 @@ namespace TMNAdapter.MSTest
                 case UnitTestOutcome.Passed:
                     PassedTest();
                     break;
-                case UnitTestOutcome.NotRunnable:
-                    break;
-                case UnitTestOutcome.Inconclusive:
-                    break;
-                case UnitTestOutcome.InProgress:
-                    break;
-                case UnitTestOutcome.Error:
-                    break;
-                case UnitTestOutcome.Timeout:
-                    break;
-                case UnitTestOutcome.Aborted:
-                    break;
-                case UnitTestOutcome.Unknown:
-                    break;
                 default:
+                    SkippedTest();
                     break;
             }
         }
@@ -48,8 +35,12 @@ namespace TMNAdapter.MSTest
 
         }
 
-        //some other methods
+        static void SkippedTest()
+        {
 
+        }
+
+        //some other methods
 
         //must be invoked explicitly after test run completion
         static void GenerateTestResultXml()
