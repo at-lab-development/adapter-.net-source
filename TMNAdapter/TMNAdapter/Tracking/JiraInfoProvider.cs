@@ -30,12 +30,12 @@ namespace TMNAdapter.Utilities
 
             try
             {
-                string pathToFile = file.DirectoryName;
-                bool isOutOfAttachmentsDir = pathToFile.StartsWith(currentDirectory + FileUtils.GetAttachmentsDir());
+                string filePath = file.FullName;
+                bool isOutOfAttachmentsDir = !filePath.StartsWith(currentDirectory + FileUtils.GetAttachmentsDir());
 
                 targetFilePath = isOutOfAttachmentsDir ?
-                                   FileUtils.SaveFile(file, file.DirectoryName) :
-                                   pathToFile.Replace(currentDirectory, String.Empty);
+                                   FileUtils.SaveFile(file) :
+                                   filePath.Replace(currentDirectory, String.Empty);
             }
             catch (IOException ex)
             {
@@ -44,7 +44,10 @@ namespace TMNAdapter.Utilities
 
             if (jiraKeyAttachments.ContainsKey(key))
             {
-                jiraKeyAttachments[key].Add(targetFilePath);
+                if (!jiraKeyAttachments[key].Contains(targetFilePath))
+                {
+                    jiraKeyAttachments[key].Add(targetFilePath);
+                }
             }
             else
             {
