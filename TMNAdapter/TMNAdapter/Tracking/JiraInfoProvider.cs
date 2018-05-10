@@ -57,19 +57,23 @@ namespace TMNAdapter.Utilities
         public static void SaveParameter<T>(string title, T value)
         {
             string key = GetJiraTestKey();
-            if (key != null)
+
+            if (key == null)
             {
-                TestParameters parameters = new TestParameters(title, value != null ? value.ToString() : "null");
-                if (jiraKeyParameters.ContainsKey(key))
-                {
-                    jiraKeyParameters[key].Add(parameters);
-                }
-                else
-                {
-                    List<TestParameters> newTestParameters = new List<TestParameters>();
-                    newTestParameters.Add(parameters);
-                    jiraKeyParameters.Add(title, newTestParameters);
-                }
+                return;
+            }
+
+            TestParameters parameters = new TestParameters(title, value != null ? value.ToString() : "null");
+
+            if (jiraKeyParameters.ContainsKey(key))
+            {
+                jiraKeyParameters[key].Add(parameters);
+            }
+            else
+            {
+                List<TestParameters> newTestParameters = new List<TestParameters>();
+                newTestParameters.Add(parameters);
+                jiraKeyParameters.Add(title, newTestParameters);
             }
         }
 
@@ -79,6 +83,7 @@ namespace TMNAdapter.Utilities
             {
                 jiraKeyParameters.Remove(issueKey);
             }
+
             if (jiraKeyAttachments.ContainsKey(issueKey))
             {
                 jiraKeyAttachments.Remove(issueKey);
