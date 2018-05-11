@@ -1,14 +1,16 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Linq;
 using TMNAdapter.Entities;
+using TMNAdapter.Utilities;
 
 namespace TMNAdapter.MSTest
 {
     public class ExecutionTracker
     {
-        private  List<Issue> issues = new List<Issue>();
+        private static List<Issue> issues = new List<Issue>();
 
-        //must be invoked explicitly after each test completion
+        //This method must be invoked explicitly after each test completion
         public static void SendTestResult(TestContext testContext)
         {
             switch (testContext.CurrentTestOutcome)
@@ -40,12 +42,27 @@ namespace TMNAdapter.MSTest
 
         }
 
-        //some other methods
-
-        //must be invoked explicitly after test run completion
+        //This method must be invoked explicitly after test run completion
         static void GenerateTestResultXml()
         {
+            foreach (Issue issue in issues)
+            {
+                List<string> attachments = JiraInfoProvider.GetIssueAttachments(issue.IssueKey);
+                List<TestParameters> parameters = JiraInfoProvider.GetIssueParameters(issue.IssueKey);
+                if (attachments != null)
+                {
+                    issue.Attachments = attachments;
+                }
+                if (parameters != null)
+                {
+                    issue.Parameters = parameters;
+                }
+            }
 
+            if (issues.Any())
+            {
+                FileUtils.WriteXml(new Entities.TestResult(issues), "tm-testng.xml");
+            }
         }
     }
 }

@@ -9,6 +9,12 @@ namespace TMNAdapter.Entities
 	{
         [XmlElement("test")]
         public List<Issue> Issues { get; set; }
+
+        public TestResult(List<Issue> issues) => Issues = issues;
+
+        public TestResult()
+        {
+        }
     }
 
 }
