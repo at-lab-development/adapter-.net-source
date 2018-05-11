@@ -37,11 +37,11 @@ namespace TMNAdapter.Utilities
 		{
 			try
 			{
-				FileInfo file = new FileInfo("stacktrace.tmp");
-				StreamWriter writer = File.CreateText("stacktrace.tmp");
+				FileInfo file = new FileInfo(filePath);
+				StreamWriter writer = File.CreateText(filePath);
 				writer.WriteLine(ex.StackTrace.ToString());
 				writer.Close();
-				SaveFile(file, filePath);
+				SaveFile(file);
 				writer.Dispose();
 			}
 			catch (IOException e)
