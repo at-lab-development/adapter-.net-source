@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace TMNAdapter.Entities
 {
-	[Serializable, XmlRoot("test")]
+    [Serializable, XmlRoot("test")]
 	public class Issue
 	{
 		[XmlElement("key")]
@@ -41,6 +38,8 @@ namespace TMNAdapter.Entities
 			Time = time;
 		}
 
-
-	}
+        public Issue()
+        {
+        }
+    }
 }
