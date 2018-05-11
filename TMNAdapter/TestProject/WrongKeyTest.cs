@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TMNAdapter.Tracking;
 
@@ -16,7 +12,7 @@ namespace TestProject
         public void TestWrongKey()
         {
             bool random = Convert.ToBoolean(new Random().Next(0, 2));
-            Assert.IsTrue(random);
+            Assert.IsTrue(random, "Random bool parameter is false");
         }
     }
 }

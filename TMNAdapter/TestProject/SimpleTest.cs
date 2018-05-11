@@ -13,7 +13,7 @@ namespace TestProject
         [JiraIssueKey("EPMFARMATS-2447")]
         public void CheckArtifacts()
         {
-            Random random = new Random();
+            var random = new Random();
 
             JiraInfoProvider.SaveParameter("Random number", Convert.ToString(random.Next()));
             JiraInfoProvider.SaveParameter("Random boolean", Convert.ToString(random.Next(0, 1)));
