@@ -16,13 +16,3 @@ namespace TestProject
         }
     }
 }
-/*
-public class ThirdSampleTest {
-    private final Random random = new Random();
-
-    @JIRATestKey(key = "WRONGKEY")
-    @Test
-    public void testMethod() {
-        boolean r = random.nextBoolean();
-        Assert.assertTrue(r);
-*/
