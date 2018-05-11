@@ -29,7 +29,8 @@ namespace TMNAdapter.Common
                 return null;
             }
 
-            string screenshotName = String.Format(SCREENSHOT_FILE, DateTime.UtcNow.ToString().Replace(":", "-"));
+            var data = DateTime.UtcNow.ToString().Replace(":", "-").Replace("/", ".");
+            string screenshotName = data + ".png";
             var screenshot = ((ITakesScreenshot)driverInstance).GetScreenshot();
             screenshot.SaveAsFile(screenshotName, ScreenshotImageFormat.Jpeg);
             string filePath = Path.GetFullPath(screenshotName);
