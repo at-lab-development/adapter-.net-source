@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMNAdapter.Entities;
@@ -29,17 +30,29 @@ namespace TMNAdapter.MSTest
 
         static void FailedTest()
         {
-
+            Issue issue = new Issue("Key_value_0", Status.Failed, DateTime.Now.ToString());
+            issue.Summary = "Summary text message";
+            issue.Attachments = new List<string>()
+            {
+                "dasdasd",
+                "123sfsdf"
+            };
         }
 
         static void PassedTest()
         {
-
+            Issue issue = new Issue("Key_value_1", Status.Passed, DateTime.Now.ToString());
         }
 
         static void SkippedTest()
         {
-
+            Issue issue = new Issue("Key_value_2", Status.Failed, DateTime.Now.ToString());
+            issue.Summary = "Summary text message";
+            issue.Attachments = new List<string>()
+            {
+                "aaaaaaaaaaaaaaaa",
+                "123ssssssssssssssfsdf"
+            };
         }
 
         //This method must be invoked explicitly after test run completion

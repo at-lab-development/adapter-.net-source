@@ -25,13 +25,13 @@ namespace TMNAdapter.Entities
 		[XmlArray("parameters"), XmlArrayItem("parameter")]
 		public List<TestParameters> Parameters { get; set; }
 
-		public Issue(string issueKey, TestResult status)
+		public Issue(string issueKey, Status status)
 		{
 			IssueKey = issueKey;
 			Status = status.ToString();
 		}
 
-		public Issue(string issueKey, TestResult status, string time)
+		public Issue(string issueKey, Status status, string time)
 		{
 			IssueKey = issueKey;
 			Status = status.ToString();
