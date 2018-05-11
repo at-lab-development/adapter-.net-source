@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Xml.Serialization;
 using TMNAdapter.Entities;
@@ -8,8 +9,8 @@ namespace TMNAdapter.Utilities
     // FileUtils is a util class which provides useful methods for file writing
     public class FileUtils
 	{
-		private readonly static string TARGET_DIR = "\\target\\";
-		private readonly static string ATTACHMENTS_DIR = TARGET_DIR + "attachments\\";		
+		private readonly static string TARGET_DIR = "\\target";
+		private readonly static string ATTACHMENTS_DIR = TARGET_DIR + "\\attachments";		
 		  
 		// Generate name of file with unique exception stack trace			
 		/// <returns> Returns exception message </returns>
@@ -36,11 +37,11 @@ namespace TMNAdapter.Utilities
 		{
 			try
 			{
-				FileInfo file = new FileInfo("stacktrace.tmp");
-				StreamWriter writer = File.CreateText("stacktrace.tmp");
+				FileInfo file = new FileInfo(filePath);
+				StreamWriter writer = File.CreateText(filePath);
 				writer.WriteLine(ex.StackTrace.ToString());
 				writer.Close();
-				SaveFile(file, filePath);
+				SaveFile(file);
 				writer.Dispose();
 			}
 			catch (IOException e)
@@ -54,26 +55,33 @@ namespace TMNAdapter.Utilities
         // child directory with name contains current time in milliseconds using
         // TimeInMillis method.
         /// <param name="file"> The file to save </param>  
-        /// <param name="newFilePath"> The path relative to attachments dir </param>  
-        ///  <returns> The path where file was actually saved </returns> 
-        public static string SaveFile(FileInfo file, string newFilePath)
+        /// <returns> The path where file was actually saved </returns>
+        /// <exception cref="IOException"></exception>
+        public static string SaveFile(FileInfo file)
         {
             try
             {
+                string fileName = file.Name;
                 string relativeFilePath = ATTACHMENTS_DIR;
-                string copyPath = "." + relativeFilePath + newFilePath;
-                FileInfo copy = new FileInfo(copyPath);
-                if (copy.Exists)
+                string currentDirectory = Directory.GetCurrentDirectory();
+                string copyPath = currentDirectory + relativeFilePath;
+
+                if (File.Exists(Path.Combine(copyPath, fileName)))
                 {
-                    relativeFilePath += TimeInMillis() + "\\";
-                    copyPath = "." + relativeFilePath + newFilePath;
-                    copy = new FileInfo(copyPath);
+                    string newDirectory = TimeInMillis().ToString();
+                    copyPath = Path.Combine(copyPath, newDirectory);
+                    relativeFilePath = Path.Combine(relativeFilePath, newDirectory);
+
+                    Directory.CreateDirectory(Path.Combine(copyPath));
                 }
-                file.CopyTo(copyPath, true);
-                return relativeFilePath + newFilePath;
+
+                file.CopyTo(Path.Combine(copyPath, fileName), true);
+
+                return Path.Combine(relativeFilePath, fileName);
             }
-            catch (IOException)
+            catch (IOException exception)
             {
+                Debug.WriteLine($"{exception.Message} \n {exception.StackTrace}");
                 return null;
             }
         }
@@ -81,11 +89,11 @@ namespace TMNAdapter.Utilities
         // Parse xml file using XmlSerializer. The entities for serialization are the same as in
         // Test Management Jira plugin.
         /// <param name="result"> The list of issues for writing </param>
-        /// <param name="filePath"> The path to output file </param>
-        public static void WriteXml(TestResult result, String filePath)
+        /// <param name="relativefilePath"> The path to output file </param>
+        public static void WriteXml(TestResult result, String relativefilePath)
         {
             XmlSerializer formatter = new XmlSerializer(typeof(TestResult));
-            using (FileStream fs = new FileStream("." + TARGET_DIR + filePath, FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream("." + TARGET_DIR + "\\" + relativefilePath, FileMode.OpenOrCreate))
             {
                 formatter.Serialize(fs, result);
             }

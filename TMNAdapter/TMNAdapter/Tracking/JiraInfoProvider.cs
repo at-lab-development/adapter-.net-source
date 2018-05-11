@@ -30,12 +30,12 @@ namespace TMNAdapter.Utilities
 
             try
             {
-                string pathToFile = file.DirectoryName;
-                bool isOutOfAttachmentsDir = pathToFile.StartsWith(currentDirectory + FileUtils.GetAttachmentsDir());
+                string filePath = file.FullName;
+                bool isOutOfAttachmentsDir = !filePath.StartsWith(currentDirectory + FileUtils.GetAttachmentsDir());
 
                 targetFilePath = isOutOfAttachmentsDir ?
-                                   FileUtils.SaveFile(file, file.DirectoryName) :
-                                   pathToFile.Replace(currentDirectory, String.Empty);
+                                   FileUtils.SaveFile(file) :
+                                   filePath.Replace(currentDirectory, String.Empty);
             }
             catch (IOException ex)
             {
@@ -44,7 +44,10 @@ namespace TMNAdapter.Utilities
 
             if (jiraKeyAttachments.ContainsKey(key))
             {
-                jiraKeyAttachments[key].Add(targetFilePath);
+                if (!jiraKeyAttachments[key].Contains(targetFilePath))
+                {
+                    jiraKeyAttachments[key].Add(targetFilePath);
+                }
             }
             else
             {
@@ -57,19 +60,23 @@ namespace TMNAdapter.Utilities
         public static void SaveParameter<T>(string title, T value)
         {
             string key = GetJiraTestKey();
-            if (key != null)
+
+            if (key == null)
             {
-                TestParameters parameters = new TestParameters(title, value != null ? value.ToString() : "null");
-                if (jiraKeyParameters.ContainsKey(key))
-                {
-                    jiraKeyParameters[key].Add(parameters);
-                }
-                else
-                {
-                    List<TestParameters> newTestParameters = new List<TestParameters>();
-                    newTestParameters.Add(parameters);
-                    jiraKeyParameters.Add(title, newTestParameters);
-                }
+                return;
+            }
+
+            TestParameters parameters = new TestParameters(title, value != null ? value.ToString() : "null");
+
+            if (jiraKeyParameters.ContainsKey(key))
+            {
+                jiraKeyParameters[key].Add(parameters);
+            }
+            else
+            {
+                List<TestParameters> newTestParameters = new List<TestParameters>();
+                newTestParameters.Add(parameters);
+                jiraKeyParameters.Add(title, newTestParameters);
             }
         }
 
@@ -79,6 +86,7 @@ namespace TMNAdapter.Utilities
             {
                 jiraKeyParameters.Remove(issueKey);
             }
+
             if (jiraKeyAttachments.ContainsKey(issueKey))
             {
                 jiraKeyAttachments.Remove(issueKey);
