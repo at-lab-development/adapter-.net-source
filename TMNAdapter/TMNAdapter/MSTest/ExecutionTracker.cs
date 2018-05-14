@@ -56,7 +56,7 @@ namespace TMNAdapter.MSTest
         }
 
         //This method must be invoked explicitly after test run completion
-        static void GenerateTestResultXml()
+        public static void GenerateTestResultXml()
         {
             foreach (Issue issue in issues)
             {
