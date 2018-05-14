@@ -3,12 +3,27 @@ using TestProject.Common;
 using TMNAdapter.Common;
 using TMNAdapter.Tracking;
 using TMNAdapter.Utilities;
+using static TMNAdapter.MSTest.ExecutionTracker;
 
 namespace TestProject
 {
     [TestClass]
     public class YouTubeTest
     {
+        private TestContext testContextInstance;
+
+        public TestContext TestContext
+        {
+            get
+            {
+                return testContextInstance;
+            }
+            set
+            {
+                testContextInstance = value;
+            }
+        }
+
         [TestInitialize]
         public void Initialize()
         {
@@ -46,6 +61,7 @@ namespace TestProject
         public void Close()
         {
             Screenshoter.Initialize(null);
+            SendTestResult(TestContext);
             Browser.Instance.Quit();
         }
     }

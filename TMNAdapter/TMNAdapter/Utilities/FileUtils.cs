@@ -93,7 +93,7 @@ namespace TMNAdapter.Utilities
         public static void WriteXml(TestResult result, String relativefilePath)
         {
             XmlSerializer formatter = new XmlSerializer(typeof(TestResult));
-            using (FileStream fs = new FileStream("." + TARGET_DIR + "\\" + relativefilePath, FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream("." +  "\\" + relativefilePath, FileMode.Create))
             {
                 formatter.Serialize(fs, result);
             }

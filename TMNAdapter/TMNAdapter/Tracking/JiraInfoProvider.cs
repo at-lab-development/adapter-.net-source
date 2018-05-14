@@ -11,7 +11,7 @@ namespace TMNAdapter.Utilities
         private static Dictionary<string, List<TestParameters>> jiraKeyParameters = new Dictionary<string, List<TestParameters>>();
         private static Dictionary<string, List<string>> jiraKeyAttachments = new Dictionary<string, List<string>>();
 
-        private static string GetJiraTestKey()
+        internal static string GetJiraTestKey()
         {
             return AnnotationTracker.GetAttributeInCallStack<JiraIssueKeyAttribute>()?.Key;
         }

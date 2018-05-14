@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMNAdapter.Entities;
+using TMNAdapter.Tracking;
 using TMNAdapter.Utilities;
+using static TMNAdapter.Utilities.JiraInfoProvider;
 
 namespace TMNAdapter.MSTest
 {
@@ -42,38 +44,47 @@ namespace TMNAdapter.MSTest
 
         static void PassedTest()
         {
-            Issue issue = new Issue("Key_value_1", Status.Passed, DateTime.Now.ToString());
-            issues.Add(issue);
+            string key = AnnotationTracker.GetAttributeInCallStack<JiraIssueKeyAttribute>()?.Key;
+            if (key != null)
+            {
+                Issue issue = new Issue(key, Status.Passed);
+                issues.Add(issue);
+            } 
+            else
+            {
+                Issue issue = new Issue(key + "_key not found", Status.Passed);
+                issues.Add(issue);
+            }
+
         }
 
         static void SkippedTest()
         {
-            Issue issue = new Issue("Key_value_2", Status.Failed, DateTime.Now.ToString());
-            issue.Summary = "Summary text message";
-            issue.Attachments = new List<string>()
+            string key = GetJiraTestKey();
+            if (key != null)
             {
-                "aaaaaaaaaaaaaaaa",
-                "123ssssssssssssssfsdf"
-            };
-            issues.Add(issue);
+                Issue issue = new Issue(key, Status.Untested);
+                issues.Add(issue);
+            }
+
         }
 
         //This method must be invoked explicitly after test run completion
         public static void GenerateTestResultXml()
         {
-            foreach (Issue issue in issues)
-            {
-                List<string> attachments = JiraInfoProvider.GetIssueAttachments(issue.IssueKey);
-                List<TestParameters> parameters = JiraInfoProvider.GetIssueParameters(issue.IssueKey);
-                if (attachments != null)
-                {
-                    issue.Attachments = attachments;
-                }
-                if (parameters != null)
-                {
-                    issue.Parameters = parameters;
-                }
-            }
+            //foreach (Issue issue in issues)
+            //{
+            //    List<string> attachments = JiraInfoProvider.GetIssueAttachments(issue.IssueKey);
+            //    List<TestParameters> parameters = JiraInfoProvider.GetIssueParameters(issue.IssueKey);
+            //    if (attachments != null)
+            //    {
+            //        issue.Attachments = attachments;
+            //    }
+            //    if (parameters != null)
+            //    {
+            //        issue.Parameters = parameters;
+            //    }
+            //}
 
             if (issues.Any())
             {
