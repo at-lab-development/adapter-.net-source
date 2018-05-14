@@ -2,12 +2,27 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TMNAdapter.Tracking;
 using TMNAdapter.Utilities;
+using static TMNAdapter.MSTest.ExecutionTracker;
 
 namespace TestProject
 {
     [TestClass]
     public class FirstSampleTests
     {
+        private TestContext testContextInstance;
+
+        public TestContext TestContext
+        {
+            get
+            {
+                return testContextInstance;
+            }
+            set
+            {
+                testContextInstance = value;
+            }
+        }
+
         [TestMethod]
         [JiraIssueKey("EPMFARMATS-2464")]
         public void TestMethodWithRandomTestResult()
@@ -33,6 +48,18 @@ namespace TestProject
         public void TestExeption()
         {
             throw new Exception();
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            SendTestResult(TestContext);
+        }
+
+        [AssemblyCleanup]
+        public static void ClassCleanup()
+        {
+            GenerateTestResultXml();
         }
     }
 }

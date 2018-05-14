@@ -37,11 +37,13 @@ namespace TMNAdapter.MSTest
                 "dasdasd",
                 "123sfsdf"
             };
+            issues.Add(issue);
         }
 
         static void PassedTest()
         {
             Issue issue = new Issue("Key_value_1", Status.Passed, DateTime.Now.ToString());
+            issues.Add(issue);
         }
 
         static void SkippedTest()
@@ -53,6 +55,7 @@ namespace TMNAdapter.MSTest
                 "aaaaaaaaaaaaaaaa",
                 "123ssssssssssssssfsdf"
             };
+            issues.Add(issue);
         }
 
         //This method must be invoked explicitly after test run completion
