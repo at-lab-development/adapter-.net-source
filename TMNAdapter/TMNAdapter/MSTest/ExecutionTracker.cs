@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using TMNAdapter.Entities;
+using TMNAdapter.Tracking;
 
 namespace TMNAdapter.MSTest
 {
@@ -30,9 +31,10 @@ namespace TMNAdapter.MSTest
 
         }
 
+		
         static void PassedTest(TestContext testContext)
         {
-			string key = testContext.TestName;
+			string key = AnnotationTracker.GetAttributeInCallStack<JiraIssueKeyAttribute>()?.Key;
 			if (key != null)
 			{
 				Issue issue = new Issue(key, Status.Passed);
@@ -42,8 +44,13 @@ namespace TMNAdapter.MSTest
 
         static void SkippedTest()
         {
-
-        }
+			string key = AnnotationTracker.GetAttributeInCallStack<JiraIssueKeyAttribute>()?.Key;
+			if (key != null)
+			{
+				Issue issue = new Issue(key, Status.Untested);
+				issues.Add(issue);
+			}
+		}
 
         //some other methods
 
