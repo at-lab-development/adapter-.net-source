@@ -1,15 +1,15 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.IO;
+using NUnit.Framework;
 using TMNAdapter.Tracking;
 using TMNAdapter.Utilities;
 
 namespace TestProject
 {
-    [TestClass]
+    [TestFixture]
     public class SimpleTest
     {
-        [TestMethod]
+        [Test]
         [JiraIssueKey("EPMFARMATS-2447")]
         public void CheckArtifacts()
         {
@@ -24,8 +24,8 @@ namespace TestProject
             Assert.Fail("Testing failed test behavior");
         }
 
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("Test ignored tests behavior")]
         [JiraIssueKey("EPMFARMATS-2447")]
         public void UntestedTest()
         {

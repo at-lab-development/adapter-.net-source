@@ -1,14 +1,15 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
+using NUnit.Framework.Internal;
 using TMNAdapter.Tracking;
 using TMNAdapter.Utilities;
 
 namespace TestProject
 {
-    [TestClass]
+    [TestFixture]
     public class FirstSampleTests
     {
-        [TestMethod]
+        [Test]
         [JiraIssueKey("EPMFARMATS-2464")]
         public void TestMethodWithRandomTestResult()
         {
@@ -16,7 +17,7 @@ namespace TestProject
             Assert.IsTrue(random, "Random bool parameter is false");
         }
 
-        [TestMethod]
+        [Test]
         [JiraIssueKey("EPMFARMATS-2465")]
         public void TestMethod()
         {
@@ -27,12 +28,12 @@ namespace TestProject
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         [JiraIssueKey("EPMFARMATS-2465")]
-        [ExpectedException(typeof(Exception))]
         public void TestExeption()
         {
-            throw new Exception();
+            string test = null;
+            Assert.Throws(typeof(NullReferenceException), () => test.Substring(0, 4));
         }
     }
 }
