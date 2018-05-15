@@ -23,7 +23,7 @@ namespace TMNAdapter.Entities
 		public string Time { get; set; }
 
 		[XmlArray("attachments"), XmlArrayItem("attachment")]
-		public List<String> Attachments { get; set; }
+		public List<string> Attachments { get; set; }
 
 		[XmlArray("parameters"), XmlArrayItem("parameter")]
 		public List<TestParameters> Parameters { get; set; }
@@ -41,6 +41,13 @@ namespace TMNAdapter.Entities
 			Time = time;
 		}
 
+		public Issue(string issueKey, Status status, string attachment, string summary)
+		{
+			IssueKey = issueKey;
+			Status = status.ToString();
+			Attachments.Add(attachment);
+			Summary = summary;
+		}
 
 	}
 }
