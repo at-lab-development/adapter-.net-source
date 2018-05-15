@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using TestProject.Common;
 using TMNAdapter.Common;
 using TMNAdapter.Tracking;
@@ -6,16 +6,16 @@ using TMNAdapter.Utilities;
 
 namespace TestProject
 {
-    [TestClass]
+    [TestFixture]
     public class YouTubeTest
     {
-        [TestInitialize]
+        [SetUp]
         public void Initialize()
         {
             Screenshoter.Initialize(Browser.Driver);
         }
 
-        [TestMethod]
+        [Test]
         [JiraIssueKey("EPMFARMATS-2466")]
         public void AlwaysPassedTest()
         {
@@ -28,7 +28,7 @@ namespace TestProject
             Assert.AreEqual(author, "EPAM Systems Global");
         }
 
-        [TestMethod]
+        [Test]
         [JiraIssueKey("EPMFARMATS-2466")]
         public void AlwaysFailedTest()
         {
@@ -42,7 +42,7 @@ namespace TestProject
             Assert.AreEqual("Atlassian", author);
         }
 
-        [TestCleanup]
+        [TearDown]
         public void Close()
         {
             Screenshoter.Initialize(null);
