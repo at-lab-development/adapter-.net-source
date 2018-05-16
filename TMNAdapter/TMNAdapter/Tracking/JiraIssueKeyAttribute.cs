@@ -1,12 +1,8 @@
 ﻿using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TMNAdapter.Common.Validation;
+using TMNAdapter.MSTest;
 
 namespace TMNAdapter.Tracking
 {
@@ -37,7 +33,7 @@ namespace TMNAdapter.Tracking
         /// </summary>
         public bool DisableScreenshotOnFailure { get; }
 
-        public ActionTargets Targets => throw new NotImplementedException();
+        public ActionTargets Targets => ActionTargets.Test;
 
         /// <summary>
         /// Initializes a new instance of <see cref="JiraIssueKeyAttribute"/>
@@ -59,12 +55,11 @@ namespace TMNAdapter.Tracking
 
         public void BeforeTest(ITest test)
         {
-            //throw new NotImplementedException();
         }
 
         public void AfterTest(ITest test)
         {
-            throw new NotImplementedException();
+            ExecutionTracker.SendTestResult();
         }
     }
 }

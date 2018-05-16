@@ -1,8 +1,11 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Interfaces;
+using System;
 using System.Collections.Generic;
-using TMNAdapter.Common;
+using System.Linq;
 using TMNAdapter.Entities;
 using TMNAdapter.Tracking;
+using TMNAdapter.Utilities;
 
 namespace TMNAdapter.MSTest
 {
@@ -10,16 +13,15 @@ namespace TMNAdapter.MSTest
     {
         private static List<Issue> issues = new List<Issue>();
 
-        //must be invoked explicitly after each test completion
-        public static void SendTestResult(TestContext testContext)
+        public static void SendTestResult()
         {
-            switch (testContext.Result.Outcome.Status)
+            switch (TestContext.CurrentContext.Result.Outcome.Status)
             {
-                case NUnit.Framework.Interfaces.TestStatus.Failed:
-                    FailedTest(testContext);
+                case TestStatus.Failed:
+                    FailedTest();
                     break;
-                case NUnit.Framework.Interfaces.TestStatus.Passed:
-                    PassedTest(testContext);
+                case TestStatus.Passed:
+                    PassedTest();
                     break;
                 default:
                     SkippedTest();
@@ -27,41 +29,77 @@ namespace TMNAdapter.MSTest
             }
         }
 
-        static void FailedTest(TestContext testContext)
+        static void FailedTest()
         {
-			string key = AnnotationTracker.GetAttributeInCallStack<JiraIssueKeyAttribute>()?.Key;
-			if (key != null)
-			{
-				Issue issue = new Issue(key, Status.Failed, Screenshoter.TakeScreenshot(), testContext.Result.Message);
-				issues.Add(issue);
-			}
-		}
+            string key = AnnotationTracker.GetAttributeInCallStack<JiraIssueKeyAttribute>()?.Key;
+            if (key != null)
+            {
+                Issue issue = new Issue(key, Status.Failed, DateTime.Now.ToShortTimeString())
+                {
+                    Summary = TestContext.CurrentContext.Result.Message
+                };
+                issues.Add(issue);
+            }
+            else
+            {
+                Issue issue = new Issue("key_not_found", Status.Failed, DateTime.Now.ToShortTimeString())
+                {
+                    Summary = TestContext.CurrentContext.Result.Message
+                };
+                issues.Add(issue);
+            }
+        }
 
-		static void PassedTest(TestContext testContext)
+        static void PassedTest()
         {
-			string key = AnnotationTracker.GetAttributeInCallStack<JiraIssueKeyAttribute>()?.Key;
-			if (key != null)
-			{
-				Issue issue = new Issue(key, Status.Passed);
-				issues.Add(issue);
-			}
-		}
+            string key = AnnotationTracker.GetAttributeInCallStack<JiraIssueKeyAttribute>()?.Key;
+            if (key != null)
+            {
+                Issue issue = new Issue(key, Status.Passed);
+                issues.Add(issue);
+            }
+            else
+            {
+                Issue issue = new Issue("key_not_found", Status.Passed);
+                issues.Add(issue);
+            }
+        }
 
         static void SkippedTest()
         {
-			string key = AnnotationTracker.GetAttributeInCallStack<JiraIssueKeyAttribute>()?.Key;
-			if (key != null)
-			{
-				Issue issue = new Issue(key, Status.Untested);
-				issues.Add(issue);
-			}
-		}
-
-        //some other methods
-
-        //must be invoked explicitly after test run completion
-        static void GenerateTestResultXml()
+            string key = AnnotationTracker.GetAttributeInCallStack<JiraIssueKeyAttribute>()?.Key;
+            if (key != null)
+            {
+                Issue issue = new Issue(key, Status.Untested);
+                issues.Add(issue);
+            }
+            else
+            {
+                Issue issue = new Issue("key_not_found", Status.Untested, DateTime.Now.ToShortTimeString());
+                issues.Add(issue);
+            }
+        }
+        
+        public static void GenerateTestResultXml()
         {
+            //foreach (Issue issue in issues)
+            //{
+            //    List<string> attachments = JiraInfoProvider.GetIssueAttachments(issue.IssueKey);
+            //    List<Entities.TestParameters> parameters = JiraInfoProvider.GetIssueParameters(issue.IssueKey);
+            //    if (attachments != null)
+            //    {
+            //        issue.Attachments = attachments;
+            //    }
+            //    if (parameters != null)
+            //    {
+            //        issue.Parameters = parameters;
+            //    }
+            //}          
+
+            if (issues.Any())
+            {
+                FileUtils.WriteXml(new TestResult(issues), "tm-testng.xml");
+            }
 
         }
     }
