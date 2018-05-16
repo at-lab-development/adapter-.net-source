@@ -5,6 +5,7 @@ using NUnit.Framework.Internal;
 using TMNAdapter.Tracking;
 using TMNAdapter.Utilities;
 
+[assembly: AssemblyAction]
 namespace TestProject
 {
     [TestFixture]
