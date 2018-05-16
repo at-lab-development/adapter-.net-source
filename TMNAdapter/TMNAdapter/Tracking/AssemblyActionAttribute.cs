@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
+using TMNAdapter.MSTest;
 
 namespace TMNAdapter.Tracking
 {
@@ -20,6 +21,7 @@ namespace TMNAdapter.Tracking
         public void AfterTest(ITest test)
         {
             Debug.WriteLine("AfterAssembly invoked");
+            ExecutionTracker.GenerateTestResultXml();
         }
 
         public ActionTargets Targets => ActionTargets.Suite;
