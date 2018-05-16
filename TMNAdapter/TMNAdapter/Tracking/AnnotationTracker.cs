@@ -44,10 +44,16 @@ namespace TMNAdapter.Tracking
         /// <typeparam name="TAttribute">Type of target attribute</typeparam>
         /// <returns>Returns attribute instance or null if not found</returns>
         public static TAttribute GetAttributeByMethodName<TAttribute>(Type testClassType, string methodName)
-            where TAttribute : Attribute
+            where TAttribute : Attribute 
         {
             MethodInfo methodInfo = testClassType.GetMethod(methodName);
-            return (TAttribute)methodInfo.GetCustomAttribute(typeof(TAttribute), true);
+
+            if (methodInfo == null)
+            {
+                return null;
+            }
+
+            return (TAttribute) methodInfo.GetCustomAttribute(typeof(TAttribute), true);
         }
     }
 }
