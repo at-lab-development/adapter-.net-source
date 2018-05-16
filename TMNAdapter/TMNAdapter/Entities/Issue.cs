@@ -23,24 +23,31 @@ namespace TMNAdapter.Entities
 		public string Time { get; set; }
 
 		[XmlArray("attachments"), XmlArrayItem("attachment")]
-		public List<String> Attachments { get; set; }
+		public List<string> Attachments { get; set; }
 
 		[XmlArray("parameters"), XmlArrayItem("parameter")]
 		public List<TestParameters> Parameters { get; set; }
 
-		public Issue(string issueKey, TestResult status)
+		public Issue(string issueKey, Status status)
 		{
 			IssueKey = issueKey;
 			Status = status.ToString();
 		}
 
-		public Issue(string issueKey, TestResult status, string time)
+		public Issue(string issueKey, Status status, string time)
 		{
 			IssueKey = issueKey;
 			Status = status.ToString();
 			Time = time;
 		}
 
+		public Issue(string issueKey, Status status, string attachment, string summary)
+		{
+			IssueKey = issueKey;
+			Status = status.ToString();
+			Attachments.Add(attachment);
+			Summary = summary;
+		}
 
 	}
 }
