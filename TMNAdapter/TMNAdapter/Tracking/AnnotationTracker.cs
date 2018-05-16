@@ -47,6 +47,12 @@ namespace TMNAdapter.Tracking
             where TAttribute : Attribute 
         {
             MethodInfo methodInfo = testClassType.GetMethod(methodName);
+
+            if (methodInfo == null)
+            {
+                return null;
+            }
+
             return (TAttribute) methodInfo.GetCustomAttribute(typeof(TAttribute), true);
         }
     }
