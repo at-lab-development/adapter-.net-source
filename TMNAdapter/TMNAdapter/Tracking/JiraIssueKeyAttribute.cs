@@ -59,7 +59,7 @@ namespace TMNAdapter.Tracking
 
         public void AfterTest(ITest test)
         {
-            ExecutionTracker.SendTestResult();
+            ExecutionTracker.SendTestResult(test, Key);
         }
     }
 }

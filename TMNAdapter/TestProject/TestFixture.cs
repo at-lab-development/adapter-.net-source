@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using System.IO;
 using TMNAdapter.MSTest;
 
 namespace TestProject
