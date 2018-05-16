@@ -62,7 +62,7 @@ namespace TMNAdapter.Common.Validation
             var regex = new Regex(pattern);
             if (!regex.IsMatch(argument))
             {
-                throw new ArgumentException(parameterName, "The parameter cannot doesn't match the pattern.");
+                throw new ArgumentException("The parameter cannot doesn't match the pattern.", parameterName);
             }
 
             Contract.EndContractBlock();

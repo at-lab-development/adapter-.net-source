@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NUnit.Framework;
+using NUnit.Framework.Interfaces;
+using System;
 using TMNAdapter.Common.Validation;
+using TMNAdapter.MSTest;
 
 namespace TMNAdapter.Tracking
 {
@@ -13,7 +11,7 @@ namespace TMNAdapter.Tracking
     /// JIRA issue, using issue key
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
-    public class JiraIssueKeyAttribute : Attribute
+    public class JiraIssueKeyAttribute : Attribute, ITestAction
     {
         /// <summary>
         /// Gets JIRA issue key
@@ -35,6 +33,8 @@ namespace TMNAdapter.Tracking
         /// </summary>
         public bool DisableScreenshotOnFailure { get; }
 
+        public ActionTargets Targets => ActionTargets.Test;
+
         /// <summary>
         /// Initializes a new instance of <see cref="JiraIssueKeyAttribute"/>
         /// </summary>
@@ -51,6 +51,15 @@ namespace TMNAdapter.Tracking
             Disabled = disabled;
             RetryCountOnFailure = retryCountOnFailure;
             DisableScreenshotOnFailure = disableScreenshotOnFailure;
+        }
+
+        public void BeforeTest(ITest test)
+        {
+        }
+
+        public void AfterTest(ITest test)
+        {
+            ExecutionTracker.SendTestResult(test, Key);
         }
     }
 }
