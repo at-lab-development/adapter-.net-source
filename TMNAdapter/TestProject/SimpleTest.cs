@@ -19,8 +19,9 @@ namespace TestProject
             JiraInfoProvider.SaveParameter("Random number", Convert.ToString(random.Next()));
             JiraInfoProvider.SaveParameter("Random boolean", Convert.ToString(random.Next(0, 1)));
             JiraInfoProvider.SaveParameter("Some static string", "Hello, world!");
-            JiraInfoProvider.SaveAttachment(new FileInfo("..\\..\\Resourses\\jenkins-oops.jpg"));
-            JiraInfoProvider.SaveAttachment(new FileInfo("..\\..\\Resourses\\jenkins-oops.jpg"));
+
+            JiraInfoProvider.SaveAttachment(new FileInfo($@"{AppDomain.CurrentDomain.BaseDirectory}..\..\Resources\jenkins-oops.jpg"));
+            JiraInfoProvider.SaveAttachment(new FileInfo($@"{AppDomain.CurrentDomain.BaseDirectory}..\..\Resources\jenkins-oops.jpg"));
 
             Assert.Fail("Testing failed test behavior");
         }
