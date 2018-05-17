@@ -31,7 +31,7 @@ namespace TMNAdapter.MSTest
 
         static void FailedTest(ITest test, string key)
         {
-            Issue issue = new Issue(key, Status.Failed, JiraIssueKeyAttribute.ElapsedTime.ToString())
+            Issue issue = new Issue(key, Status.Failed, JiraIssueKeyAttribute.ElapsedTime.ToString() + " ms")
             {
                 Summary = (TestContext.CurrentContext.Result.Message + '\n' +
                            TestContext.CurrentContext.Result.StackTrace)
@@ -41,7 +41,7 @@ namespace TMNAdapter.MSTest
 
         static void PassedTest(ITest test, string key)
         {
-            Issue issue = new Issue(key, Status.Passed);
+            Issue issue = new Issue(key, Status.Passed, JiraIssueKeyAttribute.ElapsedTime.ToString() + " ms");
             issues.Add(issue);
         }
 

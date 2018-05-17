@@ -100,7 +100,7 @@ namespace TMNAdapter.Utilities
             }
 
             XmlSerializer formatter = new XmlSerializer(typeof(TestResult));
-            using (FileStream fs = new FileStream(Path.Combine(testResultDir, relativefilePath), FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(Path.Combine(testResultDir, relativefilePath), FileMode.Create))
             {
                 formatter.Serialize(fs, result);
             }
