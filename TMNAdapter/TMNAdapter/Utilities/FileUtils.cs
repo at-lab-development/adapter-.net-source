@@ -93,14 +93,14 @@ namespace TMNAdapter.Utilities
         /// <param name="relativefilePath"> The path to output file </param>
         public static void WriteXml(TestResult result, String relativefilePath)
         {
-            string testResultDir = Path.Combine(TestContext.CurrentContext.WorkDirectory, TARGET_DIR);            
+            string testResultDir = TestContext.CurrentContext.WorkDirectory + TARGET_DIR;            
             if (!Directory.Exists(testResultDir))
             {
                 Directory.CreateDirectory(testResultDir);
             }
 
             XmlSerializer formatter = new XmlSerializer(typeof(TestResult));
-            using (FileStream fs = new FileStream(Path.Combine(testResultDir, relativefilePath), FileMode.Create))
+            using (FileStream fs = new FileStream(Path.Combine(testResultDir, relativefilePath), FileMode.Create))            
             {
                 formatter.Serialize(fs, result);
             }
