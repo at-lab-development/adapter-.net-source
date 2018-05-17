@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using TMNAdapter.Tracking;
+using TMNAdapter.Tracking.Attributes;
 using TMNAdapter.Utilities;
 
 [assembly: AssemblyAction]

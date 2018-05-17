@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using TMNAdapter.Entities;
 using TMNAdapter.Tracking;
+using TMNAdapter.Tracking.Attributes;
 
 namespace TMNAdapter.Utilities
 {

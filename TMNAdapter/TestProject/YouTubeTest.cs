@@ -2,6 +2,7 @@
 using TestProject.Common;
 using TMNAdapter.Common;
 using TMNAdapter.Tracking;
+using TMNAdapter.Tracking.Attributes;
 using TMNAdapter.Utilities;
 
 namespace TestProject

@@ -1,11 +1,11 @@
-﻿using NUnit.Framework;
-using NUnit.Framework.Interfaces;
-using System;
+﻿using System;
 using System.Diagnostics;
+using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 using TMNAdapter.Common.Validation;
 using TMNAdapter.MSTest;
 
-namespace TMNAdapter.Tracking
+namespace TMNAdapter.Tracking.Attributes
 {
     /// <summary>
     /// Represents an attribute, which marks test method, to be linked with
