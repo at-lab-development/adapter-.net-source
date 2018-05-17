@@ -31,11 +31,14 @@ namespace TMNAdapter.MSTest
 
         static void FailedTest(ITest test, string key, string time)
         {
+            JiraInfoProvider.SaveStackTrace(key, TestContext.CurrentContext.Result.StackTrace);
+
             Issue issue = new Issue(key, Status.Failed, time)
             {
                 Summary = (TestContext.CurrentContext.Result.Message + '\n' +
                            TestContext.CurrentContext.Result.StackTrace)
             };
+
             issues.Add(issue);
         }
 

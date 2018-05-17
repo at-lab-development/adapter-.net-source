@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using TMNAdapter.Entities;
-using TMNAdapter.Tracking;
+using TMNAdapter.Tracking.Attributes;
+using TMNAdapter.Utilities;
 
-namespace TMNAdapter.Utilities
+namespace TMNAdapter.Tracking
 {
     public class JiraInfoProvider
     {
@@ -42,19 +43,7 @@ namespace TMNAdapter.Utilities
                 Console.Write(ex.StackTrace);
             }
 
-            if (jiraKeyAttachments.ContainsKey(key))
-            {
-                if (!jiraKeyAttachments[key].Contains(targetFilePath))
-                {
-                    jiraKeyAttachments[key].Add(targetFilePath);
-                }
-            }
-            else
-            {
-                List<string> files = new List<string>();
-                files.Add(targetFilePath);
-                jiraKeyAttachments.Add(key, files);
-            }
+            AddNewAttachment(key, targetFilePath);
         }
 
         public static void SaveParameter<T>(string title, T value)
@@ -80,6 +69,14 @@ namespace TMNAdapter.Utilities
             }
         }
 
+        public static void SaveStackTrace(string issueKey, string stackTrace)
+        {
+            string fileName = $"stacktrace_{DateTime.Now:yyyy-MM-ddTHH-mm-ss.fff}.txt";
+            string targetFilePath = FileUtils.WriteStackTrace(stackTrace, fileName);
+
+            AddNewAttachment(issueKey, targetFilePath);
+        }
+
         public static void CleanFor(string issueKey)
         {
             if (jiraKeyParameters.ContainsKey(issueKey))
@@ -95,26 +92,28 @@ namespace TMNAdapter.Utilities
 
         public static List<TestParameters> GetIssueParameters(string issueKey)
         {
-
-            if (jiraKeyParameters.ContainsKey(issueKey))
-            {
-                return jiraKeyParameters[issueKey];
-            }
-            else
-            {
-                return null;
-            }
+            return jiraKeyParameters.ContainsKey(issueKey) ? jiraKeyParameters[issueKey] : null;
         }
 
         public static List<string> GetIssueAttachments(string issueKey)
         {
-            if (jiraKeyAttachments.ContainsKey(issueKey))
+            return jiraKeyAttachments.ContainsKey(issueKey) ? jiraKeyAttachments[issueKey] : null;
+        }
+
+        private static void AddNewAttachment(string key, string targetFilePath)
+        {
+            if (jiraKeyAttachments.ContainsKey(key))
             {
-                return jiraKeyAttachments[issueKey];
+                if (!jiraKeyAttachments[key].Contains(targetFilePath))
+                {
+                    jiraKeyAttachments[key].Add(targetFilePath);
+                }
             }
             else
             {
-                return null;
+                List<string> files = new List<string>();
+                files.Add(targetFilePath);
+                jiraKeyAttachments.Add(key, files);
             }
         }
     }
