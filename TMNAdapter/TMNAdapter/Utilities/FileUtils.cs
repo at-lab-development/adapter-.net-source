@@ -59,7 +59,7 @@ namespace TMNAdapter.Utilities
             {
                 string fileName = file.Name;
                 string relativeFilePath = ATTACHMENTS_DIR;
-                string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                string currentDirectory = TestContext.CurrentContext.WorkDirectory;
                 string copyPath = currentDirectory + relativeFilePath;
 
                 if (File.Exists(Path.Combine(copyPath, fileName)))
