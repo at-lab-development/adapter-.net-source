@@ -32,7 +32,8 @@ namespace TMNAdapter.MSTest
         {
             Issue issue = new Issue(key, Status.Failed, DateTime.Now.ToShortTimeString())
             {
-                Summary = TestContext.CurrentContext.Result.Message
+                Summary = (TestContext.CurrentContext.Result.Message + '\n' +
+                           TestContext.CurrentContext.Result.StackTrace)
             };
             issues.Add(issue);
         }

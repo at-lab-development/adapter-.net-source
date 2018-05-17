@@ -15,7 +15,7 @@ namespace TestProject
         [JiraIssueKey("EPMFARMATS-2464")]
         public void TestMethodWithRandomTestResult()
         {
-            bool random = Convert.ToBoolean(new Random().Next(0, 2));
+            bool random = false;//Convert.ToBoolean(new Random().Next(0, 2));
             Assert.IsTrue(random, "Random bool parameter is false");
         }
 
