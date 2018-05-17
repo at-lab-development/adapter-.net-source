@@ -56,19 +56,19 @@ namespace TMNAdapter.MSTest
 
         public static void GenerateTestResultXml()
         {
-            //foreach (Issue issue in issues)
-            //{
-            //    List<string> attachments = JiraInfoProvider.GetIssueAttachments(issue.IssueKey);
-            //    List<Entities.TestParameters> parameters = JiraInfoProvider.GetIssueParameters(issue.IssueKey);
-            //    if (attachments != null)
-            //    {
-            //        issue.Attachments = attachments;
-            //    }
-            //    if (parameters != null)
-            //    {
-            //        issue.Parameters = parameters;
-            //    }
-            //}          
+            foreach (Issue issue in issues)
+            {
+                List<string> attachments = JiraInfoProvider.GetIssueAttachments(issue.IssueKey);
+                List<Entities.TestParameters> parameters = JiraInfoProvider.GetIssueParameters(issue.IssueKey);
+                if (attachments != null)
+                {
+                    issue.Attachments = attachments;
+                }
+                if (parameters != null)
+                {
+                    issue.Parameters = parameters;
+                }
+            }
 
             if (issues.Any())
             {
