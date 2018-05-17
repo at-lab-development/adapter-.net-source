@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace TMNAdapter.Tracking
 {
@@ -30,12 +28,32 @@ namespace TMNAdapter.Tracking
 
                 if (attributeObject != null)
                 {
-                    attribute = (TAttribute) attributeObject;
+                    attribute = (TAttribute)attributeObject;
                     break;
                 }
-            }            
+            }
 
             return attribute;
+        }
+
+        /// <summary>
+        /// Looks for attribute by it's type, supplied with class type and method name
+        /// </summary>
+        /// <param name="testClassType">Type of class, where target method is contained</param>
+        /// <param name="methodName">Name of target method</param>
+        /// <typeparam name="TAttribute">Type of target attribute</typeparam>
+        /// <returns>Returns attribute instance or null if not found</returns>
+        public static TAttribute GetAttributeByMethodName<TAttribute>(Type testClassType, string methodName)
+            where TAttribute : Attribute 
+        {
+            MethodInfo methodInfo = testClassType.GetMethod(methodName);
+
+            if (methodInfo == null)
+            {
+                return null;
+            }
+
+            return (TAttribute) methodInfo.GetCustomAttribute(typeof(TAttribute), true);
         }
     }
 }

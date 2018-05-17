@@ -4,17 +4,17 @@ using System.Xml.Serialization;
 namespace TMNAdapter.Entities
 {
     [Serializable]
-	public class TestParameters
-	{
-		[XmlElement("title")] public string Title { get; set; }
+    public class TestParameters
+    {
+        [XmlElement("title")] public string Title { get; set; }
 
-		[XmlElement("value")] public string Value { get; set; }
+        [XmlElement("value")] public string Value { get; set; }
 
-		public TestParameters(String title, String value)
-		{
+        public TestParameters(String title, String value)
+        {
             Title = title;
             Value = value;
-		}
+        }
 
         public TestParameters()
         {

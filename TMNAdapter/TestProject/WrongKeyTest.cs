@@ -1,13 +1,13 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using TMNAdapter.Tracking;
 
 namespace TestProject
 {
-    [TestClass]
+    [TestFixture]
     public class WrongKeyTest
     {
-        [TestMethod]
+        [Test]
         [JiraIssueKey("WRONGKEY")]
         public void TestWrongKey()
         {

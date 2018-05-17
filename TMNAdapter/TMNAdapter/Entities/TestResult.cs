@@ -5,8 +5,8 @@ using System.Xml.Serialization;
 namespace TMNAdapter.Entities
 {
     [Serializable, XmlRoot("tests")]
-	public class TestResult
-	{
+    public class TestResult
+    {
         [XmlElement("test")]
         public List<Issue> Issues { get; set; }
 

@@ -1,11 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMNAdapter.Entities;
-using TMNAdapter.Tracking;
 using TMNAdapter.Utilities;
-using static TMNAdapter.Utilities.JiraInfoProvider;
 
 namespace TMNAdapter.MSTest
 {
@@ -13,69 +12,49 @@ namespace TMNAdapter.MSTest
     {
         private static List<Issue> issues = new List<Issue>();
 
-        //This method must be invoked explicitly after each test completion
-        public static void SendTestResult(TestContext testContext)
+        public static void SendTestResult(ITest test, string key)
         {
-            switch (testContext.CurrentTestOutcome)
+            switch (TestContext.CurrentContext.Result.Outcome.Status)
             {
-                case UnitTestOutcome.Failed:
-                    FailedTest();
+                case TestStatus.Failed:
+                    FailedTest(test, key);
                     break;
-                case UnitTestOutcome.Passed:
-                    PassedTest();
+                case TestStatus.Passed:
+                    PassedTest(test, key);
                     break;
                 default:
-                    SkippedTest();
+                    SkippedTest(test, key);
                     break;
             }
         }
 
-        static void FailedTest()
+        static void FailedTest(ITest test, string key)
         {
-            Issue issue = new Issue("Key_value_0", Status.Failed, DateTime.Now.ToString());
-            issue.Summary = "Summary text message";
-            issue.Attachments = new List<string>()
+            Issue issue = new Issue(key, Status.Failed, DateTime.Now.ToShortTimeString())
             {
-                "dasdasd",
-                "123sfsdf"
+                Summary = TestContext.CurrentContext.Result.Message
             };
             issues.Add(issue);
         }
 
-        static void PassedTest()
+        static void PassedTest(ITest test, string key)
         {
-            string key = AnnotationTracker.GetAttributeInCallStack<JiraIssueKeyAttribute>()?.Key;
-            if (key != null)
-            {
-                Issue issue = new Issue(key, Status.Passed);
-                issues.Add(issue);
-            } 
-            else
-            {
-                Issue issue = new Issue(key + "_key not found", Status.Passed);
-                issues.Add(issue);
-            }
-
+            Issue issue = new Issue(key, Status.Passed);
+            issues.Add(issue);
         }
 
-        static void SkippedTest()
+        static void SkippedTest(ITest test, string key)
         {
-            string key = GetJiraTestKey();
-            if (key != null)
-            {
-                Issue issue = new Issue(key, Status.Untested);
-                issues.Add(issue);
-            }
-
+            Issue issue = new Issue(key, Status.Untested);
+            issues.Add(issue);
         }
 
-        //This method must be invoked explicitly after test run completion
         public static void GenerateTestResultXml()
         {
             //foreach (Issue issue in issues)
             //{
             //    List<string> attachments = JiraInfoProvider.GetIssueAttachments(issue.IssueKey);
-            //    List<TestParameters> parameters = JiraInfoProvider.GetIssueParameters(issue.IssueKey);
+            //    List<Entities.TestParameters> parameters = JiraInfoProvider.GetIssueParameters(issue.IssueKey);
             //    if (attachments != null)
             //    {
             //        issue.Attachments = attachments;
@@ -84,7 +63,7 @@ namespace TMNAdapter.MSTest
             //    {
             //        issue.Parameters = parameters;
             //    }
-            //}
+            //}          
 
             if (issues.Any())
             {

@@ -1,29 +1,17 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
+using NUnit.Framework;
+using NUnit.Framework.Internal;
 using TMNAdapter.Tracking;
 using TMNAdapter.Utilities;
-using static TMNAdapter.MSTest.ExecutionTracker;
 
+[assembly: AssemblyAction]
 namespace TestProject
 {
-    [TestClass]
+    [TestFixture]
     public class FirstSampleTests
     {
-        private TestContext testContextInstance;
-
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-
-        [TestMethod]
+        [Test]
         [JiraIssueKey("EPMFARMATS-2464")]
         public void TestMethodWithRandomTestResult()
         {
@@ -31,7 +19,7 @@ namespace TestProject
             Assert.IsTrue(random, "Random bool parameter is false");
         }
 
-        [TestMethod]
+        [Test]
         [JiraIssueKey("EPMFARMATS-2465")]
         public void TestMethod()
         {
@@ -42,24 +30,12 @@ namespace TestProject
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
+        [Test]
         [JiraIssueKey("EPMFARMATS-2465")]
-        [ExpectedException(typeof(Exception))]
         public void TestExeption()
         {
-            throw new Exception();
-        }
-
-        [TestCleanup]
-        public void TestCleanup()
-        {
-            SendTestResult(TestContext);
-        }
-
-        [AssemblyCleanup]
-        public static void ClassCleanup()
-        {
-            GenerateTestResultXml();
+            string test = null;
+            Assert.Throws(typeof(NullReferenceException), () => test.Substring(0, 4));
         }
     }
 }
