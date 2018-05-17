@@ -76,7 +76,7 @@ namespace TMNAdapter.Utilities
             {
                 List<TestParameters> newTestParameters = new List<TestParameters>();
                 newTestParameters.Add(parameters);
-                jiraKeyParameters.Add(title, newTestParameters);
+                jiraKeyParameters.Add(key, newTestParameters);
             }
         }
 
@@ -95,12 +95,27 @@ namespace TMNAdapter.Utilities
 
         public static List<TestParameters> GetIssueParameters(string issueKey)
         {
-            return jiraKeyParameters[issueKey] ?? null;
+
+            if (jiraKeyParameters.ContainsKey(issueKey))
+            {
+                return jiraKeyParameters[issueKey];
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static List<string> GetIssueAttachments(string issueKey)
         {
-            return jiraKeyAttachments[issueKey] ?? null;
+            if (jiraKeyAttachments.ContainsKey(issueKey))
+            {
+                return jiraKeyAttachments[issueKey];
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
