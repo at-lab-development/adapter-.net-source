@@ -13,25 +13,25 @@ namespace TMNAdapter.MSTest
     {
         private static List<Issue> issues = new List<Issue>();
 
-        public static void SendTestResult(ITest test, string key)
+        public static void SendTestResult(ITest test, string key, string time)
         {
             switch (TestContext.CurrentContext.Result.Outcome.Status)
             {
                 case TestStatus.Failed:
-                    FailedTest(test, key);
+                    FailedTest(test, key, time);
                     break;
                 case TestStatus.Passed:
-                    PassedTest(test, key);
+                    PassedTest(test, key, time);
                     break;
                 default:
-                    SkippedTest(test, key);
+                    SkippedTest(test, key, time);
                     break;
             }
         }
 
-        static void FailedTest(ITest test, string key)
+        static void FailedTest(ITest test, string key, string time)
         {
-            Issue issue = new Issue(key, Status.Failed, JiraIssueKeyAttribute.ElapsedTime.ToString())
+            Issue issue = new Issue(key, Status.Failed, time)
             {
                 Summary = (TestContext.CurrentContext.Result.Message + '\n' +
                            TestContext.CurrentContext.Result.StackTrace)
@@ -39,15 +39,15 @@ namespace TMNAdapter.MSTest
             issues.Add(issue);
         }
 
-        static void PassedTest(ITest test, string key)
+        static void PassedTest(ITest test, string key, string time)
         {
-            Issue issue = new Issue(key, Status.Passed);
+            Issue issue = new Issue(key, Status.Passed, time);
             issues.Add(issue);
         }
 
-        static void SkippedTest(ITest test, string key)
+        static void SkippedTest(ITest test, string key, string time)
         {
-            Issue issue = new Issue(key, Status.Untested);
+            Issue issue = new Issue(key, Status.Untested, time);
             issues.Add(issue);
         }
 

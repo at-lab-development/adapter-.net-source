@@ -20,12 +20,9 @@ namespace TMNAdapter.Tracking
         public string Key { get; }
 
         private Stopwatch _stopWatch;
-        private static long elapsedTime;
+        private long elapsedTime;
 
-        public static long ElapsedTime
-        {
-            get { return elapsedTime; }
-        }
+        
 
         /// <summary>
         /// Indicates whether <see cref="JiraIssueKeyAttribute"/> is applied 
@@ -71,7 +68,7 @@ namespace TMNAdapter.Tracking
         {
             _stopWatch.Stop();
             elapsedTime = _stopWatch.ElapsedMilliseconds;
-            ExecutionTracker.SendTestResult(test, Key);
+            ExecutionTracker.SendTestResult(test, Key, elapsedTime.ToString());
         }
     }
 }
