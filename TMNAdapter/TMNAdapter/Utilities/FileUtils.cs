@@ -11,43 +11,38 @@ namespace TMNAdapter.Utilities
     public class FileUtils
 	{
 		private readonly static string TARGET_DIR = "\\target";
-		private readonly static string ATTACHMENTS_DIR = TARGET_DIR + "\\attachments";		
-		  
-		// Generate name of file with unique exception stack trace			
-		/// <returns> Returns exception message </returns>
-		public static string GetExceptionMessage(Exception ex)
-		{
-			string message = string.Empty;
-			if (ex != null)
-			{
-				string filePath = ($"stacktrace_{DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss.fff")}.txt");
-				string exceptionMessage = ex.ToString();
-				if (exceptionMessage.Contains("\n"))
-					exceptionMessage = exceptionMessage.Substring(0, exceptionMessage.IndexOf('\n'));
-				WriteStackTrace(ex, filePath);
-				message = "Failed due to: "  + exceptionMessage
-						+ ".\nFull stack trace attached as " + filePath;
-			}
-			return message;
-		}
+		private readonly static string ATTACHMENTS_DIR = TARGET_DIR + "\\attachments";
 
-        // Writes stack trace in temporary file and save it to attachments directory
-        ///<exception cref="Exception"> The exception ex for getting stacktrace </exception>  
-        ///<param name="filePath"> The path for output file </param> 
-        private static void WriteStackTrace(Exception ex, string filePath)
+        /// <summary>
+        /// Writes stack trace in temporary file and save it to attachments directory
+        /// </summary>
+        /// <param name="stackTrace">Text contents about stacktrace of exception</param>
+        /// <param name="fileName"> The name for output file </param>
+        /// <exception cref="IOException">Is thrown, when I/O error occurs</exception>
+        public static string WriteStackTrace(string stackTrace, string fileName)
 		{
 			try
 			{
-				FileInfo file = new FileInfo(filePath);
-				StreamWriter writer = File.CreateText(filePath);
-				writer.WriteLine(ex.StackTrace.ToString());
+			    string tempfilePath = Path.GetTempFileName();
+                var file = new FileInfo(tempfilePath);
+
+			    string newFilePath = tempfilePath.Replace(file.Name, fileName);
+                file.MoveTo(newFilePath);
+
+				StreamWriter writer = File.CreateText(newFilePath);
+				writer.WriteLine(stackTrace);
 				writer.Close();
-				SaveFile(file);
+				string targetFilePath = SaveFile(file);
 				writer.Dispose();
+
+			    return targetFilePath;
+
 			}
 			catch (IOException e)
 			{
-				e.StackTrace.ToString();
+				Debug.WriteLine($"Message: {e.Message}\n " +
+				                $"StackTrace: {e.StackTrace}");
+			    return null;
 			}
 		}
 
@@ -64,7 +59,7 @@ namespace TMNAdapter.Utilities
             {
                 string fileName = file.Name;
                 string relativeFilePath = ATTACHMENTS_DIR;
-                string currentDirectory = Directory.GetCurrentDirectory();
+                string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 string copyPath = currentDirectory + relativeFilePath;
 
                 if (File.Exists(Path.Combine(copyPath, fileName)))
@@ -82,7 +77,8 @@ namespace TMNAdapter.Utilities
             }
             catch (IOException exception)
             {
-                Debug.WriteLine($"{exception.Message} \n {exception.StackTrace}");
+                Debug.WriteLine($"{exception.Message}\n " +
+                                $"{exception.StackTrace}");
                 return null;
             }
         }
