@@ -36,6 +36,14 @@ namespace TestProject
             string test = null;
             Assert.Throws(typeof(NullReferenceException), () => test.Substring(0, 4));
         }
+
+        [Test]
+        [JiraIssueKey("EPMFARMATS-2465")]
+        public void TestThrowExeptionInTest()
+        {
+            throw new Exception("Testing test with exeption");
+        }
+
     }
 }
 /*
