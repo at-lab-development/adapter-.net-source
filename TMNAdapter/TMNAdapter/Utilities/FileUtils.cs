@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NUnit.Framework;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Xml.Serialization;
@@ -92,8 +93,14 @@ namespace TMNAdapter.Utilities
         /// <param name="relativefilePath"> The path to output file </param>
         public static void WriteXml(TestResult result, String relativefilePath)
         {
+            string testResultDir = Path.Combine(TestContext.CurrentContext.WorkDirectory, TARGET_DIR);            
+            if (!Directory.Exists(testResultDir))
+            {
+                Directory.CreateDirectory(testResultDir);
+            }
+
             XmlSerializer formatter = new XmlSerializer(typeof(TestResult));
-            using (FileStream fs = new FileStream("C:\\data\\" + relativefilePath, FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(Path.Combine(testResultDir, relativefilePath), FileMode.OpenOrCreate))
             {
                 formatter.Serialize(fs, result);
             }
