@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMNAdapter.Entities;
+using TMNAdapter.Tracking;
 using TMNAdapter.Utilities;
 
 namespace TMNAdapter.MSTest
@@ -30,9 +31,10 @@ namespace TMNAdapter.MSTest
 
         static void FailedTest(ITest test, string key)
         {
-            Issue issue = new Issue(key, Status.Failed, DateTime.Now.ToShortTimeString())
+            Issue issue = new Issue(key, Status.Failed, JiraIssueKeyAttribute.ElapsedTime.ToString())
             {
-                Summary = TestContext.CurrentContext.Result.Message
+                Summary = (TestContext.CurrentContext.Result.Message + '\n' +
+                           TestContext.CurrentContext.Result.StackTrace)
             };
             issues.Add(issue);
         }

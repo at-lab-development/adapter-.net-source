@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using System;
+using System.Diagnostics;
 using TMNAdapter.Common.Validation;
 using TMNAdapter.MSTest;
 
@@ -17,6 +18,14 @@ namespace TMNAdapter.Tracking
         /// Gets JIRA issue key
         /// </summary>
         public string Key { get; }
+
+        private Stopwatch _stopWatch;
+        private static long elapsedTime;
+
+        public static long ElapsedTime
+        {
+            get { return elapsedTime; }
+        }
 
         /// <summary>
         /// Indicates whether <see cref="JiraIssueKeyAttribute"/> is applied 
@@ -55,10 +64,13 @@ namespace TMNAdapter.Tracking
 
         public void BeforeTest(ITest test)
         {
+            _stopWatch = Stopwatch.StartNew();
         }
 
         public void AfterTest(ITest test)
         {
+            _stopWatch.Stop();
+            elapsedTime = _stopWatch.ElapsedMilliseconds;
             ExecutionTracker.SendTestResult(test, Key);
         }
     }
