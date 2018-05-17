@@ -92,27 +92,12 @@ namespace TMNAdapter.Tracking
 
         public static List<TestParameters> GetIssueParameters(string issueKey)
         {
-
-            if (jiraKeyParameters.ContainsKey(issueKey))
-            {
-                return jiraKeyParameters[issueKey];
-            }
-            else
-            {
-                return null;
-            }
+            return jiraKeyParameters.ContainsKey(issueKey) ? jiraKeyParameters[issueKey] : null;
         }
 
         public static List<string> GetIssueAttachments(string issueKey)
         {
-            if (jiraKeyAttachments.ContainsKey(issueKey))
-            {
-                return jiraKeyAttachments[issueKey];
-            }
-            else
-            {
-                return null;
-            }
+            return jiraKeyAttachments.ContainsKey(issueKey) ? jiraKeyAttachments[issueKey] : null;
         }
 
         private static void AddNewAttachment(string key, string targetFilePath)
