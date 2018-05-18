@@ -13,7 +13,7 @@ namespace TestProject
         [SetUp]
         public void Initialize()
         {
-            Screenshoter.Initialize(Browser.Driver);
+            Screenshoter.Initialize(Browser.Instance.GetDriver());
         }
 
         [Test]
@@ -39,6 +39,9 @@ namespace TestProject
 
             JiraInfoProvider.SaveParameter("Author", author);
             JiraInfoProvider.SaveParameter("Title", title);
+
+      //      Screenshoter.Initialize(Browser.Driver);
+            Screenshoter.TakeScreenshot();
 
             Assert.AreEqual("Atlassian", author);
         }
