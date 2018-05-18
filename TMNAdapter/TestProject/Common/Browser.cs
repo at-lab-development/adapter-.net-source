@@ -13,7 +13,7 @@ namespace TestProject.Common
         public static double TimeoutForElement = 30;
         private static string browser = "Chrome";
 
-        public static IWebDriver Driver { get; private set; }
+        private static IWebDriver Driver { get; set; }
 
         private Browser()
         {
@@ -28,7 +28,12 @@ namespace TestProject.Common
                 return currentInstance = currentInstance ?? (currentInstance = new Browser());
             }
         }
-        
+
+        public IWebDriver GetDriver()
+        {
+            return Driver;
+        }
+
         public IWebElement FindElement(By locator)
         {
             IWebElement currentElement = null;

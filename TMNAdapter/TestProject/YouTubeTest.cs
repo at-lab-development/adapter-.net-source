@@ -13,7 +13,7 @@ namespace TestProject
         [SetUp]
         public void Initialize()
         {
-            Screenshoter.Initialize(Browser.Driver);
+            Screenshoter.Initialize(Browser.Instance.GetDriver());
         }
 
         [Test]
@@ -30,7 +30,7 @@ namespace TestProject
         }
 
         [Test]
-        [JiraIssueKey("EPMFARMATS-2466")]
+        [JiraIssueKey("EPMFARMATS-2470")]
         public void AlwaysFailedTest()
         {
             YouTubePage page = new YouTubePage("https://www.youtube.com/watch?v=sU4i4DTr1HQ");
@@ -39,6 +39,9 @@ namespace TestProject
 
             JiraInfoProvider.SaveParameter("Author", author);
             JiraInfoProvider.SaveParameter("Title", title);
+
+      //      Screenshoter.Initialize(Browser.Driver);
+            Screenshoter.TakeScreenshot();
 
             Assert.AreEqual("Atlassian", author);
         }

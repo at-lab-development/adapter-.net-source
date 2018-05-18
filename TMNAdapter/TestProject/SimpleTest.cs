@@ -28,7 +28,7 @@ namespace TestProject
 
         [Test]
         [Ignore("Test ignored tests behavior")]
-        [JiraIssueKey("EPMFARMATS-2447")]
+        [JiraIssueKey("EPMFARMATS-2471")]
         public void UntestedTest()
         {
             Assert.IsTrue(true);
