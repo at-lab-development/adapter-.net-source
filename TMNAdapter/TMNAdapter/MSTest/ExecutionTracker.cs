@@ -3,6 +3,8 @@ using NUnit.Framework.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMNAdapter.Common;
+using TMNAdapter.Common.Models;
 using TMNAdapter.Entities;
 using TMNAdapter.Tracking;
 using TMNAdapter.Utilities;
@@ -15,11 +17,6 @@ namespace TMNAdapter.MSTest
 
         public static void SendTestResult(ITest test, string key, string time)
         {
-            if (issues.Exists(x => x.IssueKey == key))
-            {
-                return;
-            }
-
             switch (TestContext.CurrentContext.Result.Outcome.Status)
             {
                 case TestStatus.Failed:
@@ -38,47 +35,62 @@ namespace TMNAdapter.MSTest
         {
             JiraInfoProvider.SaveStackTrace(key, TestContext.CurrentContext.Result.StackTrace);
 
-            Issue issue = new Issue(key, Status.Failed, time)
+            IssueManager.AddIssue(new IssueModel()
             {
-                Summary = (TestContext.CurrentContext.Result.Message + '\n' +
-                           TestContext.CurrentContext.Result.StackTrace)
-            };
-
-            issues.Add(issue);
+                Key = key,
+                Summary = $"{TestContext.CurrentContext.Result.Message}\n TestContext.CurrentContext.Result.StackTrace",
+                Status = Status.Failed,
+                Time = time,
+                IsTestComplete = true
+            });
         }
 
         static void PassedTest(ITest test, string key, string time)
         {
-            Issue issue = new Issue(key, Status.Passed, time);
-            issues.Add(issue);
+            IssueManager.AddIssue(new IssueModel()
+            {
+                Key = key,
+                Status = Status.Passed,
+                Time = time,
+                IsTestComplete = true
+            });
         }
 
         static void SkippedTest(ITest test, string key, string time)
         {
-            Issue issue = new Issue(key, Status.Untested, time);
-            issues.Add(issue);
+            IssueManager.AddIssue(new IssueModel()
+            {
+                Key = key,
+                Status = Status.Untested,
+                Time = time,
+                IsTestComplete = true
+            });
         }
 
         public static void GenerateTestResultXml()
         {
-            foreach (Issue issue in issues)
+            List<IssueModel> issueModels = IssueManager.GetIssues();
+
+            if (!issueModels.Any())
             {
-                List<string> attachments = JiraInfoProvider.GetIssueAttachments(issue.IssueKey);
-                List<Entities.TestParameters> parameters = JiraInfoProvider.GetIssueParameters(issue.IssueKey);
-                if (attachments != null)
-                {
-                    issue.Attachments = attachments;
-                }
-                if (parameters != null)
-                {
-                    issue.Parameters = parameters;
-                }
+                return;
             }
 
-            if (issues.Any())
+            var testResult = new TestResult();
+            foreach (var issueModel in issueModels)
             {
-                FileUtils.WriteXml(new Entities.TestResult(issues), "tm-testng.xml");
+                testResult.Issues.Add(new Issue()
+                {
+                    IssueKey = issueModel.Key,
+                    Summary = issueModel.Summary,
+                    Status = issueModel.Status.ToString(),
+                    Time = issueModel.Time,
+                    Attachments = issueModel.AttachmentFilePaths,
+                    Parameters = issueModel.Parameters
+                });
             }
+
+            FileUtils.WriteXml(testResult, "tm-testng.xml");
         }
     }
 }
