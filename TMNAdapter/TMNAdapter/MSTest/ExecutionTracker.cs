@@ -40,8 +40,7 @@ namespace TMNAdapter.MSTest
 
             Issue issue = new Issue(key, Status.Failed, time)
             {
-                Summary = (TestContext.CurrentContext.Result.Message + '\n' +
-                           TestContext.CurrentContext.Result.StackTrace)
+                Summary = ("Summary_string")
             };
 
             issues.Add(issue);
