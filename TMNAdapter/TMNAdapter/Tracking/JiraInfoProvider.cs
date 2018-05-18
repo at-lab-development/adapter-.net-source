@@ -61,18 +61,14 @@ namespace TMNAdapter.Tracking
                 return;
             }
 
-            TestParameters parameters = new TestParameters(title, value != null ? value.ToString() : "null");
-
-            if (jiraKeyParameters.ContainsKey(key))
+            IssueManager.AddIssue(new IssueModel()
             {
-                jiraKeyParameters[key].Add(parameters);
-            }
-            else
-            {
-                List<TestParameters> newTestParameters = new List<TestParameters>();
-                newTestParameters.Add(parameters);
-                jiraKeyParameters.Add(key, newTestParameters);
-            }
+                Key = key,
+                Parameters = new List<TestParameters>()
+                {
+                    new TestParameters(title, value != null ? value.ToString() : "null")
+                }
+            });
         }
 
         public static void SaveStackTrace(string issueKey, string stackTrace)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TMNAdapter.Common.Models;
+using TMNAdapter.Entities;
 
 namespace TMNAdapter.Common
 {
@@ -21,13 +22,32 @@ namespace TMNAdapter.Common
                 return;
             }
 
-            if (storedIssueModel.IsTestComplete)
+            if (storedIssueModel.IsTestComplete.HasValue && storedIssueModel.IsTestComplete.Value)
             {
                 return;
             }
 
-            // AutoMapper is needed
-            IssueModel mergedIssueModel = storedIssueModel + partialIssueModel;
+            if (partialIssueModel.AttachmentFilePaths != null && partialIssueModel.AttachmentFilePaths.Any())
+            {
+                storedIssueModel.AttachmentFilePaths.AddRange(partialIssueModel.AttachmentFilePaths);
+            }
+
+            if (partialIssueModel.Parameters != null && partialIssueModel.Parameters.Any())
+            {
+                storedIssueModel.Parameters.AddRange(partialIssueModel.Parameters);
+            }
+            
+            IssueModel mergedIssueModel = new IssueModel()
+            {
+                Key = !string.IsNullOrWhiteSpace(partialIssueModel.Key) ? partialIssueModel.Key : storedIssueModel.Key,
+                Status = partialIssueModel.Status != Status.None ? partialIssueModel.Status : storedIssueModel.Status,
+                Summary = !string.IsNullOrWhiteSpace(partialIssueModel.Summary) ? partialIssueModel.Summary: storedIssueModel.Summary,
+                Time = partialIssueModel.Time ?? storedIssueModel.Time,
+                AttachmentFilePaths = storedIssueModel.AttachmentFilePaths,
+                Parameters = storedIssueModel.Parameters,
+                IsTestComplete = partialIssueModel.IsTestComplete ?? storedIssueModel.IsTestComplete
+            };
+
             _issues.Remove(storedIssueModel);
             _issues.Add(mergedIssueModel);
         }

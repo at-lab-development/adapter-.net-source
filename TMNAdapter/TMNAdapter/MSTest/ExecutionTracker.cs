@@ -15,7 +15,7 @@ namespace TMNAdapter.MSTest
     {
         private static List<Issue> issues = new List<Issue>();
 
-        public static void SendTestResult(ITest test, string key, string time)
+        public static void SendTestResult(ITest test, string key, long time)
         {
             switch (TestContext.CurrentContext.Result.Outcome.Status)
             {
@@ -31,7 +31,7 @@ namespace TMNAdapter.MSTest
             }
         }
 
-        static void FailedTest(ITest test, string key, string time)
+        static void FailedTest(ITest test, string key, long time)
         {
             JiraInfoProvider.SaveStackTrace(key, TestContext.CurrentContext.Result.StackTrace);
 
@@ -45,7 +45,7 @@ namespace TMNAdapter.MSTest
             });
         }
 
-        static void PassedTest(ITest test, string key, string time)
+        static void PassedTest(ITest test, string key, long time)
         {
             IssueManager.AddIssue(new IssueModel()
             {
@@ -56,7 +56,7 @@ namespace TMNAdapter.MSTest
             });
         }
 
-        static void SkippedTest(ITest test, string key, string time)
+        static void SkippedTest(ITest test, string key, long time)
         {
             IssueManager.AddIssue(new IssueModel()
             {
@@ -76,7 +76,7 @@ namespace TMNAdapter.MSTest
                 return;
             }
 
-            var testResult = new TestResult();
+            var testResult = new TestResult() {Issues = new List<Issue>()};
             foreach (var issueModel in issueModels)
             {
                 testResult.Issues.Add(new Issue()
@@ -84,7 +84,7 @@ namespace TMNAdapter.MSTest
                     IssueKey = issueModel.Key,
                     Summary = issueModel.Summary,
                     Status = issueModel.Status.ToString(),
-                    Time = issueModel.Time,
+                    Time = issueModel.Time.ToString(),
                     Attachments = issueModel.AttachmentFilePaths,
                     Parameters = issueModel.Parameters
                 });
