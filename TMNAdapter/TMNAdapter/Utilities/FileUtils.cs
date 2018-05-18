@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Xml;
 using System.Xml.Serialization;
 using TMNAdapter.Entities;
 
@@ -98,17 +99,28 @@ namespace TMNAdapter.Utilities
         /// <param name="relativefilePath"> The path to output file </param>
         public static void WriteXml(TestResult result, String relativefilePath)
         {
-            string testResultDir = TestContext.CurrentContext.WorkDirectory + TARGET_DIR;            
+            string testResultDir = TestContext.CurrentContext.WorkDirectory + TARGET_DIR;
             if (!Directory.Exists(testResultDir))
             {
                 Directory.CreateDirectory(testResultDir);
             }
 
+            var doc = new XmlDocument();
+            StringWriter writer = new StringWriter();
             XmlSerializer formatter = new XmlSerializer(typeof(TestResult));
-            using (FileStream fs = new FileStream(Path.Combine(testResultDir, relativefilePath), FileMode.Create))            
+            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+            ns.Add("", "");
+
+            formatter.Serialize(writer, result, ns);
+            doc.Load(new StringReader(writer.ToString()));
+
+            if (doc.FirstChild is XmlDeclaration dec)
             {
-                formatter.Serialize(fs, result);
+                dec.Encoding = "UTF-8";
+                dec.Standalone = "yes";
             }
+
+            doc.Save(Path.Combine(testResultDir, relativefilePath));
         }
 
         static string GetTargetDir() => TARGET_DIR;
