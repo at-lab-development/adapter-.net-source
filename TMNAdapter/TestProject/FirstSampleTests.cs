@@ -12,14 +12,6 @@ namespace TestProject
     {
         [Test]
         [JiraIssueKey("EPMFARMATS-2464")]
-        public void TestMethodWithRandomTestResult()
-        {
-            bool random = Convert.ToBoolean(new Random().Next(0, 2));
-            Assert.IsTrue(random, "Random bool parameter is false");
-        }
-
-        [Test]
-        [JiraIssueKey("EPMFARMATS-2465")]
         public void TestMethod()
         {
             JiraInfoProvider.SaveParameter("Value1", "Sample");
@@ -30,16 +22,8 @@ namespace TestProject
         }
 
         [Test]
-        [JiraIssueKey("EPMFARMATS-2465")]
-        public void TestExeption()
-        {
-            string test = null;
-            Assert.Throws(typeof(NullReferenceException), () => test.Substring(0, 4));
-        }
-
-        [Test]
-        [JiraIssueKey("EPMFARMATS-2465")]
-        public void TestThrowExeptionInTest()
+        [JiraIssueKey("EPMFARMATS-2472")]
+        public void TestExeptionInTest()
         {
             throw new Exception("Testing test with exeption");
         }

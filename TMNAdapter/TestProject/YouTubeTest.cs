@@ -30,7 +30,7 @@ namespace TestProject
         }
 
         [Test]
-        [JiraIssueKey("EPMFARMATS-2466")]
+        [JiraIssueKey("EPMFARMATS-2470")]
         public void AlwaysFailedTest()
         {
             YouTubePage page = new YouTubePage("https://www.youtube.com/watch?v=sU4i4DTr1HQ");
