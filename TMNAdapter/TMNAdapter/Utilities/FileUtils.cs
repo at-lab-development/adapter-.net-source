@@ -13,6 +13,15 @@ namespace TMNAdapter.Utilities
 		private readonly static string TARGET_DIR = "\\target";
 		private readonly static string ATTACHMENTS_DIR = TARGET_DIR + "\\attachments";
 
+	    static FileUtils()
+	    {
+	        string targetDirectory = TestContext.CurrentContext.WorkDirectory + ATTACHMENTS_DIR;
+	        if (!Directory.Exists(targetDirectory))
+	        {
+	            Directory.CreateDirectory(targetDirectory);
+            }
+	    }
+
         /// <summary>
         /// Writes stack trace in temporary file and save it to attachments directory
         /// </summary>
@@ -68,7 +77,7 @@ namespace TMNAdapter.Utilities
                     copyPath = Path.Combine(copyPath, newDirectory);
                     relativeFilePath = Path.Combine(relativeFilePath, newDirectory);
 
-                    Directory.CreateDirectory(Path.Combine(copyPath));
+                    Directory.CreateDirectory(copyPath);
                 }
 
                 file.CopyTo(Path.Combine(copyPath, fileName), true);

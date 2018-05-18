@@ -15,6 +15,11 @@ namespace TMNAdapter.MSTest
 
         public static void SendTestResult(ITest test, string key, string time)
         {
+            if (issues.Exists(x => x.IssueKey == key))
+            {
+                return;
+            }
+
             switch (TestContext.CurrentContext.Result.Outcome.Status)
             {
                 case TestStatus.Failed:
