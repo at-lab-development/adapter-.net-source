@@ -36,7 +36,7 @@ namespace TMNAdapter.Tracking
             IssueManager.AddIssue(new IssueModel()
             {
                 Key = key,
-                Summary = $"{TestContext.CurrentContext.Result.Message.Replace('^', '-')}",
+                Summary = FormatSummary(TestContext.CurrentContext.Result.Message),
                 Status = Status.Failed,
                 Time = time,
                 IsTestComplete = true
@@ -89,6 +89,11 @@ namespace TMNAdapter.Tracking
             }
 
             FileUtils.WriteXml(testResult, "tm-testng.xml");
+        }
+
+        private static string FormatSummary(string message)
+        {            
+            return message.Replace("^", "").Replace("-", "");
         }
     }
 }
