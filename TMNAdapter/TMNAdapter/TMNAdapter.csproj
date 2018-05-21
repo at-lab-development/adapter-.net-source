@@ -59,11 +59,11 @@
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\TestParameters.cs" />
     <Compile Include="Entities\TestResult.cs" />
-    <Compile Include="MSTest\ExecutionTracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tracking\AnnotationTracker.cs" />
     <Compile Include="Tracking\Attributes\AssemblyActionAttribute.cs" />
     <Compile Include="Tracking\Attributes\JiraIssueKeyAttribute.cs" />
+    <Compile Include="Tracking\ExecutionTracker.cs" />
     <Compile Include="Tracking\JiraInfoProvider.cs" />
     <Compile Include="Utilities\FileUtils.cs" />
     <Compile Include="Utilities\TestReporter.cs" />

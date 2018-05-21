@@ -9,7 +9,7 @@ using TMNAdapter.Entities;
 using TMNAdapter.Tracking;
 using TMNAdapter.Utilities;
 
-namespace TMNAdapter.MSTest
+namespace TMNAdapter.Tracking
 {
     public class ExecutionTracker
     {
@@ -36,7 +36,7 @@ namespace TMNAdapter.MSTest
             IssueManager.AddIssue(new IssueModel()
             {
                 Key = key,
-                Summary = $"{TestContext.CurrentContext.Result.Message}",
+                Summary = $"{TestContext.CurrentContext.Result.Message}\n TestContext.CurrentContext.Result.StackTrace",
                 Status = Status.Failed,
                 Time = time,
                 IsTestComplete = true

@@ -1,7 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
-using TMNAdapter.MSTest;
 
 namespace TMNAdapter.Tracking.Attributes
 {
