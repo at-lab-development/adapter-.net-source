@@ -15,54 +15,49 @@ namespace TMNAdapter.MSTest
     {
         public static void SendTestResult(ITest test, string key, long time)
         {
+            var issueModel = new IssueModel()
+            {
+                Key = key,
+                Time = time,
+                IsTestComplete = true
+            };
+
             switch (TestContext.CurrentContext.Result.Outcome.Status)
             {
                 case TestStatus.Failed:
-                    FailedTest(test, key, time);
+                    FailedTest(issueModel);
                     break;
                 case TestStatus.Passed:
-                    PassedTest(test, key, time);
+                    PassedTest(issueModel);
                     break;
                 default:
-                    SkippedTest(test, key, time);
+                    SkippedTest(issueModel);
                     break;
             }
         }
 
-        static void FailedTest(ITest test, string key, long time)
+        private static void FailedTest(IssueModel issueModel)
         {
-            JiraInfoProvider.SaveStackTrace(key, TestContext.CurrentContext.Result.StackTrace);
+            JiraInfoProvider.SaveStackTrace(issueModel.Key, TestContext.CurrentContext.Result.StackTrace);
 
-            IssueManager.AddIssue(new IssueModel()
-            {
-                Key = key,
-                Summary = $"{TestContext.CurrentContext.Result.Message}\n TestContext.CurrentContext.Result.StackTrace",
-                Status = Status.Failed,
-                Time = time,
-                IsTestComplete = true
-            });
+            issueModel.Summary = $"{TestContext.CurrentContext.Result.Message}\n TestContext.CurrentContext.Result.StackTrace";
+            issueModel.Status = Status.Failed;
+
+            IssueManager.AddIssue(issueModel);
         }
 
-        static void PassedTest(ITest test, string key, long time)
+        private static void PassedTest(IssueModel issueModel)
         {
-            IssueManager.AddIssue(new IssueModel()
-            {
-                Key = key,
-                Status = Status.Passed,
-                Time = time,
-                IsTestComplete = true
-            });
+            issueModel.Status = Status.Passed;
+
+            IssueManager.AddIssue(issueModel);
         }
 
-        static void SkippedTest(ITest test, string key, long time)
+        private static void SkippedTest(IssueModel issueModel)
         {
-            IssueManager.AddIssue(new IssueModel()
-            {
-                Key = key,
-                Status = Status.Untested,
-                Time = time,
-                IsTestComplete = true
-            });
+            issueModel.Status = Status.Untested;
+
+            IssueManager.AddIssue(issueModel);
         }
 
         public static void GenerateTestResultXml()
