@@ -13,8 +13,6 @@ namespace TMNAdapter.MSTest
 {
     public class ExecutionTracker
     {
-        private static List<Issue> issues = new List<Issue>();
-
         public static void SendTestResult(ITest test, string key, long time)
         {
             switch (TestContext.CurrentContext.Result.Outcome.Status)
