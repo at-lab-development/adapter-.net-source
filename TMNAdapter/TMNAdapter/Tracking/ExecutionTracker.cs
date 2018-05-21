@@ -94,7 +94,7 @@ namespace TMNAdapter.Tracking
 
         private static string FormatSummary(string message)
         {
-            return message.Replace("\"", "");
+            return string.IsNullOrWhiteSpace(message) ? null : message.Replace("\"", "");
         }
     }
 }
