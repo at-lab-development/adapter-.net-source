@@ -15,54 +15,49 @@ namespace TMNAdapter.Tracking
     {
         public static void SendTestResult(ITest test, string key, long time)
         {
+            var issueModel = new IssueModel()
+            {
+                Key = key,
+                Time = time,
+                IsTestComplete = true
+            };
+
             switch (TestContext.CurrentContext.Result.Outcome.Status)
             {
                 case TestStatus.Failed:
-                    FailedTest(test, key, time);
+                    FailedTest(issueModel);
                     break;
                 case TestStatus.Passed:
-                    PassedTest(test, key, time);
+                    PassedTest(issueModel);
                     break;
                 default:
-                    SkippedTest(test, key, time);
+                    SkippedTest(issueModel);
                     break;
             }
         }
 
-        static void FailedTest(ITest test, string key, long time)
+        private static void FailedTest(IssueModel issueModel)
         {
-            JiraInfoProvider.SaveStackTrace(key, TestContext.CurrentContext.Result.StackTrace);
+            JiraInfoProvider.SaveStackTrace(issueModel.Key, TestContext.CurrentContext.Result.StackTrace);
 
-            IssueManager.AddIssue(new IssueModel()
-            {
-                Key = key,
-                Summary = FormatSummary(TestContext.CurrentContext.Result.Message),
-                Status = Status.Failed,
-                Time = time,
-                IsTestComplete = true
-            });
+            issueModel.Summary = FormatSummary(TestContext.CurrentContext.Result.Message);
+            issueModel.Status = Status.Failed;
+
+            IssueManager.AddIssue(issueModel);
         }
 
-        static void PassedTest(ITest test, string key, long time)
+        private static void PassedTest(IssueModel issueModel)
         {
-            IssueManager.AddIssue(new IssueModel()
-            {
-                Key = key,
-                Status = Status.Passed,
-                Time = time,
-                IsTestComplete = true
-            });
+            issueModel.Status = Status.Passed;
+
+            IssueManager.AddIssue(issueModel);
         }
 
-        static void SkippedTest(ITest test, string key, long time)
+        private static void SkippedTest(IssueModel issueModel)
         {
-            IssueManager.AddIssue(new IssueModel()
-            {
-                Key = key,
-                Status = Status.Untested,
-                Time = time,
-                IsTestComplete = true
-            });
+            issueModel.Status = Status.Untested;
+
+            IssueManager.AddIssue(issueModel);
         }
 
         public static void GenerateTestResultXml()
@@ -82,13 +77,19 @@ namespace TMNAdapter.Tracking
                     IssueKey = issueModel.Key,
                     Summary = issueModel.Summary,
                     Status = issueModel.Status.ToString(),
-                    Time = issueModel.Time.ToString(),
+                    Time = FormatTime(issueModel.Time),
                     Attachments = issueModel.AttachmentFilePaths,
                     Parameters = issueModel.Parameters
-                });
+                });                
             }
 
             FileUtils.WriteXml(testResult, "tm-testng.xml");
+        }
+
+        private static string FormatTime(long? timeInMilliseconds)
+        {
+            TimeSpan timeSpan = TimeSpan.FromMilliseconds(Convert.ToDouble(timeInMilliseconds));
+            return $"{timeSpan.Minutes:D2}m:{timeSpan.Seconds:D2}s:{timeSpan.Milliseconds:D3}ms";
         }
 
         private static string FormatSummary(string message)
