@@ -16,5 +16,11 @@ namespace TMNAdapter.Common.Models
         public List<string> AttachmentFilePaths { get; set; }
         public List<TestParameters> Parameters { get; set; }
         public bool? IsTestComplete { get; set; }
+
+        public IssueModel()
+        {
+            AttachmentFilePaths = new List<string>();
+            Parameters = new List<TestParameters>();
+        }
     }
 }
