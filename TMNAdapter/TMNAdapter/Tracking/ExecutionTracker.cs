@@ -40,7 +40,7 @@ namespace TMNAdapter.Tracking
         {
             JiraInfoProvider.SaveStackTrace(issueModel.Key, TestContext.CurrentContext.Result.StackTrace);
 
-            issueModel.Summary = FormatSummary(TestContext.CurrentContext.Result.Message);
+            issueModel.Summary = TestContext.CurrentContext.Result.Message;
             issueModel.Status = Status.Failed;
 
             IssueManager.AddIssue(issueModel);
@@ -75,7 +75,7 @@ namespace TMNAdapter.Tracking
                 testResult.Issues.Add(new Issue()
                 {
                     IssueKey = issueModel.Key,
-                    Summary = issueModel.Summary,
+                    Summary = FormatSummary(issueModel.Summary),
                     Status = issueModel.Status.ToString(),
                     Time = FormatTime(issueModel.Time),
                     Attachments = issueModel.AttachmentFilePaths,
@@ -93,8 +93,8 @@ namespace TMNAdapter.Tracking
         }
 
         private static string FormatSummary(string message)
-        {            
-            return message.Replace("^", "").Replace("-", "");
+        {
+            return message.Replace("\"", "");
         }
     }
 }
