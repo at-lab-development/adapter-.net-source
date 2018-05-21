@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using TMNAdapter.Common;
+using TMNAdapter.Common.Models;
 using TMNAdapter.Entities;
 using TMNAdapter.Tracking.Attributes;
 using TMNAdapter.Utilities;
@@ -43,7 +45,11 @@ namespace TMNAdapter.Tracking
                 Console.Write(ex.StackTrace);
             }
 
-            AddNewAttachment(key, targetFilePath);
+            IssueManager.AddIssue(new IssueModel()
+            {
+                Key = key,
+                AttachmentFilePaths = new List<string>() { targetFilePath }
+            });
         }
 
         public static void SaveParameter<T>(string title, T value)
@@ -55,18 +61,14 @@ namespace TMNAdapter.Tracking
                 return;
             }
 
-            TestParameters parameters = new TestParameters(title, value != null ? value.ToString() : "null");
-
-            if (jiraKeyParameters.ContainsKey(key))
+            IssueManager.AddIssue(new IssueModel()
             {
-                jiraKeyParameters[key].Add(parameters);
-            }
-            else
-            {
-                List<TestParameters> newTestParameters = new List<TestParameters>();
-                newTestParameters.Add(parameters);
-                jiraKeyParameters.Add(key, newTestParameters);
-            }
+                Key = key,
+                Parameters = new List<TestParameters>()
+                {
+                    new TestParameters(title, value != null ? value.ToString() : "null")
+                }
+            });
         }
 
         public static void SaveStackTrace(string issueKey, string stackTrace)
@@ -74,7 +76,11 @@ namespace TMNAdapter.Tracking
             string fileName = $"stacktrace_{DateTime.Now:yyyy-MM-ddTHH-mm-ss.fff}.txt";
             string targetFilePath = FileUtils.WriteStackTrace(stackTrace, fileName);
 
-            AddNewAttachment(issueKey, targetFilePath);
+            IssueManager.AddIssue(new IssueModel()
+            {
+                Key = issueKey,
+                AttachmentFilePaths = new List<string>() {targetFilePath}
+            });
         }
 
         public static void CleanFor(string issueKey)
@@ -98,23 +104,6 @@ namespace TMNAdapter.Tracking
         public static List<string> GetIssueAttachments(string issueKey)
         {
             return jiraKeyAttachments.ContainsKey(issueKey) ? jiraKeyAttachments[issueKey] : null;
-        }
-
-        private static void AddNewAttachment(string key, string targetFilePath)
-        {
-            if (jiraKeyAttachments.ContainsKey(key))
-            {
-                if (!jiraKeyAttachments[key].Contains(targetFilePath))
-                {
-                    jiraKeyAttachments[key].Add(targetFilePath);
-                }
-            }
-            else
-            {
-                List<string> files = new List<string>();
-                files.Add(targetFilePath);
-                jiraKeyAttachments.Add(key, files);
-            }
         }
     }
 }

@@ -23,11 +23,19 @@ namespace TestProject
 
         [Test]
         [JiraIssueKey("EPMFARMATS-2472")]
-        public void TestExeptionInTest()
+        public void TestExeptionInTest1()
         {
             throw new Exception("Testing test with exeption");
         }
 
+
+        [Test]
+        [JiraIssueKey("EPMFARMATS-2472")]
+        public void TestExeptionInTest2()
+        {
+            JiraInfoProvider.SaveParameter("Value4", "Sample4");
+            throw new Exception("Testing test with exeption");
+        }
     }
 }
 /*

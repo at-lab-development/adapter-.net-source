@@ -68,7 +68,7 @@ namespace TMNAdapter.Tracking.Attributes
         {
             _stopWatch.Stop();
             elapsedTime = _stopWatch.ElapsedMilliseconds;
-            ExecutionTracker.SendTestResult(test, Key, elapsedTime.ToString());
+            ExecutionTracker.SendTestResult(test, Key, elapsedTime);
         }
     }
 }
