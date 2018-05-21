@@ -36,7 +36,7 @@ namespace TMNAdapter.Tracking
             IssueManager.AddIssue(new IssueModel()
             {
                 Key = key,
-                Summary = $"{TestContext.CurrentContext.Result.Message}\n TestContext.CurrentContext.Result.StackTrace",
+                Summary = $"{TestContext.CurrentContext.Result.Message}",
                 Status = Status.Failed,
                 Time = time,
                 IsTestComplete = true
