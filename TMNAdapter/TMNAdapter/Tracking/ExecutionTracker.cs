@@ -36,7 +36,7 @@ namespace TMNAdapter.Tracking
             IssueManager.AddIssue(new IssueModel()
             {
                 Key = key,
-                Summary = $"{TestContext.CurrentContext.Result.Message}",
+                Summary = $"{TestContext.CurrentContext.Result.Message.Replace('^', '-')}",
                 Status = Status.Failed,
                 Time = time,
                 IsTestComplete = true
