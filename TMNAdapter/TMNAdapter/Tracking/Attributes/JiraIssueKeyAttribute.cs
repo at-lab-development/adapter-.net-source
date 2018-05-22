@@ -18,11 +18,6 @@ namespace TMNAdapter.Tracking.Attributes
         /// </summary>
         public string Key { get; }
 
-        private Stopwatch _stopWatch;
-        private long elapsedTime;
-
-        
-
         /// <summary>
         /// Indicates whether <see cref="JiraIssueKeyAttribute"/> is applied 
         /// </summary>
@@ -39,6 +34,8 @@ namespace TMNAdapter.Tracking.Attributes
         public bool DisableScreenshotOnFailure { get; }
 
         public ActionTargets Targets => ActionTargets.Test;
+
+        private Stopwatch _stopWatch;
 
         /// <summary>
         /// Initializes a new instance of <see cref="JiraIssueKeyAttribute"/>
@@ -66,8 +63,7 @@ namespace TMNAdapter.Tracking.Attributes
         public void AfterTest(ITest test)
         {
             _stopWatch.Stop();
-            elapsedTime = _stopWatch.ElapsedMilliseconds;
-            ExecutionTracker.SendTestResult(test, Key, elapsedTime);
+            ExecutionTracker.SendTestResult(test, Key, _stopWatch.ElapsedMilliseconds);
         }
     }
 }
