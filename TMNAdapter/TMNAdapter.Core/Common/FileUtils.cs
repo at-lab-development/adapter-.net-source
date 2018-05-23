@@ -10,12 +10,12 @@ namespace TMNAdapter.Core.Common
     // FileUtils is a util class which provides useful methods for file writing
     public class FileUtils
 	{
-		private readonly static string TARGET_DIR = "\\target";
-		private readonly static string ATTACHMENTS_DIR = TARGET_DIR + "\\attachments";
+	    private const string TARGET_DIR = "\\target";
+	    private const string ATTACHMENTS_DIR = TARGET_DIR + "\\attachments";
 
 	    static FileUtils()
 	    {
-	        string targetDirectory = Directory.GetCurrentDirectory() + ATTACHMENTS_DIR;
+	        string targetDirectory = AppDomain.CurrentDomain.BaseDirectory + ATTACHMENTS_DIR;
 	        if (!Directory.Exists(targetDirectory))
 	        {
 	            Directory.CreateDirectory(targetDirectory);
@@ -68,7 +68,7 @@ namespace TMNAdapter.Core.Common
             {
                 string fileName = file.Name;
                 string relativeFilePath = ATTACHMENTS_DIR;
-                string currentDirectory = Directory.GetCurrentDirectory();
+                string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 string copyPath = currentDirectory + relativeFilePath;
 
                 if (File.Exists(Path.Combine(copyPath, fileName)))
@@ -96,9 +96,9 @@ namespace TMNAdapter.Core.Common
         // Test Management Jira plugin.
         /// <param name="result"> The list of issues for writing </param>
         /// <param name="relativefilePath"> The path to output file </param>
-        public static void WriteXml(TestResult result, String relativefilePath)
+        public static void WriteXml(TestResult result, string relativefilePath)
         {
-            string testResultDir = Directory.GetCurrentDirectory() + TARGET_DIR;
+            string testResultDir = AppDomain.CurrentDomain.BaseDirectory + TARGET_DIR;
             if (!Directory.Exists(testResultDir))
             {
                 Directory.CreateDirectory(testResultDir);
