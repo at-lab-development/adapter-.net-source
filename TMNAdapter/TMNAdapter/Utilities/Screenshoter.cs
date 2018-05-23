@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
-using TMNAdapter.Common.Models;
+using TMNAdapter.Core.Common;
+using TMNAdapter.Core.Common.Models;
 using TMNAdapter.Tracking;
-using TMNAdapter.Utilities;
 
-namespace TMNAdapter.Common
+namespace TMNAdapter.Utilities
 {
     public class Screenshoter
     {

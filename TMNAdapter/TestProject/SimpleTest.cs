@@ -3,7 +3,6 @@ using System.IO;
 using NUnit.Framework;
 using TMNAdapter.Tracking;
 using TMNAdapter.Tracking.Attributes;
-using TMNAdapter.Utilities;
 
 namespace TestProject
 {

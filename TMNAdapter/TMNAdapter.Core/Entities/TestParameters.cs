@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace TMNAdapter.Entities
+namespace TMNAdapter.Core.Entities
 {
     [Serializable]
     public class TestParameters

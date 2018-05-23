@@ -1,12 +1,11 @@
-﻿using NUnit.Framework;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
-using TMNAdapter.Entities;
+using TMNAdapter.Core.Entities;
 
-namespace TMNAdapter.Utilities
+namespace TMNAdapter.Core.Common
 {
     // FileUtils is a util class which provides useful methods for file writing
     public class FileUtils
@@ -16,7 +15,7 @@ namespace TMNAdapter.Utilities
 
 	    static FileUtils()
 	    {
-	        string targetDirectory = TestContext.CurrentContext.WorkDirectory + ATTACHMENTS_DIR;
+	        string targetDirectory = Directory.GetCurrentDirectory() + ATTACHMENTS_DIR;
 	        if (!Directory.Exists(targetDirectory))
 	        {
 	            Directory.CreateDirectory(targetDirectory);
@@ -69,7 +68,7 @@ namespace TMNAdapter.Utilities
             {
                 string fileName = file.Name;
                 string relativeFilePath = ATTACHMENTS_DIR;
-                string currentDirectory = TestContext.CurrentContext.WorkDirectory;
+                string currentDirectory = Directory.GetCurrentDirectory();
                 string copyPath = currentDirectory + relativeFilePath;
 
                 if (File.Exists(Path.Combine(copyPath, fileName)))
@@ -99,7 +98,7 @@ namespace TMNAdapter.Utilities
         /// <param name="relativefilePath"> The path to output file </param>
         public static void WriteXml(TestResult result, String relativefilePath)
         {
-            string testResultDir = TestContext.CurrentContext.WorkDirectory + TARGET_DIR;
+            string testResultDir = Directory.GetCurrentDirectory() + TARGET_DIR;
             if (!Directory.Exists(testResultDir))
             {
                 Directory.CreateDirectory(testResultDir);

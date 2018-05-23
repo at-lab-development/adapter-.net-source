@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using TMNAdapter.Common;
-using TMNAdapter.Common.Models;
-using TMNAdapter.Entities;
+using TMNAdapter.Core.Common;
+using TMNAdapter.Core.Common.Models;
+using TMNAdapter.Core.Entities;
 using TMNAdapter.Tracking.Attributes;
-using TMNAdapter.Utilities;
 
 namespace TMNAdapter.Tracking
 {
