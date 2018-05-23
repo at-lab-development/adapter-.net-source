@@ -5,7 +5,7 @@ using TMNAdapter.Tracking;
 using TMNAdapter.Tracking.Attributes;
 using TMNAdapter.Utilities;
 
-namespace TestProject
+namespace TestProject.Tests
 {
     [TestFixture]
     public class SimpleTest

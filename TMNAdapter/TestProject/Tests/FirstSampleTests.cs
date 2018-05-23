@@ -5,7 +5,7 @@ using TMNAdapter.Tracking.Attributes;
 using TMNAdapter.Utilities;
 
 [assembly: AssemblyAction]
-namespace TestProject
+namespace TestProject.Tests
 {
     [TestFixture]
     public class FirstSampleTests
