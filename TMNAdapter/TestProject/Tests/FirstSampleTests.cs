@@ -28,7 +28,6 @@ namespace TestProject.Tests
             throw new Exception("Testing test with exeption");
         }
 
-
         [Test]
         [JiraIssueKey("EPMFARMATS-2472")]
         public void TestExeptionInTest2()
@@ -38,6 +37,3 @@ namespace TestProject.Tests
         }
     }
 }
-/*
-@Listeners(ExecutionListener.class)
- */

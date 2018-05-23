@@ -40,7 +40,6 @@ namespace TestProject.Tests
             JiraInfoProvider.SaveParameter("Author", author);
             JiraInfoProvider.SaveParameter("Title", title);
 
-      //      Screenshoter.Initialize(Browser.Driver);
             Screenshoter.TakeScreenshot();
 
             Assert.AreEqual("Atlassian", author);
@@ -54,6 +53,3 @@ namespace TestProject.Tests
         }
     }
 }
-/*
-@Listeners(com.epam.jira.testng.ExecutionListener.class)
-}*/

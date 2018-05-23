@@ -35,7 +35,3 @@ namespace TestProject.Tests
         }
     }
 }
-/*
-@Listeners(com.epam.jira.testng.ExecutionListener.class)
-public class SimpleTest {}
- */
