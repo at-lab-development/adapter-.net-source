@@ -4,7 +4,7 @@ using TMNAdapter.Tracking;
 using TMNAdapter.Tracking.Attributes;
 using TMNAdapter.Utilities;
 
-namespace TestProject
+namespace TestProject.Tests
 {
     [TestFixture]
     public class YouTubeTest
@@ -39,7 +39,6 @@ namespace TestProject
             JiraInfoProvider.SaveParameter("Author", author);
             JiraInfoProvider.SaveParameter("Title", title);
 
-      //      Screenshoter.Initialize(Browser.Driver);
             Screenshoter.TakeScreenshot();
 
             Assert.AreEqual("Atlassian", author);
@@ -53,6 +52,3 @@ namespace TestProject
         }
     }
 }
-/*
-@Listeners(com.epam.jira.testng.ExecutionListener.class)
-}*/

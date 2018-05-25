@@ -5,7 +5,7 @@ using TMNAdapter.Tracking.Attributes;
 using TMNAdapter.Utilities;
 
 [assembly: AssemblyAction]
-namespace TestProject
+namespace TestProject.Tests
 {
     [TestFixture]
     public class FirstSampleTests
@@ -28,7 +28,6 @@ namespace TestProject
             throw new Exception("Testing test with exeption");
         }
 
-
         [Test]
         [JiraIssueKey("EPMFARMATS-2472")]
         public void TestExeptionInTest2()
@@ -38,6 +37,3 @@ namespace TestProject
         }
     }
 }
-/*
-@Listeners(ExecutionListener.class)
- */

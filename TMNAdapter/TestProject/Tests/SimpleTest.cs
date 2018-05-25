@@ -4,7 +4,7 @@ using NUnit.Framework;
 using TMNAdapter.Tracking;
 using TMNAdapter.Tracking.Attributes;
 
-namespace TestProject
+namespace TestProject.Tests
 {
     [TestFixture]
     public class SimpleTest
@@ -34,7 +34,3 @@ namespace TestProject
         }
     }
 }
-/*
-@Listeners(com.epam.jira.testng.ExecutionListener.class)
-public class SimpleTest {}
- */

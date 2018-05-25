@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using TMNAdapter.Tracking.Attributes;
 
-namespace TestProject
+namespace TestProject.Tests
 {
     [TestFixture]
     public class WrongKeyTest
