@@ -3,7 +3,7 @@ using System;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
-namespace TestProject.Common
+namespace TestProject.MSTest.Common
 {
     public class Browser
     {
