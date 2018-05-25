@@ -49,9 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\MS_AttachmentsTest.cs" />
     <Compile Include="Tests\MS_SimpleTest.cs" />
+    <Compile Include="Tests\MS_WrongKeyTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Recources\jenkins-oops.jpg" />

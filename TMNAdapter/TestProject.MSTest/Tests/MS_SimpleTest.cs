@@ -9,25 +9,25 @@ namespace TestProject.MSTest.Tests
 
         [TestMethod]
         //[JiraIssueKey("EPMFARMATS-2464")]
-        public void TestMethod()
+        public void TestParametersSetting()
         {
-            //JiraInfoProvider.SaveParameter("Value1", "Sample");
-            //JiraInfoProvider.SaveParameter("Value2", "Sample");
-            //JiraInfoProvider.SaveParameter("Value3", "Sample");
+            //JiraInfoProvider.SaveParameter("Name", "John");
+            //JiraInfoProvider.SaveParameter("Surname", "Smith");
+            //JiraInfoProvider.SaveParameter("Email", "Mr_Smith@gmail.com");
 
             Assert.IsTrue(true);
         }
 
         [TestMethod]
         //[JiraIssueKey("EPMFARMATS-2472")]
-        public void TestExeptionInTest1()
+        public void TestExeptionInTest_1()
         {
             throw new Exception("Testing test with exeption");
         }
 
         [TestMethod]
         //[JiraIssueKey("EPMFARMATS-2472")]
-        public void TestExeptionInTest2()
+        public void TestExeptionInTest_2()
         {
             //JiraInfoProvider.SaveParameter("Value4", "Sample4");
             throw new Exception("Testing test with exeption");
