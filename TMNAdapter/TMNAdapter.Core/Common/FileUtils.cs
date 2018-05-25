@@ -1,22 +1,21 @@
-﻿using NUnit.Framework;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
-using TMNAdapter.Entities;
+using TMNAdapter.Core.Entities;
 
-namespace TMNAdapter.Utilities
+namespace TMNAdapter.Core.Common
 {
     // FileUtils is a util class which provides useful methods for file writing
     public class FileUtils
 	{
-		private readonly static string TARGET_DIR = "\\target";
-		private readonly static string ATTACHMENTS_DIR = TARGET_DIR + "\\attachments";
+	    private const string TARGET_DIR = "\\target";
+	    private const string ATTACHMENTS_DIR = TARGET_DIR + "\\attachments";
 
 	    static FileUtils()
 	    {
-	        string targetDirectory = TestContext.CurrentContext.WorkDirectory + ATTACHMENTS_DIR;
+	        string targetDirectory = AppDomain.CurrentDomain.BaseDirectory + ATTACHMENTS_DIR;
 	        if (!Directory.Exists(targetDirectory))
 	        {
 	            Directory.CreateDirectory(targetDirectory);
@@ -69,7 +68,7 @@ namespace TMNAdapter.Utilities
             {
                 string fileName = file.Name;
                 string relativeFilePath = ATTACHMENTS_DIR;
-                string currentDirectory = TestContext.CurrentContext.WorkDirectory;
+                string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 string copyPath = currentDirectory + relativeFilePath;
 
                 if (File.Exists(Path.Combine(copyPath, fileName)))
@@ -97,9 +96,9 @@ namespace TMNAdapter.Utilities
         // Test Management Jira plugin.
         /// <param name="result"> The list of issues for writing </param>
         /// <param name="relativefilePath"> The path to output file </param>
-        public static void WriteXml(TestResult result, String relativefilePath)
+        public static void WriteXml(TestResult result, string relativefilePath)
         {
-            string testResultDir = TestContext.CurrentContext.WorkDirectory + TARGET_DIR;
+            string testResultDir = AppDomain.CurrentDomain.BaseDirectory + TARGET_DIR;
             if (!Directory.Exists(testResultDir))
             {
                 Directory.CreateDirectory(testResultDir);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace TMNAdapter.Entities
+namespace TMNAdapter.Core.Entities
 {
     [Serializable, XmlRoot("test")]
     public class Issue

@@ -1,4 +1,4 @@
-﻿namespace TMNAdapter.Entities
+﻿namespace TMNAdapter.Core.Entities
 {
     public enum Status
 	{

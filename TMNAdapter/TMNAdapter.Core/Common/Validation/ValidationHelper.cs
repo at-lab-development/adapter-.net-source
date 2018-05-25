@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
-namespace TMNAdapter.Common.Validation
+namespace TMNAdapter.Core.Common.Validation
 {
     /// <summary>
     /// Helper class that provides a set of validation methods
     /// </summary>
-    static class ValidationHelper
+    public static class ValidationHelper
     {
         /// <summary>
         /// Validates whether a specified <paramref name="argument"/> is null

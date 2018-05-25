@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TMNAdapter.Entities;
+﻿using System.Collections.Generic;
+using TMNAdapter.Core.Entities;
 
-namespace TMNAdapter.Common.Models
+namespace TMNAdapter.Core.Common.Models
 {
     public class IssueModel
     {

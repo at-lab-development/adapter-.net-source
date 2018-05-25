@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
-using TMNAdapter.Common.Validation;
+using TMNAdapter.Core.Common.Validation;
 
 namespace TMNAdapter.Tracking.Attributes
 {

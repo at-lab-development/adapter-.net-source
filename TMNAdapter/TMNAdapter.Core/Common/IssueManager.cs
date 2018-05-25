@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TMNAdapter.Common.Models;
-using TMNAdapter.Entities;
+using TMNAdapter.Core.Common.Models;
+using TMNAdapter.Core.Entities;
 
-namespace TMNAdapter.Common
+namespace TMNAdapter.Core.Common
 {
     public static class IssueManager
     {

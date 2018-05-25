@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
+using TMNAdapter.Core.Common;
 
 namespace TMNAdapter.Tracking.Attributes
 {
@@ -14,7 +15,7 @@ namespace TMNAdapter.Tracking.Attributes
 
         public void AfterTest(ITest test)
         {
-            ExecutionTracker.GenerateTestResultXml();
+            TestReporter.GenerateTestResultXml();
         }
 
         public ActionTargets Targets => ActionTargets.Suite;
