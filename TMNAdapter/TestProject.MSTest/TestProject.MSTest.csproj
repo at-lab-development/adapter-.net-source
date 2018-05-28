@@ -55,9 +55,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TMNAdapter\TMNAdapter.csproj">
-      <Project>{9fd4348e-0974-4245-b439-40f4662f5948}</Project>
-      <Name>TMNAdapter</Name>
+    <ProjectReference Include="..\TMNAdapter.MSTest\TMNAdapter.MSTest.csproj">
+      <Project>{ea0ec2c2-bf96-46d3-a2ad-810abbb571f9}</Project>
+      <Name>TMNAdapter.MSTest</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
