@@ -1,19 +1,23 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace TestProject.MSTest.Tests
 {
     [TestClass]
-    class MS_SimpleTest
+    class MS_FirstSampleTests
     {
 
         [TestMethod]
-        //[JiraIssueKey("EPMFARMATS-2464")]
+       // [JiraIssueKey("EPMFARMATS-2464")]
         public void TestMethod()
         {
-            //JiraInfoProvider.SaveParameter("Value1", "Sample");
-            //JiraInfoProvider.SaveParameter("Value2", "Sample");
-            //JiraInfoProvider.SaveParameter("Value3", "Sample");
+           // JiraInfoProvider.SaveParameter("Value1", "Sample");
+           // JiraInfoProvider.SaveParameter("Value2", "Sample");
+           // JiraInfoProvider.SaveParameter("Value3", "Sample");
 
             Assert.IsTrue(true);
         }
@@ -22,7 +26,7 @@ namespace TestProject.MSTest.Tests
         //[JiraIssueKey("EPMFARMATS-2472")]
         public void TestExeptionInTest1()
         {
-            throw new Exception("Testing test with exception");
+            throw new Exception("Testing test with exeption");
         }
 
         [TestMethod]
@@ -30,8 +34,7 @@ namespace TestProject.MSTest.Tests
         public void TestExeptionInTest2()
         {
             //JiraInfoProvider.SaveParameter("Value4", "Sample4");
-            throw new Exception("Testing test with exception");
+            throw new Exception("Testing test with exeption");
         }
     }
-}
-
+ }
