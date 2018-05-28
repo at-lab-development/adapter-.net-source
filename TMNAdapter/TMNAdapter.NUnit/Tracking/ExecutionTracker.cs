@@ -8,7 +8,7 @@ namespace TMNAdapter.Tracking
 {
     public class ExecutionTracker
     {
-        public static void SendTestResult(ITest test, string key, long time)
+        public static void SendTestResult(string key, long time)
         {
             var issueModel = new IssueModel()
             {

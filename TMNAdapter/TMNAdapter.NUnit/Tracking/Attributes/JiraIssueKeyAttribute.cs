@@ -41,7 +41,7 @@ namespace TMNAdapter.Tracking.Attributes
         public void AfterTest(ITest test)
         {
             _stopWatch.Stop();
-            ExecutionTracker.SendTestResult(test, Key, _stopWatch.ElapsedMilliseconds);
+            ExecutionTracker.SendTestResult(Key, _stopWatch.ElapsedMilliseconds);
         }
     }
 }
