@@ -9,7 +9,7 @@ namespace TestProject.MSTest.Tests
         [TestInitialize]
         public void Initialize()
         {
-            //Screenshoter.Initialize(Browser.Instance.GetDriver());
+            Browser.Instance.GetDriver();
         }
 
         [TestMethod]
