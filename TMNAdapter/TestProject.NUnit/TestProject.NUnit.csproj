@@ -9,8 +9,8 @@
     <ProjectGuid>{DB84EEC7-BD59-4369-A64C-E244CE359AC5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestProject</RootNamespace>
-    <AssemblyName>TestProject</AssemblyName>
+    <RootNamespace>TestProject.NUnit</RootNamespace>
+    <AssemblyName>TestProject.NUnit</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
