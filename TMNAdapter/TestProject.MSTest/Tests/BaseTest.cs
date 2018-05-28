@@ -15,7 +15,7 @@ namespace TestProject.MSTest.Tests
         protected TestContext TestContext { get; set; }
 
         [ClassInitialize]
-        public void OneTimeSetUp()
+        public void ClassOneTimeSetUp()
         {
             JiraInfoProvider = new JiraInfoProvider(TestContext);
         }

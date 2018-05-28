@@ -10,16 +10,14 @@ namespace TMNAdapter.Core.Tracking
 {
     public class BaseJiraInfoProvider
     {
-        public virtual string GetJiraTestKey()
+        protected virtual string GetJiraIssueKey<TAttribute>() where TAttribute : BaseJiraIssueKeyAttribute
         {
-            return AnnotationTracker.GetAttributeInCallStack<BaseJiraIssueKeyAttribute>()?.Key;
+            return AnnotationTracker.GetAttributeInCallStack<TAttribute>()?.Key;
         }
 
-        public virtual IssueModel SaveAttachment(FileInfo file)
+        public virtual IssueModel SaveAttachment(string issueKey, FileInfo file)
         {
-            string key = GetJiraTestKey();
-
-            if (key == null || !file.Exists)
+            if (issueKey == null || !file.Exists)
             {
                 return null;
             }
@@ -43,23 +41,21 @@ namespace TMNAdapter.Core.Tracking
 
             return new IssueModel()
             {
-                Key = key,
+                Key = issueKey,
                 AttachmentFilePaths = new List<string>() {targetFilePath}
             };
         }
 
-        public virtual IssueModel SaveParameter<T>(string title, T value)
+        public virtual IssueModel SaveParameter<T>(string issueKey, string title, T value)
         {
-            string key = GetJiraTestKey();
-
-            if (key == null)
+            if (issueKey == null)
             {
                 return null;
             }
 
             return new IssueModel()
             {
-                Key = key,
+                Key = issueKey,
                 Parameters = new List<TestParameters>()
                 {
                     new TestParameters(title, value != null ? value.ToString() : "null")
