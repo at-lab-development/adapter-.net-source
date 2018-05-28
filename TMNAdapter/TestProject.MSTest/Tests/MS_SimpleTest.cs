@@ -22,7 +22,7 @@ namespace TestProject.MSTest.Tests
         //[JiraIssueKey("EPMFARMATS-2472")]
         public void TestExeptionInTest_1()
         {
-            throw new Exception("Testing test with exeption");
+            throw new Exception("Testing test with exception");
         }
 
         [TestMethod]
@@ -30,7 +30,7 @@ namespace TestProject.MSTest.Tests
         public void TestExeptionInTest_2()
         {
             //JiraInfoProvider.SaveParameter("Value4", "Sample4");
-            throw new Exception("Testing test with exeption");
+            throw new Exception("Testing test with exception");
         }
     }
 }

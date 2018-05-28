@@ -22,7 +22,7 @@ namespace TestProject.MSTest.Tests
             //JiraInfoProvider.SaveParameter("Author", author);
             //JiraInfoProvider.SaveParameter("Title", page.GetVideoTitle());
 
-            Assert.AreEqual("author", "EPAM Systems Global");
+            Assert.AreEqual(author, "EPAM Systems Global");
         }
 
         [TestMethod]
