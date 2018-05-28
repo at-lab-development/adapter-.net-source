@@ -8,6 +8,13 @@ namespace TMNAdapter.Tracking
 {
     public class ExecutionTracker
     {
+        private static JiraInfoProvider _jiraInfoProvider;
+
+        static ExecutionTracker()
+        {
+            _jiraInfoProvider = new JiraInfoProvider();
+        }
+
         public static void SendTestResult(string key, long time)
         {
             var issueModel = new IssueModel()
@@ -33,7 +40,7 @@ namespace TMNAdapter.Tracking
 
         private static void FailedTest(IssueModel issueModel)
         {
-            JiraInfoProvider.SaveStackTrace(issueModel.Key, TestContext.CurrentContext.Result.StackTrace);
+            _jiraInfoProvider.SaveStackTrace(issueModel.Key, TestContext.CurrentContext.Result.StackTrace);
 
             issueModel.Summary = TestContext.CurrentContext.Result.Message;
             issueModel.Status = Status.Failed;

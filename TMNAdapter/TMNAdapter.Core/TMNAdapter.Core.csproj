@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tracking\Attributes\AnnotationTracker.cs" />
+    <Compile Include="Tracking\Attributes\BaseJiraIssueKeyAttribute.cs" />
     <Compile Include="Common\FileUtils.cs" />
     <Compile Include="Common\IssueManager.cs" />
     <Compile Include="Common\Models\IssueModel.cs" />
@@ -50,6 +52,7 @@
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\TestParameters.cs" />
     <Compile Include="Entities\TestResult.cs" />
+    <Compile Include="Tracking\BaseJiraInfoProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

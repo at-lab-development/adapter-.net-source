@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace TestProject.Common
+namespace TestProject.NUnit.Common
 {
     public class YouTubePage
     {

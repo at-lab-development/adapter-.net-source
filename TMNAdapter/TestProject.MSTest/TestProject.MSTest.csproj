@@ -48,6 +48,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tests\BaseTest.cs" />
     <Compile Include="Tests\BasicTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -55,6 +56,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TMNAdapter.Core\TMNAdapter.Core.csproj">
+      <Project>{DA834DEF-D7F5-4EB2-AE17-EAD30D86E123}</Project>
+      <Name>TMNAdapter.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TMNAdapter.MSTest\TMNAdapter.MSTest.csproj">
       <Project>{ea0ec2c2-bf96-46d3-a2ad-810abbb571f9}</Project>
       <Name>TMNAdapter.MSTest</Name>

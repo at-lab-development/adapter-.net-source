@@ -1,9 +1,9 @@
-﻿using OpenQA.Selenium;
-using System;
+﻿using System;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
-namespace TestProject.Common
+namespace TestProject.NUnit.Common
 {
     public class Browser
     {
