@@ -10,9 +10,6 @@ namespace TMNAdapter.Tracking
 {
     public class JiraInfoProvider
     {
-        private static Dictionary<string, List<TestParameters>> jiraKeyParameters = new Dictionary<string, List<TestParameters>>();
-        private static Dictionary<string, List<string>> jiraKeyAttachments = new Dictionary<string, List<string>>();
-
         internal static string GetJiraTestKey()
         {
             return AnnotationTracker.GetAttributeInCallStack<JiraIssueKeyAttribute>()?.Key;
@@ -80,29 +77,6 @@ namespace TMNAdapter.Tracking
                 Key = issueKey,
                 AttachmentFilePaths = new List<string>() {targetFilePath}
             });
-        }
-
-        public static void CleanFor(string issueKey)
-        {
-            if (jiraKeyParameters.ContainsKey(issueKey))
-            {
-                jiraKeyParameters.Remove(issueKey);
-            }
-
-            if (jiraKeyAttachments.ContainsKey(issueKey))
-            {
-                jiraKeyAttachments.Remove(issueKey);
-            }
-        }
-
-        public static List<TestParameters> GetIssueParameters(string issueKey)
-        {
-            return jiraKeyParameters.ContainsKey(issueKey) ? jiraKeyParameters[issueKey] : null;
-        }
-
-        public static List<string> GetIssueAttachments(string issueKey)
-        {
-            return jiraKeyAttachments.ContainsKey(issueKey) ? jiraKeyAttachments[issueKey] : null;
         }
     }
 }
