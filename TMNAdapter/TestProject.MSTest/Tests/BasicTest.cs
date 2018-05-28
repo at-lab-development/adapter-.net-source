@@ -3,7 +3,7 @@ using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TMNAdapter.Tracking;
 
-namespace TestProject.MSTest
+namespace TestProject.MSTest.Tests
 {
     [TestClass]
     public class BasicTest
