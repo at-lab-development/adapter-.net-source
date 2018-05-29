@@ -75,7 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TMNAdapter.Core\TMNAdapter.Core.csproj">
-      <Project>{DA834DEF-D7F5-4EB2-AE17-EAD30D86E123}</Project>
+      <Project>{da834def-d7f5-4eb2-ae17-ead30d86e123}</Project>
       <Name>TMNAdapter.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\TMNAdapter.NUnit\TMNAdapter.NUnit.csproj">
