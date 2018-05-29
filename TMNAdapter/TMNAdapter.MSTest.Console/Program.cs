@@ -1,20 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using System.Xml.Linq;
 using TMNAdapter.Core.Common.Models;
 using TMNAdapter.Core.Entities;
 
-namespace TMNAdapter.MSTest
+namespace TMNAdapter.MSTest.Console
 {
-    class MSTestTRXParser
+    public class Program
     {
+        static void Main(string[] args)
+        {
+            Program pr = new Program();
+            var tests = pr.ParseTRXToIssueModel();
+        }
+
         /// <summary>
         /// Parse TRXFile to test objects. 
         /// </summary>
         /// <returns>List of IssueModels for each test</returns>
         public List<IssueModel> ParseTRXToIssueModel()
         {
-            IssueModel im = new IssueModel();
             List<IssueModel> tests = new List<IssueModel>();
 
             XDocument xdoc = XDocument.Load("ResultTMNFile.trx");//path to TRXFile
@@ -23,12 +29,14 @@ namespace TMNAdapter.MSTest
             if (xdoc != null)
                 foreach (var child in xdoc.Descendants(df + "Results").Elements())
                 {
+                    IssueModel im = new IssueModel();
+
                     string nameAttribute = child.Attribute("testName").Value;
 
                     string durationAttribute = child.Attribute("duration").Value;
                     DateTime dt = Convert.ToDateTime(durationAttribute);
                     long time = dt.TimeOfDay.Milliseconds;
-
+                    im.Time = time;
                     string statusAttribute = child.Attribute("outcome").Value;
                     string message = string.Empty;
                     string stackTrace = string.Empty;
@@ -36,7 +44,7 @@ namespace TMNAdapter.MSTest
                     switch (statusAttribute)
                     {
                         case "Failed":
-                                im.Status = Status.Failed;
+                            im.Status = Status.Failed;
                             break;
                         case "Passed":
                             im.Status = Status.Passed;
