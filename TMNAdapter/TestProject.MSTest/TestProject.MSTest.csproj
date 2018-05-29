@@ -67,7 +67,7 @@
     <Compile Include="Tests\MS_YouTubeTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Recources\jenkins-oops.jpg" />
+    <Content Include="Resources\jenkins-oops.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
