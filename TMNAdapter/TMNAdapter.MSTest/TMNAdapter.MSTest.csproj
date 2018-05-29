@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MSTestTRXParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +59,10 @@
     <ProjectReference Include="..\TMNAdapter.Core\TMNAdapter.Core.csproj">
       <Project>{da834def-d7f5-4eb2-ae17-ead30d86e123}</Project>
       <Name>TMNAdapter.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TMNAdapter.NUnit\TMNAdapter.NUnit.csproj">
+      <Project>{9FD4348E-0974-4245-B439-40F4662F5948}</Project>
+      <Name>TMNAdapter.NUnit</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
