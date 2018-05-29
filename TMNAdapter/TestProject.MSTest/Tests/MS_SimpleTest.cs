@@ -4,7 +4,7 @@ using System;
 namespace TestProject.MSTest.Tests
 {
     [TestClass]
-    class MS_SimpleTest
+    public class MS_SimpleTest
     {
 
         [TestMethod]
