@@ -5,7 +5,9 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using TMNAdapter.Core.Common;
 using TMNAdapter.Core.Common.Models;
+using TMNAdapter.Core.Tracking.Attributes;
 using TMNAdapter.Tracking;
+using TMNAdapter.Tracking.Attributes;
 
 namespace TMNAdapter.Utilities
 {
@@ -40,7 +42,8 @@ namespace TMNAdapter.Utilities
             var screenshot = ((ITakesScreenshot)driverInstance).GetScreenshot();
             screenshot.SaveAsFile(fullScreenshotPath, ScreenshotImageFormat.Jpeg);
 
-            string issueKey = JiraInfoProvider.GetJiraTestKey();
+            Type classType = Type.GetType(TestContext.CurrentContext.Test.ClassName);
+            string issueKey = AnnotationTracker.GetAttributeByMethodName<JiraIssueKeyAttribute>(classType, TestContext.CurrentContext.Test.Name).Key;
             IssueManager.AddIssue(new IssueModel()
             {
                 Key = issueKey,

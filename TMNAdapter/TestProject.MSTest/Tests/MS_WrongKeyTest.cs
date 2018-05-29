@@ -4,7 +4,7 @@ using System;
 namespace TestProject.MSTest.Tests
 {
     [TestClass]
-    public class MS_WrongKeyTest
+    public class MS_WrongKeyTest : BaseTest
     {
         [TestMethod]
         //[JiraIssueKey("WRONGKEY")]

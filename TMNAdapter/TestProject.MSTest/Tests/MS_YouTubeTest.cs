@@ -4,7 +4,7 @@ using TestProject.MSTest.Common;
 namespace TestProject.MSTest.Tests
 {
     [TestClass]
-    public class YouTubeTest
+    public class YouTubeTest : BaseTest
     {
         [TestInitialize]
         public void Initialize()
