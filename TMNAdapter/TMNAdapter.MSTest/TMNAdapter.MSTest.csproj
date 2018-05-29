@@ -51,6 +51,8 @@
   <ItemGroup>
     <Compile Include="MSTestTRXParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tracking\Attributes\JiraIssueKeyAttribute.cs" />
+    <Compile Include="Tracking\JiraInfoProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

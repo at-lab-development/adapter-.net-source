@@ -1,13 +1,12 @@
 ﻿using NUnit.Framework;
-using TestProject.Common;
-using TMNAdapter.Tracking;
+using TestProject.NUnit.Common;
 using TMNAdapter.Tracking.Attributes;
 using TMNAdapter.Utilities;
 
-namespace TestProject
+namespace TestProject.NUnit.Tests
 {
     [TestFixture]
-    public class YouTubeTest
+    public class YouTubeTest : BaseTest
     {
         [SetUp]
         public void Initialize()
@@ -39,7 +38,6 @@ namespace TestProject
             JiraInfoProvider.SaveParameter("Author", author);
             JiraInfoProvider.SaveParameter("Title", title);
 
-      //      Screenshoter.Initialize(Browser.Driver);
             Screenshoter.TakeScreenshot();
 
             Assert.AreEqual("Atlassian", author);
@@ -53,6 +51,3 @@ namespace TestProject
         }
     }
 }
-/*
-@Listeners(com.epam.jira.testng.ExecutionListener.class)
-}*/

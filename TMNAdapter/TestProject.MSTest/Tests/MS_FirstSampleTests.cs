@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace TestProject.MSTest.Tests
 {
     [TestClass]
-    public class MS_FirstSampleTests
+    public class MS_FirstSampleTests : BaseTest
     {
 
         [TestMethod]

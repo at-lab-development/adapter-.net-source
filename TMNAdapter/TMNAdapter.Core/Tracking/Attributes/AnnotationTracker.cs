@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
-namespace TMNAdapter.Tracking
+namespace TMNAdapter.Core.Tracking.Attributes
 {
     /// <summary>
     /// Tracker is responsible for access to the attribute, 

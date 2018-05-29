@@ -4,10 +4,10 @@ using NUnit.Framework;
 using TMNAdapter.Tracking;
 using TMNAdapter.Tracking.Attributes;
 
-namespace TestProject
+namespace TestProject.NUnit.Tests
 {
     [TestFixture]
-    public class SimpleTest
+    public class SimpleTest : BaseTest
     {
         [Test]
         [JiraIssueKey("EPMFARMATS-2447")]
@@ -34,7 +34,3 @@ namespace TestProject
         }
     }
 }
-/*
-@Listeners(com.epam.jira.testng.ExecutionListener.class)
-public class SimpleTest {}
- */

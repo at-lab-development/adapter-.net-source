@@ -2,13 +2,12 @@
 using NUnit.Framework;
 using TMNAdapter.Tracking;
 using TMNAdapter.Tracking.Attributes;
-using TMNAdapter.Utilities;
 
 [assembly: AssemblyAction]
-namespace TestProject
+namespace TestProject.NUnit.Tests
 {
     [TestFixture]
-    public class FirstSampleTests
+    public class FirstSampleTests : BaseTest
     {
         [Test]
         [JiraIssueKey("EPMFARMATS-2464")]
@@ -38,6 +37,3 @@ namespace TestProject
         }
     }
 }
-/*
-@Listeners(ExecutionListener.class)
- */

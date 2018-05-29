@@ -1,21 +1,30 @@
 ﻿using System;
 using System.IO;
-using TMNAdapter.Core.Common;
+using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TMNAdapter.Core.Common.Models;
+using TMNAdapter.Core.Entities;
 using TMNAdapter.Core.Tracking;
-using TMNAdapter.Tracking.Attributes;
+using TMNAdapter.MSTest.Tracking.Attributes;
 
-namespace TMNAdapter.Tracking
+namespace TMNAdapter.MSTest.Tracking
 {
     public class JiraInfoProvider : BaseJiraInfoProvider
     {
+        private readonly TestContext _testContext;
+
+        public JiraInfoProvider(TestContext testContext)
+        {
+            _testContext = testContext;
+        }
+
         public IssueModel SaveAttachment(FileInfo file)
         {
             string issueKey = GetJiraIssueKey<JiraIssueKeyAttribute>();
 
             IssueModel issue = base.SaveAttachment(issueKey, file);
 
-            IssueManager.AddIssue(issue);
+            _testContext.AddResultFile(issue.AttachmentFilePaths.FirstOrDefault());
 
             return issue;
         }
@@ -26,7 +35,11 @@ namespace TMNAdapter.Tracking
 
             IssueModel issue = base.SaveParameter(issueKey, title, value);
 
-            IssueManager.AddIssue(issue);
+            TestParameters testParameters = issue.Parameters.FirstOrDefault();
+            if (testParameters != null)
+            {
+                _testContext.WriteLine($"{testParameters.Title}:{testParameters.Value}");
+            }
 
             return issue;
         }
@@ -35,7 +48,7 @@ namespace TMNAdapter.Tracking
         {
             IssueModel issue = base.SaveStackTrace(issueKey, stackTrace);
 
-            IssueManager.AddIssue(issue);
+            _testContext.AddResultFile(issue.AttachmentFilePaths.FirstOrDefault());
 
             return issue;
         }

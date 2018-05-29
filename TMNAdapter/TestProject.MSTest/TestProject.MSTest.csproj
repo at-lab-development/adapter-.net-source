@@ -59,6 +59,8 @@
     <Compile Include="Common\Browser.cs" />
     <Compile Include="Common\YouTubePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\BaseTest.cs" />
+    <Compile Include="Tests\MS_AttachmentsTest.cs" />
     <Compile Include="Tests\MS_FirstSampleTests.cs" />
     <Compile Include="Tests\MS_SimpleTest.cs" />
     <Compile Include="Tests\MS_WrongKeyTest.cs" />
@@ -69,6 +71,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TMNAdapter.Core\TMNAdapter.Core.csproj">
+      <Project>{DA834DEF-D7F5-4EB2-AE17-EAD30D86E123}</Project>
+      <Name>TMNAdapter.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TMNAdapter.MSTest\TMNAdapter.MSTest.csproj">
+      <Project>{EA0EC2C2-BF96-46D3-A2AD-810ABBB571F9}</Project>
+      <Name>TMNAdapter.MSTest</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

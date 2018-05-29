@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Common\Browser.cs" />
     <Compile Include="Common\YouTubePage.cs" />
+    <Compile Include="Tests\BaseTest.cs" />
     <Compile Include="Tests\FirstSampleTests.cs" />
     <Compile Include="Tests\SimpleTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,6 +74,10 @@
     <Content Include="Resources\jenkins-oops.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TMNAdapter.Core\TMNAdapter.Core.csproj">
+      <Project>{da834def-d7f5-4eb2-ae17-ead30d86e123}</Project>
+      <Name>TMNAdapter.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TMNAdapter.NUnit\TMNAdapter.NUnit.csproj">
       <Project>{9fd4348e-0974-4245-b439-40f4662f5948}</Project>
       <Name>TMNAdapter.NUnit</Name>
