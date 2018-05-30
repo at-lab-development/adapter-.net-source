@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using System.Xml.Linq;
+using TMNAdapter.Core.Common;
 using TMNAdapter.Core.Common.Models;
 using TMNAdapter.Core.Entities;
 
@@ -11,32 +11,28 @@ namespace TMNAdapter.MSTest.Console
     {
         static void Main(string[] args)
         {
-            Program pr = new Program();
-            var tests = pr.ParseTRXToIssueModel();
+            
         }
 
         /// <summary>
         /// Parse TRXFile to test objects. 
         /// </summary>
         /// <returns>List of IssueModels for each test</returns>
-        public List<IssueModel> ParseTRXToIssueModel()
+        public static void ParseTRXToIssueModel()
         {
-            List<IssueModel> tests = new List<IssueModel>();
-
             XDocument xdoc = XDocument.Load("ResultTMNFile.trx");//path to TRXFile
             XNamespace df = xdoc.Root.Name.Namespace;
 
             if (xdoc != null)
                 foreach (var child in xdoc.Descendants(df + "Results").Elements())
                 {
-                    IssueModel im = new IssueModel();
-
+                    IssueModel issue = new IssueModel();
                     string nameAttribute = child.Attribute("testName").Value;
 
                     string durationAttribute = child.Attribute("duration").Value;
                     DateTime dt = Convert.ToDateTime(durationAttribute);
                     long time = dt.TimeOfDay.Milliseconds;
-                    im.Time = time;
+
                     string statusAttribute = child.Attribute("outcome").Value;
                     string message = string.Empty;
                     string stackTrace = string.Empty;
@@ -44,10 +40,10 @@ namespace TMNAdapter.MSTest.Console
                     switch (statusAttribute)
                     {
                         case "Failed":
-                            im.Status = Status.Failed;
+                            issue.Status = Status.Failed;
                             break;
                         case "Passed":
-                            im.Status = Status.Passed;
+                            issue.Status = Status.Passed;
                             break;
                         default:
                             break;
@@ -63,11 +59,14 @@ namespace TMNAdapter.MSTest.Console
                         stackTrace = item.Value;
                     }
 
-                    im.Key = nameAttribute;//todo: Temporary. Change name of test to Key attribute
-                    im.Summary = string.Concat(message, stackTrace);
-                    tests.Add(im);
+                    issue.Key = nameAttribute;//todo: Temporary. Change name of test to Key attribute
+                    issue.Summary = string.Concat(message, stackTrace);
+                    issue.Time = time;
+
+                    IssueManager.AddIssue(issue);
                 }
-            return tests;
+
+            TestReporter.GenerateTestResultXml();
         }
     }
 }
