@@ -25,10 +25,11 @@ namespace TestProject.MSTest.Tests
         }
 
         [TestMethod]
-        [Ignore("Test ignored tests behavior")]
-        //[JiraIssueKey("EPMFARMATS-2471")]
+        [JiraIssueKey("EPMFARMATS-2471")]
         public void IgnoredTest()
         {
+            JiraInfoProvider.SaveParameter("Email", "1@gmail.com");
+
             Assert.IsTrue(true);
         }
     }
