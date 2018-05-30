@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TMNAdapter.Core.Common;
 using TMNAdapter.Core.Common.Models;
 using TMNAdapter.Core.Entities;
 using TMNAdapter.Core.Tracking;
+using TMNAdapter.Core.Tracking.Attributes;
 using TMNAdapter.MSTest.Tracking.Attributes;
 
 namespace TMNAdapter.MSTest.Tracking
@@ -24,7 +27,7 @@ namespace TMNAdapter.MSTest.Tracking
 
             IssueModel issue = base.SaveAttachment(issueKey, file);
 
-            _testContext.AddResultFile(issue.AttachmentFilePaths.FirstOrDefault());
+            IssueManager.AddIssue(issue);
 
             return issue;
         }
@@ -35,11 +38,7 @@ namespace TMNAdapter.MSTest.Tracking
 
             IssueModel issue = base.SaveParameter(issueKey, title, value);
 
-            TestParameters testParameters = issue.Parameters.FirstOrDefault();
-            if (testParameters != null)
-            {
-                _testContext.WriteLine($"{testParameters.Title}:{testParameters.Value}");
-            }
+            IssueManager.AddIssue(issue);
 
             return issue;
         }
@@ -48,9 +47,19 @@ namespace TMNAdapter.MSTest.Tracking
         {
             IssueModel issue = base.SaveStackTrace(issueKey, stackTrace);
 
-            _testContext.AddResultFile(issue.AttachmentFilePaths.FirstOrDefault());
+            IssueManager.AddIssue(issue);
 
             return issue;
+        }
+
+        public void SubmitTestResults()
+        {
+            Type classType = Type.GetType(_testContext.FullyQualifiedTestClassName);
+            string issueKey = AnnotationTracker.GetAttributeByMethodName<JiraIssueKeyAttribute>(classType, _testContext.TestName).Key;
+
+            IssueModel issueModel = IssueManager.GetIssue(issueKey);
+
+            // TODO: implement issueModel serialization to JSON format
         }
     }
 }

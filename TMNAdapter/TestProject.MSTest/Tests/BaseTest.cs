@@ -13,5 +13,11 @@ namespace TestProject.MSTest.Tests
         {
             JiraInfoProvider = new JiraInfoProvider(testContext);
         }
+
+        [TestCleanup]
+        public static void TestCleanup(TestContext testContext)
+        {
+            JiraInfoProvider.SubmitTestResults();
+        }
     }
 }
