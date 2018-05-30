@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using TMNAdapter.Core.Common.Validation;
 using TMNAdapter.Core.Tracking.Attributes;
 
 namespace TMNAdapter.MSTest.Tracking.Attributes

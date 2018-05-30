@@ -6,7 +6,7 @@ using TMNAdapter.MSTest.Tracking.Attributes;
 namespace TestProject.MSTest.Tests
 {
     [TestClass]
-    class MS_AttachmentsTest : BaseTest
+    public class MS_AttachmentsTest : BaseTest
     {
         [TestMethod]
         [JiraIssueKey("EPMFARMATS-2447")]
@@ -18,8 +18,8 @@ namespace TestProject.MSTest.Tests
             JiraInfoProvider.SaveParameter("Random boolean", Convert.ToString(random.Next(0, 1)));
             JiraInfoProvider.SaveParameter("Some static string", "Hello, world!");
 
-            JiraInfoProvider.SaveAttachment(new FileInfo($@"{AppDomain.CurrentDomain.BaseDirectory}..\..\Resources\jenkins-oops.jpg"));
-            JiraInfoProvider.SaveAttachment(new FileInfo($@"{AppDomain.CurrentDomain.BaseDirectory}..\..\Resources\jenkins-oops.jpg"));
+            JiraInfoProvider.SaveAttachment(new FileInfo($@"{AppDomain.CurrentDomain.BaseDirectory}\..\..\Resources\jenkins-oops.jpg"));
+            JiraInfoProvider.SaveAttachment(new FileInfo($@"{AppDomain.CurrentDomain.BaseDirectory}\..\..\Resources\jenkins-oops.jpg"));
 
             Assert.Fail("Testing failed test behavior");
         }
