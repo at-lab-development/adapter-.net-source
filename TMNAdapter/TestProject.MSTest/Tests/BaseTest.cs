@@ -15,7 +15,7 @@ namespace TestProject.MSTest.Tests
         }
 
         [TestCleanup]
-        public static void TestCleanup(TestContext testContext)
+        public void TestCleanup()
         {
             JiraInfoProvider.SubmitTestResults();
         }

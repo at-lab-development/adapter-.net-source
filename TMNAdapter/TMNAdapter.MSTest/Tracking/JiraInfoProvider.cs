@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TMNAdapter.Core.Common;
 using TMNAdapter.Core.Common.Models;
@@ -54,12 +55,13 @@ namespace TMNAdapter.MSTest.Tracking
 
         public void SubmitTestResults()
         {
-            Type classType = Type.GetType(_testContext.FullyQualifiedTestClassName);
+            var a = Assembly.GetCallingAssembly().GetName().Name;
+            Type classType = Type.GetType($"{_testContext.FullyQualifiedTestClassName}, {a}");
             string issueKey = AnnotationTracker.GetAttributeByMethodName<JiraIssueKeyAttribute>(classType, _testContext.TestName).Key;
 
             IssueModel issueModel = IssueManager.GetIssue(issueKey);
 
-            // TODO: implement issueModel serialization to JSON format
+            _testContext.Properties.Add(issueModel.Key, issueModel);
         }
     }
 }
