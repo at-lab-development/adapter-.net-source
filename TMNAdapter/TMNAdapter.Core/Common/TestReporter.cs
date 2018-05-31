@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using TMNAdapter.Core.Common.Models;
 using TMNAdapter.Core.Entities;
 
@@ -32,6 +33,11 @@ namespace TMNAdapter.Core.Common
             }
 
             FileUtils.WriteXml(testResult, "tm-testng.xml");
+        }
+
+        public static string IssueToJson(IssueModel issueModel)
+        {
+            return JsonConvert.SerializeObject(issueModel);
         }
 
         private static string FormatTime(long? timeInMilliseconds)

@@ -61,7 +61,8 @@ namespace TMNAdapter.MSTest.Tracking
 
             IssueModel issueModel = IssueManager.GetIssue(issueKey);
 
-            _testContext.Properties.Add(issueModel.Key, issueModel);
+            string serializedIssue = TestReporter.IssueToJson(issueModel);
+            _testContext.WriteLine(serializedIssue);
         }
     }
 }

@@ -17,7 +17,6 @@ namespace TMNAdapter.MSTest.Tracking.Attributes
         /// <param name="key">JIRA issue key</param>
         public JiraIssueKeyAttribute(string key) : base(key)
         {
-            Console.WriteLine($"issueKey:{key}");
         }
     }
 }
