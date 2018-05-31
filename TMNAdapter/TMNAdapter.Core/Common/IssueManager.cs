@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TMNAdapter.Core.Common.Models;
+using TMNAdapter.Core.Common.Validation;
 using TMNAdapter.Core.Entities;
 
 namespace TMNAdapter.Core.Common
@@ -52,6 +53,13 @@ namespace TMNAdapter.Core.Common
         public static List<IssueModel> GetIssues()
         {
             return _issues;
+        }
+
+        public static IssueModel GetIssue(string issueKey)
+        {
+            ValidationHelper.NotNullOrEmpty(issueKey, nameof(issueKey));
+
+            return _issues.FirstOrDefault(x => x.Key == issueKey);
         }
     }
 }

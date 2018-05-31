@@ -1,30 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TMNAdapter.Core.Common;
 using TMNAdapter.Core.Common.Models;
 using TMNAdapter.Core.Entities;
 using TMNAdapter.Core.Tracking;
+using TMNAdapter.Core.Tracking.Attributes;
 using TMNAdapter.MSTest.Tracking.Attributes;
 
 namespace TMNAdapter.MSTest.Tracking
 {
     public class JiraInfoProvider : BaseJiraInfoProvider
     {
-        private readonly TestContext _testContext;
-
-        public JiraInfoProvider(TestContext testContext)
-        {
-            _testContext = testContext;
-        }
-
         public IssueModel SaveAttachment(FileInfo file)
         {
             string issueKey = GetJiraIssueKey<JiraIssueKeyAttribute>();
 
             IssueModel issue = base.SaveAttachment(issueKey, file);
 
-            _testContext.AddResultFile(issue.AttachmentFilePaths.FirstOrDefault());
+            IssueManager.AddIssue(issue);
 
             return issue;
         }
@@ -35,11 +32,7 @@ namespace TMNAdapter.MSTest.Tracking
 
             IssueModel issue = base.SaveParameter(issueKey, title, value);
 
-            TestParameters testParameters = issue.Parameters.FirstOrDefault();
-            if (testParameters != null)
-            {
-                _testContext.WriteLine($"{testParameters.Title}:{testParameters.Value}");
-            }
+            IssueManager.AddIssue(issue);
 
             return issue;
         }
@@ -48,9 +41,21 @@ namespace TMNAdapter.MSTest.Tracking
         {
             IssueModel issue = base.SaveStackTrace(issueKey, stackTrace);
 
-            _testContext.AddResultFile(issue.AttachmentFilePaths.FirstOrDefault());
+            IssueManager.AddIssue(issue);
 
             return issue;
+        }
+
+        public void SubmitTestResults(TestContext testContext)
+        {
+            var a = Assembly.GetCallingAssembly().GetName().Name;
+            Type classType = Type.GetType($"{testContext.FullyQualifiedTestClassName}, {a}");
+            string issueKey = AnnotationTracker.GetAttributeByMethodName<JiraIssueKeyAttribute>(classType, testContext.TestName).Key;
+
+            IssueModel issueModel = IssueManager.GetIssue(issueKey);
+
+            string serializedIssue = TestReporter.IssueToJson(issueModel);
+            testContext.WriteLine(serializedIssue);
         }
     }
 }
