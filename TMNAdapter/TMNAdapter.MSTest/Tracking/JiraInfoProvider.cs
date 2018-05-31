@@ -15,13 +15,6 @@ namespace TMNAdapter.MSTest.Tracking
 {
     public class JiraInfoProvider : BaseJiraInfoProvider
     {
-        private readonly TestContext _testContext;
-
-        public JiraInfoProvider(TestContext testContext)
-        {
-            _testContext = testContext;
-        }
-
         public IssueModel SaveAttachment(FileInfo file)
         {
             string issueKey = GetJiraIssueKey<JiraIssueKeyAttribute>();
@@ -53,16 +46,16 @@ namespace TMNAdapter.MSTest.Tracking
             return issue;
         }
 
-        public void SubmitTestResults()
+        public void SubmitTestResults(TestContext testContext)
         {
             var a = Assembly.GetCallingAssembly().GetName().Name;
-            Type classType = Type.GetType($"{_testContext.FullyQualifiedTestClassName}, {a}");
-            string issueKey = AnnotationTracker.GetAttributeByMethodName<JiraIssueKeyAttribute>(classType, _testContext.TestName).Key;
+            Type classType = Type.GetType($"{testContext.FullyQualifiedTestClassName}, {a}");
+            string issueKey = AnnotationTracker.GetAttributeByMethodName<JiraIssueKeyAttribute>(classType, testContext.TestName).Key;
 
             IssueModel issueModel = IssueManager.GetIssue(issueKey);
 
             string serializedIssue = TestReporter.IssueToJson(issueModel);
-            _testContext.WriteLine(serializedIssue);
+            testContext.WriteLine(serializedIssue);
         }
     }
 }
