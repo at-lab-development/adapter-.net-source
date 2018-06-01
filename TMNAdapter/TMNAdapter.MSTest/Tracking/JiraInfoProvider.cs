@@ -17,7 +17,7 @@ namespace TMNAdapter.MSTest.Tracking
     {
         public IssueModel SaveAttachment(FileInfo file)
         {
-            string issueKey = GetJiraIssueKey<JiraIssueKeyAttribute>();
+            string issueKey = AnnotationTracker.GetAttributeInCallStack<JiraTestMethodAttribute>()?.Key;
 
             IssueModel issue = base.SaveAttachment(issueKey, file);
 
@@ -28,7 +28,7 @@ namespace TMNAdapter.MSTest.Tracking
 
         public IssueModel SaveParameter<T>(string title, T value)
         {
-            string issueKey = GetJiraIssueKey<JiraIssueKeyAttribute>();
+            string issueKey = AnnotationTracker.GetAttributeInCallStack<JiraTestMethodAttribute>()?.Key;
 
             IssueModel issue = base.SaveParameter(issueKey, title, value);
 

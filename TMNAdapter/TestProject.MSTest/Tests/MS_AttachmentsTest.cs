@@ -8,8 +8,7 @@ namespace TestProject.MSTest.Tests
     [TestClass]
     public class MS_AttachmentsTest : BaseTest
     {
-        [TestMethod]
-        [JiraIssueKey("EPMFARMATS-2447")]
+        [JiraTestMethod("EPMFARMATS-2447")]
         public void TestAttachmentsAdding()
         {
             var random = new Random();
@@ -24,8 +23,7 @@ namespace TestProject.MSTest.Tests
             Assert.Fail("Testing failed test behavior");
         }
 
-        [TestMethod]
-        [JiraIssueKey("EPMFARMATS-2471")]
+        [JiraTestMethod("EPMFARMATS-2471")]
         public void IgnoredTest()
         {
             JiraInfoProvider.SaveParameter("Email", "1@gmail.com");
