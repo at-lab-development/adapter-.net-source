@@ -24,7 +24,7 @@ namespace TMNAdapter.Core.Common
                 testResult.Issues.Add(new Issue()
                 {
                     IssueKey = issueModel.Key,
-                    Summary = FormatSummary(issueModel.Summary),
+                    Summary = issueModel.Summary,
                     Status = issueModel.Status.ToString(),
                     Time = FormatTime(issueModel.Time),
                     Attachments = issueModel.AttachmentFilePaths,
@@ -44,11 +44,6 @@ namespace TMNAdapter.Core.Common
         {
             TimeSpan timeSpan = TimeSpan.FromMilliseconds(Convert.ToDouble(timeInMilliseconds));
             return $"{timeSpan.Minutes:D2}m:{timeSpan.Seconds:D2}s:{timeSpan.Milliseconds:D3}ms";
-        }
-
-        private static string FormatSummary(string message)
-        {
-            return string.IsNullOrWhiteSpace(message) ? null : message.Replace("\"", "");
         }
     }
 }
