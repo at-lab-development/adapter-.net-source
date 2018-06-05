@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMNAdapter.MSTest.Tracking.Attributes;
 
 namespace TestProject.MSTest.Tests
 {
@@ -11,29 +12,26 @@ namespace TestProject.MSTest.Tests
     public class MS_FirstSampleTests : BaseTest
     {
 
-        [TestMethod]
-       // [JiraIssueKey("EPMFARMATS-2464")]
+        [JiraTestMethod("EPMFARMATS-2464")]
         public void TestMethod()
         {
-           // JiraInfoProvider.SaveParameter("Value1", "Sample");
-           // JiraInfoProvider.SaveParameter("Value2", "Sample");
-           // JiraInfoProvider.SaveParameter("Value3", "Sample");
+            JiraInfoProvider.SaveParameter("Value1", "Sample");
+            JiraInfoProvider.SaveParameter("Value2", "Sample");
+            JiraInfoProvider.SaveParameter("Value3", "Sample");
 
             Assert.IsTrue(true);
         }
 
-        [TestMethod]
-        //[JiraIssueKey("EPMFARMATS-2472")]
+        [JiraTestMethod("EPMFARMATS-2472")]
         public void TestExeptionInTest1()
         {
             throw new Exception("Testing test with exeption");
         }
 
-        [TestMethod]
-        //[JiraIssueKey("EPMFARMATS-2472")]
+        [JiraTestMethod("EPMFARMATS-2472")]
         public void TestExeptionInTest2()
         {
-            //JiraInfoProvider.SaveParameter("Value4", "Sample4");
+            JiraInfoProvider.SaveParameter("Value4", "Sample4");
             throw new Exception("Testing test with exeption");
         }
     }
