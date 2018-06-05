@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TMNAdapter.Core.Common;
 using TMNAdapter.MSTest.Tracking;
 
 namespace TestProject.MSTest.Tests
@@ -12,6 +13,12 @@ namespace TestProject.MSTest.Tests
         public static void AssemblyOneTimeSetUp(TestContext testContext)
         {
             JiraInfoProvider = new JiraInfoProvider();
+        }
+
+        [AssemblyCleanup]
+        public static void AssemblyOneTimeCleanup()
+        {
+            TestReporter.GenerateTestResultXml();
         }
     }
 }

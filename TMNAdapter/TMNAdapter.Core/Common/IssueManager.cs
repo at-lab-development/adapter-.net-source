@@ -10,19 +10,24 @@ namespace TMNAdapter.Core.Common
     {
         private static List<IssueModel> _issues = new List<IssueModel>();
 
-        public static void AddIssue(IssueModel partialIssueModel)
+        public static IssueModel AddIssue(IssueModel partialIssueModel)
         {
+            if (partialIssueModel == null)
+            {
+                return null;
+            }
+
             IssueModel storedIssueModel = _issues.Find(x => x.Key == partialIssueModel.Key);
 
             if (storedIssueModel == null)
             {
                 _issues.Add(partialIssueModel);
-                return;
+                return partialIssueModel;
             }
 
             if (storedIssueModel.IsTestComplete.HasValue && storedIssueModel.IsTestComplete.Value)
             {
-                return;
+                return storedIssueModel;
             }
 
             if (partialIssueModel.AttachmentFilePaths != null && partialIssueModel.AttachmentFilePaths.Any())
@@ -48,6 +53,8 @@ namespace TMNAdapter.Core.Common
 
             _issues.Remove(storedIssueModel);
             _issues.Add(mergedIssueModel);
+
+            return mergedIssueModel;
         }
 
         public static List<IssueModel> GetIssues()

@@ -52,6 +52,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tracking\Attributes\JiraTestMethodAttribute.cs" />
     <Compile Include="Tracking\Attributes\JiraIssueKeyAttribute.cs" />
+    <Compile Include="Tracking\ExecutionTracker.cs" />
     <Compile Include="Tracking\JiraInfoProvider.cs" />
   </ItemGroup>
   <ItemGroup>

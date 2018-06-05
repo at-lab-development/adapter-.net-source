@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TMNAdapter.Core.Common.Validation;
 
 namespace TMNAdapter.MSTest.Tracking.Attributes
 {
@@ -21,6 +22,8 @@ namespace TMNAdapter.MSTest.Tracking.Attributes
         /// <param name="key">JIRA issue key</param>
         public JiraTestMethodAttribute(string key)
         {
+            ValidationHelper.MatchPattern(key, nameof(key), @"((?<!([A-Za-z]{1,10})-?)[A-Z]+-\d+)");
+
             Key = key;
         }
 
@@ -29,15 +32,7 @@ namespace TMNAdapter.MSTest.Tracking.Attributes
             TestResult[] results = base.Execute(testMethod);
             TestResult result = results.FirstOrDefault();
 
-            Debug.WriteLine(
-                $"{result.Outcome}\n" +
-                $"{result.DisplayName} {testMethod.TestMethodName}\n" +
-                $"{result.Duration}\n" +
-                $"{result.LogError}\n" +
-                $"{result.LogOutput}\n" +
-                $"{result.TestContextMessages}\n" +
-                $"{result.TestFailureException.Message}\n" +
-                $"{result.TestFailureException.StackTrace}\n");
+            ExecutionTracker.SubmitTestResult(Key, result);
 
             return results;
         }
