@@ -12,6 +12,11 @@ namespace TMNAdapter.MSTest.Tracking
 {
     public class JiraInfoProvider : BaseJiraInfoProvider
     {
+        internal JiraInfoProvider()
+        {
+
+        }
+
         public JiraInfoProvider(TestContext testContext)
         {
             FileUtils.Solution_dir = Path.GetDirectoryName(Path.GetDirectoryName(testContext.TestDir));
