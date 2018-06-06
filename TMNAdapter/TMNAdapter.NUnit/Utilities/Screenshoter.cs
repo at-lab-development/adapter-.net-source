@@ -13,7 +13,6 @@ namespace TMNAdapter.Utilities
 {
     public class Screenshoter
     {
-        private static readonly string SCREENSHOT_FILE = "scr_%s.png";
         private static IWebDriver driverInstance;
 
         public static void Initialize(IWebDriver driver)
@@ -38,7 +37,7 @@ namespace TMNAdapter.Utilities
 
             string screenshotName = $"screenshot_{DateTime.Now:yyyy-MM-ddTHH-mm-ss.fff}.jpeg";
             string relativeScreenshotPath = FileUtils.GetAttachmentsDir() + "\\" + screenshotName;
-            string fullScreenshotPath = TestContext.CurrentContext.WorkDirectory + relativeScreenshotPath;
+            string fullScreenshotPath = FileUtils.Solution_dir + relativeScreenshotPath;
             var screenshot = ((ITakesScreenshot)driverInstance).GetScreenshot();
             screenshot.SaveAsFile(fullScreenshotPath, ScreenshotImageFormat.Jpeg);
 

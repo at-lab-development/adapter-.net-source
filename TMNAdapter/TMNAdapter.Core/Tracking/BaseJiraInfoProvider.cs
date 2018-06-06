@@ -22,7 +22,7 @@ namespace TMNAdapter.Core.Tracking
                 return null;
             }
 
-            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string currentDirectory = FileUtils.Solution_dir;
             string targetFilePath = null;
 
             try

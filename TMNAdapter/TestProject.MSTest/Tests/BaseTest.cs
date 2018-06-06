@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
 using TMNAdapter.Core.Common;
 using TMNAdapter.MSTest.Tracking;
 
@@ -12,6 +13,8 @@ namespace TestProject.MSTest.Tests
         [AssemblyInitialize]
         public static void AssemblyOneTimeSetUp(TestContext testContext)
         {
+            FileUtils.Solution_dir = Path.GetDirectoryName(Path.GetDirectoryName(testContext.TestDir));
+
             JiraInfoProvider = new JiraInfoProvider();
         }
 

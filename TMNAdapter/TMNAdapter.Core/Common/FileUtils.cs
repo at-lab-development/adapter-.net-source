@@ -9,18 +9,12 @@ namespace TMNAdapter.Core.Common
 {
     // FileUtils is a util class which provides useful methods for file writing
     public class FileUtils
-	{
-	    private const string TARGET_DIR = "\\target";
-	    private const string ATTACHMENTS_DIR = TARGET_DIR + "\\attachments";
+    {
+        private const string TARGET_DIR = "\\target";
+        private const string ATTACHMENTS_DIR = TARGET_DIR + "\\attachments";
+        private static string solution_dir;
 
-	    static FileUtils()
-	    {
-	        string targetDirectory = AppDomain.CurrentDomain.BaseDirectory + ATTACHMENTS_DIR;
-	        if (!Directory.Exists(targetDirectory))
-	        {
-	            Directory.CreateDirectory(targetDirectory);
-            }
-	    }
+        public static string Solution_dir { get => solution_dir; set => solution_dir = value; }
 
         /// <summary>
         /// Writes stack trace in temporary file and save it to attachments directory
@@ -29,31 +23,31 @@ namespace TMNAdapter.Core.Common
         /// <param name="fileName"> The name for output file </param>
         /// <exception cref="IOException">Is thrown, when I/O error occurs</exception>
         public static string WriteStackTrace(string stackTrace, string fileName)
-		{
-			try
-			{
-			    string tempfilePath = Path.GetTempFileName();
+        {
+            try
+            {
+                string tempfilePath = Path.GetTempFileName();
                 var file = new FileInfo(tempfilePath);
 
-			    string newFilePath = tempfilePath.Replace(file.Name, fileName);
+                string newFilePath = tempfilePath.Replace(file.Name, fileName);
                 file.MoveTo(newFilePath);
 
-				StreamWriter writer = File.CreateText(newFilePath);
-				writer.WriteLine(stackTrace);
-				writer.Close();
-				string targetFilePath = SaveFile(file);
-				writer.Dispose();
+                StreamWriter writer = File.CreateText(newFilePath);
+                writer.WriteLine(stackTrace);
+                writer.Close();
+                string targetFilePath = SaveFile(file);
+                writer.Dispose();
 
-			    return targetFilePath;
+                return targetFilePath;
 
-			}
-			catch (IOException e)
-			{
-				Debug.WriteLine($"Message: {e.Message}\n " +
-				                $"StackTrace: {e.StackTrace}");
-			    return null;
-			}
-		}
+            }
+            catch (IOException e)
+            {
+                Debug.WriteLine($"Message: {e.Message}\n " +
+                                $"StackTrace: {e.StackTrace}");
+                return null;
+            }
+        }
 
         // Copy and save file to the attachments default directory.If file in the
         // default attachments directory already exists the file will be created in
@@ -68,8 +62,9 @@ namespace TMNAdapter.Core.Common
             {
                 string fileName = file.Name;
                 string relativeFilePath = ATTACHMENTS_DIR;
-                string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                string copyPath = currentDirectory + relativeFilePath;
+                string copyPath = solution_dir + relativeFilePath;
+
+                CheckOrCreateDir(copyPath);
 
                 if (File.Exists(Path.Combine(copyPath, fileName)))
                 {
@@ -98,11 +93,8 @@ namespace TMNAdapter.Core.Common
         /// <param name="relativefilePath"> The path to output file </param>
         public static void WriteXml(TestResult result, string relativefilePath)
         {
-            string testResultDir = AppDomain.CurrentDomain.BaseDirectory + TARGET_DIR;
-            if (!Directory.Exists(testResultDir))
-            {
-                Directory.CreateDirectory(testResultDir);
-            }
+            string testResultDir = solution_dir + TARGET_DIR;
+            CheckOrCreateDir(testResultDir);
 
             var doc = new XmlDocument();
             StringWriter writer = new StringWriter();
@@ -120,6 +112,14 @@ namespace TMNAdapter.Core.Common
             }
 
             doc.Save(Path.Combine(testResultDir, relativefilePath));
+        }
+
+        private static void CheckOrCreateDir(string Dir)
+        {
+            if (!Directory.Exists(Dir))
+            {
+                Directory.CreateDirectory(Dir);
+            }
         }
 
         static string GetTargetDir() => TARGET_DIR;
