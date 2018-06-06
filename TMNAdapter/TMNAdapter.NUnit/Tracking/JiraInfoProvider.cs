@@ -1,4 +1,4 @@
-﻿using System;
+﻿using NUnit.Framework;
 using System.IO;
 using TMNAdapter.Core.Common;
 using TMNAdapter.Core.Common.Models;
@@ -9,6 +9,11 @@ namespace TMNAdapter.Tracking
 {
     public class JiraInfoProvider : BaseJiraInfoProvider
     {
+        public JiraInfoProvider()
+        {
+            FileUtils.Solution_dir = TestContext.CurrentContext.WorkDirectory;
+        }
+
         public IssueModel SaveAttachment(FileInfo file)
         {
             string issueKey = GetJiraIssueKey<JiraIssueKeyAttribute>();

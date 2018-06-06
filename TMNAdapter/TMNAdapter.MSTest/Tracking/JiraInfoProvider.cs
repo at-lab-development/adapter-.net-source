@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TMNAdapter.Core.Common;
 using TMNAdapter.Core.Common.Models;
-using TMNAdapter.Core.Entities;
 using TMNAdapter.Core.Tracking;
 using TMNAdapter.Core.Tracking.Attributes;
 using TMNAdapter.MSTest.Tracking.Attributes;
@@ -15,6 +12,11 @@ namespace TMNAdapter.MSTest.Tracking
 {
     public class JiraInfoProvider : BaseJiraInfoProvider
     {
+        public JiraInfoProvider(TestContext testContext)
+        {
+            FileUtils.Solution_dir = Path.GetDirectoryName(Path.GetDirectoryName(testContext.TestDir));
+        }
+
         public IssueModel SaveAttachment(FileInfo file)
         {
             string issueKey = AnnotationTracker.GetAttributeInCallStack<JiraTestMethodAttribute>()?.Key;

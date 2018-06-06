@@ -10,7 +10,7 @@ namespace TMNAdapter.Tracking.Attributes
     {
         public void BeforeTest(ITest test)
         {
-            FileUtils.Solution_dir = TestContext.CurrentContext.WorkDirectory;
+
         }
 
         public void AfterTest(ITest test)
