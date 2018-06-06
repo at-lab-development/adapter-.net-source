@@ -19,7 +19,7 @@ namespace TMNAdapter.MSTest.Tracking
 
         public JiraInfoProvider(TestContext testContext)
         {
-            FileUtils.Solution_dir = Path.GetDirectoryName(Path.GetDirectoryName(testContext.TestDir));
+            FileUtils.Solution_dir = testContext.TestDir + @"\..\..";
         }
 
         public IssueModel SaveAttachment(FileInfo file)
