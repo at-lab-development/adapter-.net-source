@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tests>
+  <test>
+    <key>EPMFARMATS-2447</key>
+    <status>Failed</status>
+    <summary>Сбой Assert.Fail. Testing failed test behavior</summary>
+    <time>00m:00s:047ms</time>
+    <attachments>
+      <attachment>\target\attachments\jenkins-oops.jpg</attachment>
+      <attachment>\target\attachments\1528369551036\jenkins-oops.jpg</attachment>
+      <attachment>\target\attachments\stacktrace_2018-06-07T14-05-51.060.txt</attachment>
+    </attachments>
+    <parameters>
+      <parameter>
+        <title>Random number</title>
+        <value>596360747</value>
+      </parameter>
+      <parameter>
+        <title>Random boolean</title>
+        <value>0</value>
+      </parameter>
+      <parameter>
+        <title>Some static string</title>
+        <value>Hello, world!</value>
+      </parameter>
+    </parameters>
+  </test>
+  <test>
+    <key>EPMFARMATS-2471</key>
+    <status>Passed</status>
+    <time>00m:00s:000ms</time>
+    <attachments />
+    <parameters>
+      <parameter>
+        <title>Email</title>
+        <value>1@gmail.com</value>
+      </parameter>
+    </parameters>
+  </test>
+  <test>
+    <key>EPMFARMATS-2464</key>
+    <status>Passed</status>
+    <time>00m:00s:000ms</time>
+    <attachments />
+    <parameters>
+      <parameter>
+        <title>Value1</title>
+        <value>Sample</value>
+      </parameter>
+      <parameter>
+        <title>Value2</title>
+        <value>Sample</value>
+      </parameter>
+      <parameter>
+        <title>Value3</title>
+        <value>Sample</value>
+      </parameter>
+    </parameters>
+  </test>
+  <test>
+    <key>EPMFARMATS-2472</key>
+    <status>Failed</status>
+    <summary>Метод теста TestProject.MSTest.Tests.MS_FirstSampleTests.TestExeptionInTest1 создал исключение: 
+System.Exception: Testing test with exeption.</summary>
+    <time>00m:00s:001ms</time>
+    <attachments>
+      <attachment>\target\attachments\stacktrace_2018-06-07T14-05-51.089.txt</attachment>
+    </attachments>
+    <parameters />
+  </test>
+  <test>
+    <key>EPMFARMATS-2466</key>
+    <status>Passed</status>
+    <time>00m:00s:363ms</time>
+    <attachments />
+    <parameters>
+      <parameter>
+        <title>Author</title>
+        <value>EPAM Systems Global</value>
+      </parameter>
+      <parameter>
+        <title>Title</title>
+        <value>At the End of the Day</value>
+      </parameter>
+    </parameters>
+  </test>
+  <test>
+    <key>EPMFARMATS-2470</key>
+    <status>Failed</status>
+    <summary>Сбой Assert.AreEqual. Ожидается: &lt;Atlassian&gt;. Фактически: &lt;Ashish Thakur&gt;. </summary>
+    <time>00m:00s:593ms</time>
+    <attachments>
+      <attachment>\target\attachments\screenshot_2018-06-07T14-06-11.963.jpeg</attachment>
+      <attachment>\target\attachments\stacktrace_2018-06-07T14-06-15.084.txt</attachment>
+    </attachments>
+    <parameters>
+      <parameter>
+        <title>Author</title>
+        <value>Ashish Thakur</value>
+      </parameter>
+      <parameter>
+        <title>Title</title>
+        <value>Selenium WebDriver Introduction Selenium Webdriver Tutorial Example Selenium Training Videos</value>
+      </parameter>
+    </parameters>
+  </test>
+</tests>
