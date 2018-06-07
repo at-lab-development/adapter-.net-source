@@ -1,18 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using NUnit.Framework;
+using System.Reflection;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using TMNAdapter.Core.Common;
 using TMNAdapter.Core.Common.Models;
 using TMNAdapter.Core.Tracking.Attributes;
 using TMNAdapter.Core.Utilities;
-using TMNAdapter.Tracking.Attributes;
+using TMNAdapter.MSTest.Tracking.Attributes;
 
-namespace TMNAdapter.Utilities
+namespace TMNAdapter.MSTest.Utilities
 {
     public class Screenshoter : BaseScreenshoter
-    {        
+    {
+        static TestContext testContext;
+
+        public Screenshoter(TestContext _testContext)
+        {
+            testContext = _testContext;
+        }
+
         public static void TakeScreenshot()
         {
             if (!IsInitialized()) return;
@@ -29,8 +37,9 @@ namespace TMNAdapter.Utilities
             var screenshot = ((ITakesScreenshot)driverInstance).GetScreenshot();
             screenshot.SaveAsFile(fullScreenshotPath, ScreenshotImageFormat.Jpeg);
 
-            Type classType = Type.GetType(TestContext.CurrentContext.Test.ClassName);
-            string issueKey = AnnotationTracker.GetAttributeInCallStack<JiraIssueKeyAttribute>()?.Key;
+            var a = Assembly.GetCallingAssembly().GetName().Name;
+            Type classType = Type.GetType($"{testContext.FullyQualifiedTestClassName}, {a}");
+            string issueKey = AnnotationTracker.GetAttributeInCallStack<JiraTestMethodAttribute>()?.Key;
             IssueManager.AddIssue(new IssueModel()
             {
                 Key = issueKey,
