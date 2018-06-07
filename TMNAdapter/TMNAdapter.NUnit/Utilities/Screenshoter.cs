@@ -6,14 +6,24 @@ using OpenQA.Selenium.Remote;
 using TMNAdapter.Core.Common;
 using TMNAdapter.Core.Common.Models;
 using TMNAdapter.Core.Tracking.Attributes;
+using TMNAdapter.Tracking;
 using TMNAdapter.Tracking.Attributes;
-using TMNAdapter.Core.Utilities;
 
-namespace TMNAdapter.NUnit.Utilities
+namespace TMNAdapter.Utilities
 {
-    public class Screenshoter : BaseScreenshoter
+    public class Screenshoter
     {
-        public Screenshoter(){}
+        private static IWebDriver driverInstance;
+
+        public static void Initialize(IWebDriver driver)
+        {
+            driverInstance = driver;
+        }
+
+        public static bool IsInitialized()
+        {
+            return driverInstance != null;
+        }
 
         public static void TakeScreenshot()
         {

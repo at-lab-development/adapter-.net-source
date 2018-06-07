@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestProject.MSTest.Common;
 using TMNAdapter.MSTest.Tracking.Attributes;
-using TMNAdapter.MSTest.Utilities;
 
 namespace TestProject.MSTest.Tests
 {
@@ -11,7 +10,7 @@ namespace TestProject.MSTest.Tests
         [TestInitialize]
         public void Initialize()
         {
-            Screenshoter.Initialize(Browser.Instance.GetDriver());
+            Browser.Instance.GetDriver();
         }
 
         [JiraTestMethod("EPMFARMATS-2466")]
@@ -36,15 +35,12 @@ namespace TestProject.MSTest.Tests
             JiraInfoProvider.SaveParameter("Author", author);
             JiraInfoProvider.SaveParameter("Title", title);
 
-            Screenshoter.TakeScreenshot();
-
             Assert.AreEqual("Atlassian", author);
         }
 
         [TestCleanup]
         public void Close()
         {
-            Screenshoter.Initialize(null);
             Browser.Instance.Quit();
         }
     }
