@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using TestProject.NUnit.Common;
 using TMNAdapter.Tracking.Attributes;
-using TMNAdapter.Utilities;
+using TMNAdapter.NUnit.Utilities;
 
 namespace TestProject.NUnit.Tests
 {
