@@ -6,11 +6,6 @@ namespace TMNAdapter.Core.Utilities
     {
         protected static IWebDriver driverInstance;
 
-        public BaseScreenshoter()
-        {
-
-        }
-
         public static void Initialize(IWebDriver driver)
         {
             driverInstance = driver;

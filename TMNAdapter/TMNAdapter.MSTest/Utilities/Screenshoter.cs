@@ -39,7 +39,7 @@ namespace TMNAdapter.MSTest.Utilities
 
             var a = Assembly.GetCallingAssembly().GetName().Name;
             Type classType = Type.GetType($"{testContext.FullyQualifiedTestClassName}, {a}");
-            string issueKey = AnnotationTracker.GetAttributeByMethodName<JiraIssueKeyAttribute>(classType, testContext.TestName).Key;
+            string issueKey = AnnotationTracker.GetAttributeInCallStack<JiraTestMethodAttribute>()?.Key;
             IssueManager.AddIssue(new IssueModel()
             {
                 Key = issueKey,

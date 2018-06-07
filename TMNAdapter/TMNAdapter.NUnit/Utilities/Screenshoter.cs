@@ -6,25 +6,13 @@ using OpenQA.Selenium.Remote;
 using TMNAdapter.Core.Common;
 using TMNAdapter.Core.Common.Models;
 using TMNAdapter.Core.Tracking.Attributes;
-using TMNAdapter.Tracking;
+using TMNAdapter.Core.Utilities;
 using TMNAdapter.Tracking.Attributes;
 
 namespace TMNAdapter.Utilities
 {
-    public class Screenshoter
-    {
-        private static IWebDriver driverInstance;
-
-        public static void Initialize(IWebDriver driver)
-        {
-            driverInstance = driver;
-        }
-
-        public static bool IsInitialized()
-        {
-            return driverInstance != null;
-        }
-
+    public class Screenshoter : BaseScreenshoter
+    {        
         public static void TakeScreenshot()
         {
             if (!IsInitialized()) return;
@@ -42,7 +30,7 @@ namespace TMNAdapter.Utilities
             screenshot.SaveAsFile(fullScreenshotPath, ScreenshotImageFormat.Jpeg);
 
             Type classType = Type.GetType(TestContext.CurrentContext.Test.ClassName);
-            string issueKey = AnnotationTracker.GetAttributeByMethodName<JiraIssueKeyAttribute>(classType, TestContext.CurrentContext.Test.Name).Key;
+            string issueKey = AnnotationTracker.GetAttributeInCallStack<JiraIssueKeyAttribute>()?.Key;
             IssueManager.AddIssue(new IssueModel()
             {
                 Key = issueKey,
