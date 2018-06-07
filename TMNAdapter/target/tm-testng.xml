@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tests>
+  <test>
+    <key>EPMFARMATS-2470</key>
+    <status>Failed</status>
+    <summary>Метод теста TestProject.MSTest.Tests.YouTubeTest.AlwaysFailedTest создал исключение: 
+System.NullReferenceException: Ссылка на объект не указывает на экземпляр объекта..</summary>
+    <time>00m:00s:912ms</time>
+    <attachments>
+      <attachment>\target\attachments\stacktrace_2018-06-07T13-42-09.250.txt</attachment>
+    </attachments>
+    <parameters>
+      <parameter>
+        <title>Author</title>
+        <value>Ashish Thakur</value>
+      </parameter>
+      <parameter>
+        <title>Title</title>
+        <value>Selenium WebDriver Introduction Selenium Webdriver Tutorial Example Selenium Training Videos</value>
+      </parameter>
+    </parameters>
+  </test>
+</tests>

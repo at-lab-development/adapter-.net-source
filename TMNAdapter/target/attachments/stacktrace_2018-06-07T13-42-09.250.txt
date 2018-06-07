@@ -1,0 +1,2 @@
+   в TMNAdapter.MSTest.Utilities.Screenshoter.TakeScreenshot() в D:\work\vsprojects\TMNAdapter\TMNAdapter\TMNAdapter.MSTest\Utilities\Screenshoter.cs:строка 42
+   в TestProject.MSTest.Tests.YouTubeTest.AlwaysFailedTest() в D:\work\vsprojects\TMNAdapter\TMNAdapter\TestProject.MSTest\Tests\MS_YouTubeTest.cs:строка 39
