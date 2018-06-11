@@ -18,13 +18,13 @@ namespace TestProject.MSTest.Tests
         }
 
         [JiraTestMethod("EPMFARMATS-2472")]
-        public void TestExeptionInTest_1()
+        public void TestExceptionInTest_1()
         {
             throw new Exception("Testing test with exception");
         }
 
         [JiraTestMethod("EPMFARMATS-2472")]
-        public void TestExeptionInTest_2()
+        public void TestExceptionInTest_2()
         {
             JiraInfoProvider.SaveParameter("Value4", "Sample4");
             throw new Exception("Testing test with exception");
