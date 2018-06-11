@@ -52,17 +52,5 @@ namespace TMNAdapter.MSTest.Tracking
 
             return issue;
         }
-
-        public void SubmitTestResults(TestContext testContext)
-        {
-            var a = Assembly.GetCallingAssembly().GetName().Name;
-            Type classType = Type.GetType($"{testContext.FullyQualifiedTestClassName}, {a}");
-            string issueKey = AnnotationTracker.GetAttributeByMethodName<JiraIssueKeyAttribute>(classType, testContext.TestName).Key;
-
-            IssueModel issueModel = IssueManager.GetIssue(issueKey);
-
-            string serializedIssue = TestReporter.IssueToJson(issueModel);
-            testContext.WriteLine(serializedIssue);
-        }
     }
 }

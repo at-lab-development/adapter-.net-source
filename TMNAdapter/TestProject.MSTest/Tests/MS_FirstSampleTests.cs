@@ -11,7 +11,6 @@ namespace TestProject.MSTest.Tests
     [TestClass]
     public class MS_FirstSampleTests : BaseTest
     {
-
         [JiraTestMethod("EPMFARMATS-2464")]
         public void TestMethod()
         {
