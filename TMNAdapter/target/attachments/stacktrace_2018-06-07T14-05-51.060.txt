@@ -1,3 +1,0 @@
-   в Microsoft.VisualStudio.TestTools.UnitTesting.Assert.HandleFail(String assertionName, String message, Object[] parameters)
-   в Microsoft.VisualStudio.TestTools.UnitTesting.Assert.Fail(String message)
-   в TestProject.MSTest.Tests.MS_AttachmentsTest.TestAttachmentsAdding() в D:\work\vsprojects\TMNAdapter\TMNAdapter\TestProject.MSTest\Tests\MS_AttachmentsTest.cs:строка 23

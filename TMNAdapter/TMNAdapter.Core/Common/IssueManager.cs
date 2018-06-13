@@ -39,12 +39,12 @@ namespace TMNAdapter.Core.Common
             {
                 storedIssueModel.Parameters.AddRange(partialIssueModel.Parameters);
             }
-            
+
             IssueModel mergedIssueModel = new IssueModel()
             {
                 Key = !string.IsNullOrWhiteSpace(partialIssueModel.Key) ? partialIssueModel.Key : storedIssueModel.Key,
                 Status = partialIssueModel.Status != Status.None ? partialIssueModel.Status : storedIssueModel.Status,
-                Summary = !string.IsNullOrWhiteSpace(partialIssueModel.Summary) ? partialIssueModel.Summary: storedIssueModel.Summary,
+                Summary = UpdateSummary(storedIssueModel.Summary, partialIssueModel.Summary),
                 Time = partialIssueModel.Time ?? storedIssueModel.Time,
                 AttachmentFilePaths = storedIssueModel.AttachmentFilePaths,
                 Parameters = storedIssueModel.Parameters,
@@ -67,6 +67,23 @@ namespace TMNAdapter.Core.Common
             ValidationHelper.NotNullOrEmpty(issueKey, nameof(issueKey));
 
             return _issues.FirstOrDefault(x => x.Key == issueKey);
+        }
+
+        private static string UpdateSummary(string storedSummary, string updatingSummary)
+        {
+            if (string.IsNullOrWhiteSpace(updatingSummary)) 
+            {
+                return storedSummary;
+            }            
+
+            if (string.IsNullOrWhiteSpace(storedSummary))
+            {
+                return updatingSummary;
+            }
+            else
+            {
+                return storedSummary + "\n" + updatingSummary;
+            }
         }
     }
 }

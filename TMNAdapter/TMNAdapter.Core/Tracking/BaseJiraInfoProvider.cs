@@ -17,9 +17,18 @@ namespace TMNAdapter.Core.Tracking
 
         public virtual IssueModel SaveAttachment(string issueKey, FileInfo file)
         {
-            if (issueKey == null || !file.Exists)
+            if (issueKey == null)
             {
                 return null;
+            }
+
+            if (!file.Exists)
+            {
+                return new IssueModel()
+                {
+                    Key = issueKey,
+                    Summary = $"Failed to attch {file.FullName}. File does not exist."
+                };
             }
 
             string currentDirectory = FileUtils.Solution_dir;
