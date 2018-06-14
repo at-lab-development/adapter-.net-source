@@ -14,21 +14,12 @@ namespace TMNAdapter.MSTest.Utilities
 {
     public class Screenshoter : BaseScreenshoter
     {
-        static TestContext testContext;
-        private static Screenshoter screenshoter;
-
-        private Screenshoter(TestContext _testContext, IWebDriver driver)
+        private Screenshoter(IWebDriver driver)
         {
-            testContext = _testContext;
             driverInstance = driver;
         }
-
-        public static Screenshoter Initialize(TestContext _testContext, IWebDriver driver)
-        {
-            return screenshoter = screenshoter ?? (screenshoter = new Screenshoter(_testContext, driver));
-        }
-
-        public void TakeScreenshot()
+        
+        public static void TakeScreenshot()
         {
             if (!IsInitialized()) return;
 
@@ -45,7 +36,6 @@ namespace TMNAdapter.MSTest.Utilities
             screenshot.SaveAsFile(fullScreenshotPath, ScreenshotImageFormat.Jpeg);
 
             var a = Assembly.GetCallingAssembly().GetName().Name;
-            Type classType = Type.GetType($"{testContext.FullyQualifiedTestClassName}, {a}");
             string issueKey = AnnotationTracker.GetAttributeInCallStack<JiraTestMethodAttribute>()?.Key;
             IssueManager.AddIssue(new IssueModel()
             {
@@ -57,7 +47,6 @@ namespace TMNAdapter.MSTest.Utilities
         public static void CloseScreenshoter()
         {
             driverInstance = null;
-            screenshoter = null;
         }
     }
 }

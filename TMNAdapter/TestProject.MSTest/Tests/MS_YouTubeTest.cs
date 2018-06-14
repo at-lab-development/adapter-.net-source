@@ -8,11 +8,11 @@ namespace TestProject.MSTest.Tests
     [TestClass]
     public class YouTubeTest : BaseTest
     {
-    /*    [TestInitialize]
+        [TestInitialize]
         public void Initialize()
         {
-           // Screenshoter.Initialize(Browser.Instance.GetDriver());
-        }*/
+            Screenshoter.Initialize(Browser.Instance.GetDriver());
+        }
 
         [JiraTestMethod("EPMFARMATS-2466")]
         public void AlwaysPassedTest()
@@ -36,7 +36,7 @@ namespace TestProject.MSTest.Tests
             JiraInfoProvider.SaveParameter("Author", author);
             JiraInfoProvider.SaveParameter("Title", title);
 
-            Screenshoter.Initialize(_testContext, Browser.Instance.GetDriver()).TakeScreenshot();
+            Screenshoter.TakeScreenshot();
 
             Assert.AreEqual("Atlassian", author);
         }
