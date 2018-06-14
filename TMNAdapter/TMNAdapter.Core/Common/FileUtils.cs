@@ -39,13 +39,13 @@ namespace TMNAdapter.Core.Common
                 writer.Dispose();
 
                 return targetFilePath;
-
-            }
-            catch (IOException e)
+            }            
+            catch (IOException exception)
             {
-                Debug.WriteLine($"Message: {e.Message}\n " +
-                                $"StackTrace: {e.StackTrace}");
-                return null;
+                Debug.WriteLine($"Message: {exception.Message}\n " +
+                                $"StackTrace: {exception.StackTrace}");
+
+                throw new AttachmentSavingException($"Failed to attach {fileName}");                
             }
         }
 
@@ -78,6 +78,10 @@ namespace TMNAdapter.Core.Common
                 file.CopyTo(Path.Combine(copyPath, fileName), true);
 
                 return Path.Combine(relativeFilePath, fileName);
+            }
+            catch (FileNotFoundException)
+            {
+                throw new AttachmentSavingException($"Failed to attach {file.FullName}. File not found");
             }
             catch (IOException exception)
             {

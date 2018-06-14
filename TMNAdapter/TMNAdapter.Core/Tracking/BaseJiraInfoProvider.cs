@@ -22,15 +22,6 @@ namespace TMNAdapter.Core.Tracking
                 return null;
             }
 
-            if (!file.Exists)
-            {
-                return new IssueModel()
-                {
-                    Key = issueKey,
-                    Summary = $"Failed to attch {file.FullName}. File does not exist."
-                };
-            }
-
             string currentDirectory = FileUtils.Solution_dir;
             string targetFilePath = null;
 
@@ -43,15 +34,24 @@ namespace TMNAdapter.Core.Tracking
                                    FileUtils.SaveFile(file) :
                                    filePath.Replace(currentDirectory, String.Empty);
             }
-            catch (IOException ex)
+            catch (AttachmentSavingException exception)
             {
-                Console.Write(ex.StackTrace);
+                SaveStackTrace(issueKey, exception.StackTrace); //do we need it?
+                return new IssueModel()
+                {
+                    Key = issueKey,
+                    Summary = exception.Message
+                }; 
+            }
+            catch (IOException exception)
+            {
+                Console.Write(exception.StackTrace);
             }
 
             return new IssueModel()
             {
                 Key = issueKey,
-                AttachmentFilePaths = new List<string>() {targetFilePath}
+                AttachmentFilePaths = new List<string>() { targetFilePath }
             };
         }
 
@@ -75,13 +75,23 @@ namespace TMNAdapter.Core.Tracking
         public virtual IssueModel SaveStackTrace(string issueKey, string stackTrace)
         {
             string fileName = $"stacktrace_{DateTime.Now:yyyy-MM-ddTHH-mm-ss.fff}.txt";
-            string targetFilePath = FileUtils.WriteStackTrace(stackTrace, fileName);
-
-            return new IssueModel()
+            try
             {
-                Key = issueKey,
-                AttachmentFilePaths = new List<string>() {targetFilePath}
-            };
+                string targetFilePath = FileUtils.WriteStackTrace(stackTrace, fileName);
+                return new IssueModel()
+                {
+                    Key = issueKey,
+                    AttachmentFilePaths = new List<string>() { targetFilePath }
+                };
+            }
+            catch (AttachmentSavingException exception)
+            {
+                return new IssueModel()
+                {
+                    Key = issueKey,
+                    Summary = exception.Message
+                };
+            }
         }
     }
 }
