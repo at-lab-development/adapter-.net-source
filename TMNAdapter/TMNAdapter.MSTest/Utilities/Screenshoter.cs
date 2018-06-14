@@ -57,6 +57,7 @@ namespace TMNAdapter.MSTest.Utilities
         public static void CloseScreenshoter()
         {
             driverInstance = null;
+            screenshoter = null;
         }
     }
 }
