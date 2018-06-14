@@ -15,13 +15,20 @@ namespace TMNAdapter.MSTest.Utilities
     public class Screenshoter : BaseScreenshoter
     {
         static TestContext testContext;
+        private static Screenshoter screenshoter;
 
-        public Screenshoter(TestContext _testContext)
+        private Screenshoter(TestContext _testContext, IWebDriver driver)
         {
             testContext = _testContext;
+            driverInstance = driver;
         }
 
-        public static void TakeScreenshot()
+        public static Screenshoter Initialize(TestContext _testContext, IWebDriver driver)
+        {
+            return screenshoter = screenshoter ?? (screenshoter = new Screenshoter(_testContext, driver));
+        }
+
+        public void TakeScreenshot()
         {
             if (!IsInitialized()) return;
 
@@ -45,6 +52,11 @@ namespace TMNAdapter.MSTest.Utilities
                 Key = issueKey,
                 AttachmentFilePaths = new List<string>() { relativeScreenshotPath }
             });
+        }
+
+        public static void CloseScreenshoter()
+        {
+            driverInstance = null;
         }
     }
 }

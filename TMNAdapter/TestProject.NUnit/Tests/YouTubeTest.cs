@@ -11,7 +11,7 @@ namespace TestProject.NUnit.Tests
         [SetUp]
         public void Initialize()
         {
-            Screenshoter.Initialize(Browser.Instance.GetDriver());
+           Screenshoter.Initialize(Browser.Instance.GetDriver());
         }
 
         [Test]

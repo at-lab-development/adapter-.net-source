@@ -9,13 +9,13 @@ namespace TestProject.MSTest.Tests
     public class BaseTest
     {
         protected static JiraInfoProvider JiraInfoProvider { get; set; }
-        protected static Screenshoter Screenshoter { get; set; }
+        protected static TestContext _testContext;
 
         [AssemblyInitialize]
         public static void AssemblyOneTimeSetUp(TestContext testContext)
         {
+            _testContext = testContext;
             JiraInfoProvider = new JiraInfoProvider(testContext);
-            Screenshoter = new Screenshoter(testContext);
         }
 
         [AssemblyCleanup]
