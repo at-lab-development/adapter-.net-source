@@ -5,12 +5,13 @@ using TMNAdapter.Core.Common;
 using TMNAdapter.Core.Common.Models;
 using TMNAdapter.Core.Entities;
 using TMNAdapter.Core.Tracking.Attributes;
+using TMNAdapter.Core.Tracking.Interfaces;
 
 namespace TMNAdapter.Core.Tracking
 {
     public class BaseJiraInfoProvider
     {
-        protected virtual string GetJiraIssueKey<TAttribute>() where TAttribute : BaseJiraIssueKeyAttribute
+        public virtual string GetJiraIssueKey<TAttribute>() where TAttribute : IJiraIssueKeyAttribute
         {
             return AnnotationTracker.GetAttributeInCallStack<TAttribute>()?.Key;
         }

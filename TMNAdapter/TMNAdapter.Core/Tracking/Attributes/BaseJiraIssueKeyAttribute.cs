@@ -1,5 +1,6 @@
 ﻿using System;
 using TMNAdapter.Core.Common.Validation;
+using TMNAdapter.Core.Tracking.Interfaces;
 
 namespace TMNAdapter.Core.Tracking.Attributes
 {
@@ -8,7 +9,7 @@ namespace TMNAdapter.Core.Tracking.Attributes
     /// JIRA issue, using issue key
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
-    public class BaseJiraIssueKeyAttribute : Attribute
+    public class BaseJiraIssueKeyAttribute : Attribute, IJiraIssueKeyAttribute
     {
         /// <summary>
         /// Gets JIRA issue key

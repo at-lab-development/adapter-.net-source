@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TMNAdapter.Core.Common.Validation;
+using TMNAdapter.Core.Tracking.Interfaces;
 
 namespace TMNAdapter.MSTest.Tracking.Attributes
 {
@@ -12,9 +13,9 @@ namespace TMNAdapter.MSTest.Tracking.Attributes
     /// MSTest implementation
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
-    public class JiraTestMethodAttribute : TestMethodAttribute
+    public class JiraTestMethodAttribute : TestMethodAttribute, IJiraIssueKeyAttribute
     {
-        public string Key { get; set; }
+        public string Key { get; }
 
         /// <summary>
         /// Initializes a new instance of <see cref="JiraTestMethodAttribute"/>

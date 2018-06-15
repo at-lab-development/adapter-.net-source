@@ -65,6 +65,7 @@
     <Compile Include="Entities\TestResult.cs" />
     <Compile Include="Tracking\BaseJiraInfoProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tracking\Interfaces\IJiraIssueKeyAttribute.cs" />
     <Compile Include="Utilities\BaseScreenshoter.cs" />
   </ItemGroup>
   <ItemGroup>
