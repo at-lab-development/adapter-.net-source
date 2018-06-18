@@ -44,7 +44,7 @@ namespace TestProject.MSTest.Tests
         [TestCleanup]
         public void Close()
         {
-            Screenshoter.CloseScreenshoter();
+            Screenshoter.Initialize(null);
             Browser.Instance.Quit();
         }
     }

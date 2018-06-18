@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using TMNAdapter.Core.Common;
@@ -29,7 +28,6 @@ namespace TMNAdapter.Utilities
             var screenshot = ((ITakesScreenshot)driverInstance).GetScreenshot();
             screenshot.SaveAsFile(fullScreenshotPath, ScreenshotImageFormat.Jpeg);
 
-            Type classType = Type.GetType(TestContext.CurrentContext.Test.ClassName);
             string issueKey = AnnotationTracker.GetAttributeInCallStack<JiraIssueKeyAttribute>()?.Key;
             IssueManager.AddIssue(new IssueModel()
             {

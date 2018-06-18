@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using TMNAdapter.Core.Common;
@@ -14,11 +12,6 @@ namespace TMNAdapter.MSTest.Utilities
 {
     public class Screenshoter : BaseScreenshoter
     {
-        private Screenshoter(IWebDriver driver)
-        {
-            driverInstance = driver;
-        }
-        
         public static void TakeScreenshot()
         {
             if (!IsInitialized()) return;
@@ -35,18 +28,12 @@ namespace TMNAdapter.MSTest.Utilities
             var screenshot = ((ITakesScreenshot)driverInstance).GetScreenshot();
             screenshot.SaveAsFile(fullScreenshotPath, ScreenshotImageFormat.Jpeg);
 
-            var a = Assembly.GetCallingAssembly().GetName().Name;
             string issueKey = AnnotationTracker.GetAttributeInCallStack<JiraTestMethodAttribute>()?.Key;
             IssueManager.AddIssue(new IssueModel()
             {
                 Key = issueKey,
                 AttachmentFilePaths = new List<string>() { relativeScreenshotPath }
             });
-        }
-
-        public static void CloseScreenshoter()
-        {
-            driverInstance = null;
         }
     }
 }
