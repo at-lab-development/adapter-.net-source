@@ -2,9 +2,9 @@
 
 namespace TMNAdapter.Core.Common
 {
-    internal class AttachmentSavingException : Exception
+    internal class SaveAttachmentException : Exception
     {
-        public AttachmentSavingException(string message) : base(message)
+        public SaveAttachmentException(string message) : base(message)
         {
         }
     }

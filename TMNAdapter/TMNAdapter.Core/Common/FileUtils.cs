@@ -45,7 +45,7 @@ namespace TMNAdapter.Core.Common
                 Debug.WriteLine($"Message: {exception.Message}\n " +
                                 $"StackTrace: {exception.StackTrace}");
 
-                throw new AttachmentSavingException($"Failed to attach {fileName}");                
+                throw new SaveAttachmentException($"Failed to attach {fileName}");                
             }
         }
 
@@ -81,7 +81,7 @@ namespace TMNAdapter.Core.Common
             }
             catch (FileNotFoundException)
             {
-                throw new AttachmentSavingException($"Failed to attach {file.FullName}. File not found");
+                throw new SaveAttachmentException($"Failed to attach {file.FullName}. File not found");
             }
             catch (IOException exception)
             {

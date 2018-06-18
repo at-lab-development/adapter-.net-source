@@ -34,9 +34,8 @@ namespace TMNAdapter.Core.Tracking
                                    FileUtils.SaveFile(file) :
                                    filePath.Replace(currentDirectory, String.Empty);
             }
-            catch (AttachmentSavingException exception)
+            catch (SaveAttachmentException exception)
             {
-                SaveStackTrace(issueKey, exception.StackTrace); //do we need it?
                 return new IssueModel()
                 {
                     Key = issueKey,
@@ -84,7 +83,7 @@ namespace TMNAdapter.Core.Tracking
                     AttachmentFilePaths = new List<string>() { targetFilePath }
                 };
             }
-            catch (AttachmentSavingException exception)
+            catch (SaveAttachmentException exception)
             {
                 return new IssueModel()
                 {
