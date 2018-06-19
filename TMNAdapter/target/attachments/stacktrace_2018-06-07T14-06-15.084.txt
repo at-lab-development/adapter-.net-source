@@ -1,4 +1,0 @@
-   в Microsoft.VisualStudio.TestTools.UnitTesting.Assert.HandleFail(String assertionName, String message, Object[] parameters)
-   в Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual[T](T expected, T actual, String message, Object[] parameters)
-   в Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual[T](T expected, T actual)
-   в TestProject.MSTest.Tests.YouTubeTest.AlwaysFailedTest() в D:\work\vsprojects\TMNAdapter\TMNAdapter\TestProject.MSTest\Tests\MS_YouTubeTest.cs:строка 41

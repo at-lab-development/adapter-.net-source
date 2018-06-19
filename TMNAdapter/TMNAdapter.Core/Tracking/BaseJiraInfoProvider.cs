@@ -17,7 +17,7 @@ namespace TMNAdapter.Core.Tracking
 
         public virtual IssueModel SaveAttachment(string issueKey, FileInfo file)
         {
-            if (issueKey == null || !file.Exists)
+            if (issueKey == null)
             {
                 return null;
             }
@@ -34,15 +34,23 @@ namespace TMNAdapter.Core.Tracking
                                    FileUtils.SaveFile(file) :
                                    filePath.Replace(currentDirectory, String.Empty);
             }
-            catch (IOException ex)
+            catch (SaveAttachmentException exception)
             {
-                Console.Write(ex.StackTrace);
+                return new IssueModel()
+                {
+                    Key = issueKey,
+                    Summary = exception.Message
+                }; 
+            }
+            catch (IOException exception)
+            {
+                Console.Write(exception.StackTrace);
             }
 
             return new IssueModel()
             {
                 Key = issueKey,
-                AttachmentFilePaths = new List<string>() {targetFilePath}
+                AttachmentFilePaths = new List<string>() { targetFilePath }
             };
         }
 
@@ -66,13 +74,23 @@ namespace TMNAdapter.Core.Tracking
         public virtual IssueModel SaveStackTrace(string issueKey, string stackTrace)
         {
             string fileName = $"stacktrace_{DateTime.Now:yyyy-MM-ddTHH-mm-ss.fff}.txt";
-            string targetFilePath = FileUtils.WriteStackTrace(stackTrace, fileName);
-
-            return new IssueModel()
+            try
             {
-                Key = issueKey,
-                AttachmentFilePaths = new List<string>() {targetFilePath}
-            };
+                string targetFilePath = FileUtils.WriteStackTrace(stackTrace, fileName);
+                return new IssueModel()
+                {
+                    Key = issueKey,
+                    AttachmentFilePaths = new List<string>() { targetFilePath }
+                };
+            }
+            catch (SaveAttachmentException exception)
+            {
+                return new IssueModel()
+                {
+                    Key = issueKey,
+                    Summary = exception.Message
+                };
+            }
         }
     }
 }

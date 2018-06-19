@@ -1,1 +1,0 @@
-   в TestProject.MSTest.Tests.MS_FirstSampleTests.TestExeptionInTest2() в D:\work\vsprojects\TMNAdapter\TMNAdapter\TestProject.MSTest\Tests\MS_FirstSampleTests.cs:строка 35

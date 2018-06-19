@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\AttachmentSavingException.cs" />
     <Compile Include="Tracking\Attributes\AnnotationTracker.cs" />
     <Compile Include="Tracking\Attributes\BaseJiraIssueKeyAttribute.cs" />
     <Compile Include="Common\FileUtils.cs" />
