@@ -63,10 +63,10 @@ namespace TMNAdapter.Core.Common
 
         private static string UpdateSummary(string storedSummary, string updatingSummary)
         {
-            if (string.IsNullOrWhiteSpace(updatingSummary)) 
+            if (string.IsNullOrWhiteSpace(updatingSummary))
             {
                 return storedSummary;
-            }            
+            }
 
             if (string.IsNullOrWhiteSpace(storedSummary))
             {
@@ -74,7 +74,7 @@ namespace TMNAdapter.Core.Common
             }
             else
             {
-                return storedSummary + "\n" + updatingSummary;
+                return storedSummary + " " + updatingSummary;
             }
         }
     }
