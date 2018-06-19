@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TMNAdapter.Core.Common.Models;
-using TMNAdapter.Core.Common.Validation;
 using TMNAdapter.Core.Entities;
 
 namespace TMNAdapter.Core.Common
@@ -39,12 +38,12 @@ namespace TMNAdapter.Core.Common
             {
                 storedIssueModel.Parameters.AddRange(partialIssueModel.Parameters);
             }
-            
+
             IssueModel mergedIssueModel = new IssueModel()
             {
                 Key = !string.IsNullOrWhiteSpace(partialIssueModel.Key) ? partialIssueModel.Key : storedIssueModel.Key,
                 Status = partialIssueModel.Status != Status.None ? partialIssueModel.Status : storedIssueModel.Status,
-                Summary = !string.IsNullOrWhiteSpace(partialIssueModel.Summary) ? partialIssueModel.Summary: storedIssueModel.Summary,
+                Summary = UpdateSummary(storedIssueModel.Summary, partialIssueModel.Summary),
                 Time = partialIssueModel.Time ?? storedIssueModel.Time,
                 AttachmentFilePaths = storedIssueModel.AttachmentFilePaths,
                 Parameters = storedIssueModel.Parameters,
@@ -62,11 +61,21 @@ namespace TMNAdapter.Core.Common
             return _issues;
         }
 
-        public static IssueModel GetIssue(string issueKey)
+        private static string UpdateSummary(string storedSummary, string updatingSummary)
         {
-            ValidationHelper.NotNullOrEmpty(issueKey, nameof(issueKey));
+            if (string.IsNullOrWhiteSpace(updatingSummary))
+            {
+                return storedSummary;
+            }
 
-            return _issues.FirstOrDefault(x => x.Key == issueKey);
+            if (string.IsNullOrWhiteSpace(storedSummary))
+            {
+                return updatingSummary;
+            }
+            else
+            {
+                return storedSummary + " " + updatingSummary;
+            }
         }
     }
 }
