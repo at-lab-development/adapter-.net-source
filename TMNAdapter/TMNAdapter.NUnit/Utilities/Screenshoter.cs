@@ -11,29 +11,20 @@ using TMNAdapter.Tracking.Attributes;
 namespace TMNAdapter.Utilities
 {
     public class Screenshoter : BaseScreenshoter
-    {        
-        public static void TakeScreenshot()
+    {
+        private static Screenshoter screenshoter;
+
+        public static Screenshoter Instance
         {
-            if (!IsInitialized()) return;
-
-            if (!(driverInstance is RemoteWebDriver))
+            get
             {
-                Console.WriteLine("Unsupported driver type: " + driverInstance.GetType());
-                return;
+                return screenshoter = screenshoter ?? (screenshoter = new Screenshoter());
             }
+        }
 
-            string screenshotName = $"screenshot_{DateTime.Now:yyyy-MM-ddTHH-mm-ss.fff}.jpeg";
-            string relativeScreenshotPath = FileUtils.GetAttachmentsDir() + "\\" + screenshotName;
-            string fullScreenshotPath = FileUtils.Solution_dir + relativeScreenshotPath;
-            var screenshot = ((ITakesScreenshot)driverInstance).GetScreenshot();
-            screenshot.SaveAsFile(fullScreenshotPath, ScreenshotImageFormat.Jpeg);
-
-            string issueKey = AnnotationTracker.GetAttributeInCallStack<JiraIssueKeyAttribute>()?.Key;
-            IssueManager.AddIssue(new IssueModel()
-            {
-                Key = issueKey,
-                AttachmentFilePaths = new List<string>() { relativeScreenshotPath }
-            });
+        protected override string GetIssue()
+        {
+            return AnnotationTracker.GetAttributeInCallStack<JiraIssueKeyAttribute>()?.Key;
         }
     }
 }

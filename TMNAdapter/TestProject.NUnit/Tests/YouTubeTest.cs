@@ -11,7 +11,7 @@ namespace TestProject.NUnit.Tests
         [SetUp]
         public void Initialize()
         {
-           Screenshoter.Initialize(Browser.Instance.GetDriver());
+            Screenshoter.Instance.Initialize(Browser.Instance.GetDriver());
         }
 
         [Test]
@@ -38,7 +38,7 @@ namespace TestProject.NUnit.Tests
             JiraInfoProvider.SaveParameter("Author", author);
             JiraInfoProvider.SaveParameter("Title", title);
 
-            Screenshoter.TakeScreenshot();
+            Screenshoter.Instance.TakeScreenshot();
 
             Assert.AreEqual("Atlassian", author);
         }
@@ -46,7 +46,7 @@ namespace TestProject.NUnit.Tests
         [TearDown]
         public void Close()
         {
-            Screenshoter.Initialize(null);
+            Screenshoter.Instance.Initialize(null);
             Browser.Instance.Quit();
         }
     }
