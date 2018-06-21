@@ -16,6 +16,12 @@ namespace TMNAdapter.Utilities
             }
         }
 
+        public override void CloseScreenshoter()
+        {
+            driverInstance = null;
+            screenshoter = null;
+        }
+
         protected override string GetIssue()
         {
             return AnnotationTracker.GetAttributeInCallStack<JiraIssueKeyAttribute>()?.Key;

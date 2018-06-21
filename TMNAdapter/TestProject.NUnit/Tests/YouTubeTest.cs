@@ -46,7 +46,7 @@ namespace TestProject.NUnit.Tests
         [TearDown]
         public void Close()
         {
-            Screenshoter.Instance.Initialize(null);
+            Screenshoter.Instance.CloseScreenshoter();
             Browser.Instance.Quit();
         }
     }

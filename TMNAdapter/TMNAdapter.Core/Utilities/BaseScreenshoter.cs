@@ -45,6 +45,8 @@ namespace TMNAdapter.Core.Utilities
             });
         }
 
+        public abstract void CloseScreenshoter();
+
         protected abstract string GetIssue();
     }
 }
