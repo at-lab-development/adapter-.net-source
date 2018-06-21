@@ -38,11 +38,7 @@ namespace TMNAdapter.Core.Utilities
             screenshot.SaveAsFile(fullScreenshotPath, ScreenshotImageFormat.Jpeg);
 
             string issueKey = GetIssue();
-            IssueManager.AddIssue(new IssueModel()
-            {
-                Key = issueKey,
-                AttachmentFilePaths = new List<string>() { relativeScreenshotPath }
-            });
+            IssueManager.SetAttachments(issueKey, relativeScreenshotPath);
         }
 
         public abstract void CloseScreenshoter();
