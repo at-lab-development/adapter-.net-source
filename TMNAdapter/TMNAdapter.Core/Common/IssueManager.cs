@@ -77,5 +77,14 @@ namespace TMNAdapter.Core.Common
                 return storedSummary + " " + updatingSummary;
             }
         }
+
+        public static void SetAttachments(string issueKey, string relativePath)
+        {
+            AddIssue(new IssueModel()
+            {
+                Key = issueKey,
+                AttachmentFilePaths = new List<string>() { relativePath }
+            });
+        }
     }
 }

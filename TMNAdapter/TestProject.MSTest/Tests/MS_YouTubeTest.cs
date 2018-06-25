@@ -11,7 +11,7 @@ namespace TestProject.MSTest.Tests
         [TestInitialize]
         public void Initialize()
         {
-            Screenshoter.Initialize(Browser.Instance.GetDriver());
+            Screenshoter.Instance.Initialize(Browser.Instance.GetDriver());
         }
 
         [JiraTestMethod("EPMFARMATS-2466")]
@@ -36,7 +36,7 @@ namespace TestProject.MSTest.Tests
             JiraInfoProvider.SaveParameter("Author", author);
             JiraInfoProvider.SaveParameter("Title", title);
 
-            Screenshoter.TakeScreenshot();
+            Screenshoter.Instance.TakeScreenshot();
 
             Assert.AreEqual("Atlassian", author);
         }
@@ -44,7 +44,7 @@ namespace TestProject.MSTest.Tests
         [TestCleanup]
         public void Close()
         {
-            Screenshoter.Initialize(null);
+            Screenshoter.Instance.CloseScreenshoter();
             Browser.Instance.Quit();
         }
     }
