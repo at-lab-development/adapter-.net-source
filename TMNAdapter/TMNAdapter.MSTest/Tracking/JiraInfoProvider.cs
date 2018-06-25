@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TMNAdapter.Core.Common;
 using TMNAdapter.Core.Common.Models;
 using TMNAdapter.Core.Tracking;
@@ -12,41 +10,43 @@ namespace TMNAdapter.MSTest.Tracking
 {
     public class JiraInfoProvider : BaseJiraInfoProvider
     {
-        internal JiraInfoProvider()
+        static JiraInfoProvider()
         {
+            string currentJobDir = AppDomain.CurrentDomain.BaseDirectory;
+            
+            if (currentJobDir.Contains("\\workspace\\"))
+            {
+                string upperDir = Path.GetDirectoryName(currentJobDir);
+                if (!upperDir.EndsWith("\\workspace"))
+                {
+                    do
+                    {
+                        currentJobDir = upperDir;
+                        upperDir = Path.GetDirectoryName(currentJobDir);
+                    }
+                    while (!upperDir.EndsWith("\\workspace"));
+                }
+            }
 
+            FileUtils.Solution_dir = currentJobDir;
         }
 
-        public JiraInfoProvider(TestContext testContext)
-        {
-            FileUtils.Solution_dir = testContext.TestDir + @"\..\..";
-        }
-
-        public IssueModel SaveAttachment(FileInfo file)
+        public static IssueModel SaveAttachment(FileInfo file)
         {
             string issueKey = AnnotationTracker.GetAttributeInCallStack<JiraTestMethodAttribute>()?.Key;
 
-            IssueModel issue = base.SaveAttachment(issueKey, file);
+            IssueModel issue = SaveAttachment(issueKey, file);
 
             IssueManager.AddIssue(issue);
 
             return issue;
         }
 
-        public IssueModel SaveParameter<T>(string title, T value)
+        public static IssueModel SaveParameter<T>(string title, T value)
         {
             string issueKey = AnnotationTracker.GetAttributeInCallStack<JiraTestMethodAttribute>()?.Key;
 
-            IssueModel issue = base.SaveParameter(issueKey, title, value);
-
-            IssueManager.AddIssue(issue);
-
-            return issue;
-        }
-
-        public override IssueModel SaveStackTrace(string issueKey, string stackTrace)
-        {
-            IssueModel issue = base.SaveStackTrace(issueKey, stackTrace);
+            IssueModel issue = SaveParameter(issueKey, title, value);
 
             IssueManager.AddIssue(issue);
 

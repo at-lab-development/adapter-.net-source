@@ -1,12 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestProject.MSTest.Common;
+using TMNAdapter.MSTest.Tracking;
 using TMNAdapter.MSTest.Tracking.Attributes;
 using TMNAdapter.MSTest.Utilities;
 
 namespace TestProject.MSTest.Tests
 {
     [TestClass]
-    public class YouTubeTest : BaseTest
+    public class YouTubeTest 
     {
         [TestInitialize]
         public void Initialize()

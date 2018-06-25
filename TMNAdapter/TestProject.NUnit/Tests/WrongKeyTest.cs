@@ -5,7 +5,7 @@ using TMNAdapter.Tracking.Attributes;
 namespace TestProject.NUnit.Tests
 {
     [TestFixture]
-    public class WrongKeyTest : BaseTest
+    public class WrongKeyTest 
     {
         [Test]
         [JiraIssueKey("WRONGKEY")]

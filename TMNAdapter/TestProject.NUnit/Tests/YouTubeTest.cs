@@ -1,12 +1,13 @@
 ﻿using NUnit.Framework;
 using TestProject.NUnit.Common;
+using TMNAdapter.Tracking;
 using TMNAdapter.Tracking.Attributes;
 using TMNAdapter.Utilities;
 
 namespace TestProject.NUnit.Tests
 {
     [TestFixture]
-    public class YouTubeTest : BaseTest
+    public class YouTubeTest 
     {
         [SetUp]
         public void Initialize()

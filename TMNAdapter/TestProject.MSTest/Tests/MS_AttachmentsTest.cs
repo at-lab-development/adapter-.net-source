@@ -1,12 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
+using TMNAdapter.Core.Common;
+using TMNAdapter.MSTest.Tracking;
 using TMNAdapter.MSTest.Tracking.Attributes;
 
 namespace TestProject.MSTest.Tests
 {
     [TestClass]
-    public class MS_AttachmentsTest : BaseTest
+    public class MS_AttachmentsTest 
     {
         [JiraTestMethod("EPMFARMATS-2447")]
         public void TestAttachmentsAdding()
@@ -29,6 +31,12 @@ namespace TestProject.MSTest.Tests
             JiraInfoProvider.SaveParameter("Email", "1@gmail.com");
 
             Assert.IsTrue(true);
+        }
+
+        [AssemblyCleanup]
+        public static void AssemblyOneTimeCleanup()
+        {
+            TestReporter.GenerateTestResultXml();
         }
     }
 }

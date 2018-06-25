@@ -5,7 +5,7 @@ using TMNAdapter.MSTest.Tracking.Attributes;
 namespace TestProject.MSTest.Tests
 {
     [TestClass]
-    public class MS_WrongKeyTest : BaseTest
+    public class MS_WrongKeyTest 
     {
         [JiraTestMethod("WRONGKEY")]
         public void TestWrongKey()

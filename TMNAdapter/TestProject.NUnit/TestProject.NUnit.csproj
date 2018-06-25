@@ -56,7 +56,6 @@
   <ItemGroup>
     <Compile Include="Common\Browser.cs" />
     <Compile Include="Common\YouTubePage.cs" />
-    <Compile Include="Tests\BaseTest.cs" />
     <Compile Include="Tests\FirstSampleTests.cs" />
     <Compile Include="Tests\SimpleTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

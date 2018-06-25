@@ -9,36 +9,27 @@ namespace TMNAdapter.Tracking
 {
     public class JiraInfoProvider : BaseJiraInfoProvider
     {
-        public JiraInfoProvider()
+        static JiraInfoProvider()
         {
             FileUtils.Solution_dir = TestContext.CurrentContext.WorkDirectory;
         }
 
-        public IssueModel SaveAttachment(FileInfo file)
+        public static IssueModel SaveAttachment(FileInfo file)
         {
             string issueKey = GetJiraIssueKey<JiraIssueKeyAttribute>();
 
-            IssueModel issue = base.SaveAttachment(issueKey, file);
+            IssueModel issue = SaveAttachment(issueKey, file);
 
             IssueManager.AddIssue(issue);
 
             return issue;
         }
 
-        public IssueModel SaveParameter<T>(string title, T value)
+        public static IssueModel SaveParameter<T>(string title, T value)
         {
             string issueKey = GetJiraIssueKey<JiraIssueKeyAttribute>();
 
-            IssueModel issue = base.SaveParameter(issueKey, title, value);
-
-            IssueManager.AddIssue(issue);
-
-            return issue;
-        }
-
-        public override IssueModel SaveStackTrace(string issueKey, string stackTrace)
-        {
-            IssueModel issue = base.SaveStackTrace(issueKey, stackTrace);
+            IssueModel issue = SaveParameter(issueKey, title, value);
 
             IssueManager.AddIssue(issue);
 

@@ -7,7 +7,7 @@ using TMNAdapter.Tracking.Attributes;
 namespace TestProject.NUnit.Tests
 {
     [TestFixture]
-    public class FirstSampleTests : BaseTest
+    public class FirstSampleTests
     {
         [Test]
         [JiraIssueKey("EPMFARMATS-2464")]

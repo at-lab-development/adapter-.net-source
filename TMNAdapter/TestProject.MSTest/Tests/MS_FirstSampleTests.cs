@@ -1,15 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TMNAdapter.MSTest.Tracking;
 using TMNAdapter.MSTest.Tracking.Attributes;
 
 namespace TestProject.MSTest.Tests
 {
     [TestClass]
-    public class MS_FirstSampleTests : BaseTest
+    public class MS_FirstSampleTests 
     {
         [JiraTestMethod("EPMFARMATS-2464")]
         public void TestMethod()

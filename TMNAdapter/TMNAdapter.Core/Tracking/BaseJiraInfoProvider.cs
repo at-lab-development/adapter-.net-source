@@ -11,12 +11,12 @@ namespace TMNAdapter.Core.Tracking
 {
     public class BaseJiraInfoProvider
     {
-        public virtual string GetJiraIssueKey<TAttribute>() where TAttribute : IJiraIssueKeyAttribute
+        public static string GetJiraIssueKey<TAttribute>() where TAttribute : IJiraIssueKeyAttribute
         {
             return AnnotationTracker.GetAttributeInCallStack<TAttribute>()?.Key;
         }
 
-        public virtual IssueModel SaveAttachment(string issueKey, FileInfo file)
+        public static IssueModel SaveAttachment(string issueKey, FileInfo file)
         {
             if (issueKey == null)
             {
@@ -41,7 +41,7 @@ namespace TMNAdapter.Core.Tracking
                 {
                     Key = issueKey,
                     Summary = exception.Message
-                }; 
+                };
             }
             catch (IOException exception)
             {
@@ -55,7 +55,7 @@ namespace TMNAdapter.Core.Tracking
             };
         }
 
-        public virtual IssueModel SaveParameter<T>(string issueKey, string title, T value)
+        public static IssueModel SaveParameter<T>(string issueKey, string title, T value)
         {
             if (issueKey == null)
             {
@@ -72,13 +72,14 @@ namespace TMNAdapter.Core.Tracking
             };
         }
 
-        public virtual IssueModel SaveStackTrace(string issueKey, string stackTrace)
+        public static void SaveStackTrace(string issueKey, string stackTrace)
         {
+            IssueModel issue = null;
             string fileName = $"stacktrace_{DateTime.Now:yyyy-MM-ddTHH-mm-ss.fff}.txt";
             try
             {
                 string targetFilePath = FileUtils.WriteStackTrace(stackTrace, fileName);
-                return new IssueModel()
+                issue = new IssueModel()
                 {
                     Key = issueKey,
                     AttachmentFilePaths = new List<string>() { targetFilePath }
@@ -86,12 +87,14 @@ namespace TMNAdapter.Core.Tracking
             }
             catch (SaveAttachmentException exception)
             {
-                return new IssueModel()
+                issue = new IssueModel()
                 {
                     Key = issueKey,
                     Summary = exception.Message
                 };
             }
+
+            IssueManager.AddIssue(issue);
         }
     }
 }

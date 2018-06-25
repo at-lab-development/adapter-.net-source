@@ -9,13 +9,6 @@ namespace TMNAdapter.MSTest.Tracking
 {
     public class ExecutionTracker
     {
-        private static JiraInfoProvider _jiraInfoProvider;
-
-        static ExecutionTracker()
-        {
-            _jiraInfoProvider = new JiraInfoProvider();
-        }
-
         public static void SubmitTestResult(string key, TestResult testResult)
         {
             IssueModel issueModel = null;
@@ -43,7 +36,7 @@ namespace TMNAdapter.MSTest.Tracking
         {
             string stackTrace = GetStackTrace(testResult.TestFailureException);
 
-            _jiraInfoProvider.SaveStackTrace(key, stackTrace);
+            JiraInfoProvider.SaveStackTrace(key, stackTrace);
 
             return IssueManager.AddIssue(new IssueModel()
             {
