@@ -8,13 +8,6 @@ namespace TMNAdapter.Tracking
 {
     public class ExecutionTracker
     {
-        //private static JiraInfoProvider _jiraInfoProvider;
-
-        //static ExecutionTracker()
-        //{
-        //    _jiraInfoProvider = new JiraInfoProvider();
-        //}
-
         public static void SendTestResult(string key, long time)
         {
             var issueModel = new IssueModel()

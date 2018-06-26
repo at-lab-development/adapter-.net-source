@@ -35,5 +35,10 @@ namespace TMNAdapter.Tracking
 
             return issue;
         }
+
+        public new static void SaveStackTrace(string issueKey, string stackTrace)
+        {
+            BaseJiraInfoProvider.SaveStackTrace(issueKey, stackTrace);
+        }
     }
 }

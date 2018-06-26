@@ -11,12 +11,12 @@ namespace TMNAdapter.Core.Tracking
 {
     public class BaseJiraInfoProvider
     {
-        public static string GetJiraIssueKey<TAttribute>() where TAttribute : IJiraIssueKeyAttribute
+        protected static string GetJiraIssueKey<TAttribute>() where TAttribute : IJiraIssueKeyAttribute
         {
             return AnnotationTracker.GetAttributeInCallStack<TAttribute>()?.Key;
         }
 
-        public static IssueModel SaveAttachment(string issueKey, FileInfo file)
+        protected static IssueModel SaveAttachment(string issueKey, FileInfo file)
         {
             if (issueKey == null)
             {
@@ -55,7 +55,7 @@ namespace TMNAdapter.Core.Tracking
             };
         }
 
-        public static IssueModel SaveParameter<T>(string issueKey, string title, T value)
+        protected static IssueModel SaveParameter<T>(string issueKey, string title, T value)
         {
             if (issueKey == null)
             {
@@ -72,7 +72,7 @@ namespace TMNAdapter.Core.Tracking
             };
         }
 
-        public static void SaveStackTrace(string issueKey, string stackTrace)
+        protected static void SaveStackTrace(string issueKey, string stackTrace)
         {
             IssueModel issue = null;
             string fileName = $"stacktrace_{DateTime.Now:yyyy-MM-ddTHH-mm-ss.fff}.txt";
