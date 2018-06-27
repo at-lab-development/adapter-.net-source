@@ -5,7 +5,6 @@
         None,
 		Failed,
 		Passed,
-		Blocked,
 		Untested
 	}
 }
