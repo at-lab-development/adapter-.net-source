@@ -9,59 +9,51 @@ namespace TMNAdapter.MSTest.Tracking
 {
     public class ExecutionTracker
     {
-        public static void SubmitTestResult(string key, TestResult testResult)
+        public static void SendTestResult(string key, TestResult testResult)
         {
-            IssueModel issueModel = null;
+            var issueModel = new IssueModel()
+            {
+                Key = key,
+                Time = testResult.Duration.Milliseconds,
+                IsTestComplete = true
+            };
 
             switch (testResult.Outcome)
             {
                 case UnitTestOutcome.Failed:
-                    issueModel = FailedTest(key, testResult);
+                    FailedTest(key, testResult, issueModel);
                     break;
                 case UnitTestOutcome.Passed:
-                    issueModel = PassedTest(key, testResult);
+                    PassedTest(key, testResult, issueModel);
                     break;
                 default:
-                    issueModel = SkippedTest(key, testResult);
+                    SkippedTest(key, testResult, issueModel);
                     break;
             }
-
-            issueModel.Time = testResult.Duration.Milliseconds;
-            issueModel.IsTestComplete = true;
-
-            var debug = IssueManager.AddIssue(issueModel);
         }
 
-        private static IssueModel FailedTest(string key, TestResult testResult)
+        private static void FailedTest(string key, TestResult testResult, IssueModel issue)
         {
-            string stackTrace = GetStackTrace(testResult.TestFailureException);
+            JiraInfoProvider.SaveStackTrace(key, GetStackTrace(testResult.TestFailureException));
 
-            JiraInfoProvider.SaveStackTrace(key, stackTrace);
+            issue.Summary = testResult.TestFailureException.Message;
+            issue.Status = Status.Failed;
 
-            return IssueManager.AddIssue(new IssueModel()
-            {
-                Key = key,
-                Status = Status.Failed,
-                Summary = testResult.TestFailureException.Message
-            });
+            IssueManager.AddIssue(issue);
         }
 
-        private static IssueModel PassedTest(string key, TestResult testResult)
+        private static void PassedTest(string key, TestResult testResult, IssueModel issue)
         {
-            return IssueManager.AddIssue(new IssueModel()
-            {
-                Key = key,
-                Status = Status.Passed
-            });
+            issue.Status = Status.Passed;
+
+            IssueManager.AddIssue(issue);
         }
 
-        private static IssueModel SkippedTest(string key, TestResult testResult)
+        private static void SkippedTest(string key, TestResult testResult, IssueModel issue)
         {
-            return IssueManager.AddIssue(new IssueModel()
-            {
-                Key = key,
-                Status = Status.Untested
-            });
+            issue.Status = Status.Untested;
+
+            IssueManager.AddIssue(issue);
         }
 
         private static string GetStackTrace(Exception exception)

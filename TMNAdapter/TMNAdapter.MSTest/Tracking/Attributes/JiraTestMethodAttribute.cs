@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TMNAdapter.Core.Common.Validation;
@@ -33,7 +32,7 @@ namespace TMNAdapter.MSTest.Tracking.Attributes
             TestResult[] results = base.Execute(testMethod);
             TestResult result = results.FirstOrDefault();
 
-            ExecutionTracker.SubmitTestResult(Key, result);
+            ExecutionTracker.SendTestResult(Key, result);
 
             return results;
         }
