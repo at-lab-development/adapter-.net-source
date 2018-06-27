@@ -15,7 +15,6 @@ namespace TMNAdapter.MSTest
             DirectoryInfo[] directories = dir.GetDirectories();
 
             string[] files = Directory.GetFiles(source);
-            int i = directories.Count() + files.Count();
 
             foreach (string file in files)
             {

@@ -1,9 +1,7 @@
 ﻿using OpenQA.Selenium;
 using System;
-using System.Collections.Generic;
 using OpenQA.Selenium.Remote;
 using TMNAdapter.Core.Common;
-using TMNAdapter.Core.Common.Models;
 
 namespace TMNAdapter.Core.Utilities
 {

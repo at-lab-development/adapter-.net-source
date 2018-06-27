@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
-using TMNAdapter.Core.Common.Validation;
 using TMNAdapter.Core.Tracking.Attributes;
 
 namespace TMNAdapter.Tracking.Attributes

@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
+﻿using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TMNAdapter.Core.Common;
 using TMNAdapter.Core.Common.Models;
