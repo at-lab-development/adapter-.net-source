@@ -2,6 +2,7 @@
 using System;
 using OpenQA.Selenium.Remote;
 using TMNAdapter.Core.Common;
+using System.IO;
 
 namespace TMNAdapter.Core.Utilities
 {
@@ -32,10 +33,14 @@ namespace TMNAdapter.Core.Utilities
             string screenshotName = $"screenshot_{DateTime.Now:yyyy-MM-ddTHH-mm-ss.fff}.jpeg";
             string relativeScreenshotPath = FileUtils.GetAttachmentsDir() + "\\" + screenshotName;
             string fullScreenshotPath = FileUtils.Solution_dir + relativeScreenshotPath;
+
+            FileUtils.CheckOrCreateDir(Path.GetDirectoryName(fullScreenshotPath));
+
             var screenshot = ((ITakesScreenshot)driverInstance).GetScreenshot();
             screenshot.SaveAsFile(fullScreenshotPath, ScreenshotImageFormat.Jpeg);
 
             string issueKey = GetIssue();
+
             IssueManager.SetAttachments(issueKey, relativeScreenshotPath);
         }
 
