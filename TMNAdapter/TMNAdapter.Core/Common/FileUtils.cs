@@ -12,9 +12,7 @@ namespace TMNAdapter.Core.Common
     {
         private const string TARGET_DIR = "\\target";
         private const string ATTACHMENTS_DIR = TARGET_DIR + "\\attachments";
-        private static string solution_dir;
-
-        public static string Solution_dir { get => solution_dir; set => solution_dir = value; }
+        public static string Solution_dir { get; set; }
 
         /// <summary>
         /// Writes stack trace in temporary file and save it to attachments directory
@@ -62,7 +60,7 @@ namespace TMNAdapter.Core.Common
             {
                 string fileName = file.Name;
                 string relativeFilePath = ATTACHMENTS_DIR;
-                string copyPath = solution_dir + relativeFilePath;
+                string copyPath = Solution_dir + relativeFilePath;
 
                 CheckOrCreateDir(copyPath);
 
@@ -97,7 +95,7 @@ namespace TMNAdapter.Core.Common
         /// <param name="relativefilePath"> The path to output file </param>
         public static void WriteXml(TestResult result, string relativefilePath)
         {
-            string testResultDir = solution_dir + TARGET_DIR;
+            string testResultDir = Solution_dir + TARGET_DIR;
             CheckOrCreateDir(testResultDir);
 
             var doc = new XmlDocument();
@@ -118,7 +116,7 @@ namespace TMNAdapter.Core.Common
             doc.Save(Path.Combine(testResultDir, relativefilePath));
         }
 
-        private static void CheckOrCreateDir(string Dir)
+        internal static void CheckOrCreateDir(string Dir)
         {
             if (!Directory.Exists(Dir))
             {
