@@ -9,7 +9,7 @@ namespace TMNAdapter.Core.Tracking.Attributes
     /// JIRA issue, using issue key
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
-    public class BaseJiraIssueKeyAttribute : Attribute, IJiraIssueKeyAttribute
+    public class BaseJiraTestMethodAttribute : Attribute, IJiraIssueKeyAttribute
     {
         /// <summary>
         /// Gets JIRA issue key
@@ -17,10 +17,10 @@ namespace TMNAdapter.Core.Tracking.Attributes
         public string Key { get; }
 
         /// <summary>
-        /// Initializes a new instance of <see cref="BaseJiraIssueKeyAttribute"/>
+        /// Initializes a new instance of <see cref="BaseJiraTestMethodAttribute"/>
         /// </summary>
         /// <param name="key">JIRA issue key</param>
-        public BaseJiraIssueKeyAttribute(string key)
+        public BaseJiraTestMethodAttribute(string key)
         {
             ValidationHelper.MatchPattern(key, nameof(key), @"((?<!([A-Za-z]{1,10})-?)[A-Z]+-\d+)");
 

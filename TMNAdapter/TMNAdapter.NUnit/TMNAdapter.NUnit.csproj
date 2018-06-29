@@ -53,7 +53,7 @@
   <ItemGroup>
     <Compile Include="Utilities\Screenshoter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tracking\Attributes\AssemblyActionAttribute.cs" />
+    <Compile Include="Tracking\Attributes\GenerateTestReportForJIRAAttribute.cs" />
     <Compile Include="Tracking\Attributes\JiraIssueKeyAttribute.cs" />
     <Compile Include="Tracking\ExecutionTracker.cs" />
     <Compile Include="Tracking\JiraInfoProvider.cs" />

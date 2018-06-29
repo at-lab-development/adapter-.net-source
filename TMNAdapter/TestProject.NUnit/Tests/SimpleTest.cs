@@ -10,7 +10,7 @@ namespace TestProject.NUnit.Tests
     public class SimpleTest : BaseTest
     {
         [Test]
-        [JiraIssueKey("EPMFARMATS-2447")]
+        [JiraTestMethod("EPMFARMATS-2447")]
         public void CheckArtifacts()
         {
             var random = new Random();
@@ -27,7 +27,7 @@ namespace TestProject.NUnit.Tests
 
         [Test]
         [Ignore("Test ignored tests behavior")]
-        [JiraIssueKey("EPMFARMATS-2471")]
+        [JiraTestMethod("EPMFARMATS-2471")]
         public void UntestedTest()
         {
             Assert.IsTrue(true);

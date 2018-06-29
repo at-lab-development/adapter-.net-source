@@ -8,7 +8,7 @@ namespace TestProject.NUnit.Tests
     public class WrongKeyTest : BaseTest
     {
         [Test]
-        [JiraIssueKey("WRONGKEY")]
+        [JiraTestMethod("WRONGKEY")]
         public void TestWrongKey()
         {
             bool random = Convert.ToBoolean(new Random().Next(0, 2));

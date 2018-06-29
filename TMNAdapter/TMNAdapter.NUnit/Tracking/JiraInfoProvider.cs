@@ -16,7 +16,7 @@ namespace TMNAdapter.Tracking
 
         public IssueModel SaveAttachment(FileInfo file)
         {
-            string issueKey = GetJiraIssueKey<JiraIssueKeyAttribute>();
+            string issueKey = GetJiraIssueKey<JiraTestMethodAttribute>();
 
             IssueModel issue = base.SaveAttachment(issueKey, file);
 
@@ -27,7 +27,7 @@ namespace TMNAdapter.Tracking
 
         public IssueModel SaveParameter<T>(string title, T value)
         {
-            string issueKey = GetJiraIssueKey<JiraIssueKeyAttribute>();
+            string issueKey = GetJiraIssueKey<JiraTestMethodAttribute>();
 
             IssueModel issue = base.SaveParameter(issueKey, title, value);
 
