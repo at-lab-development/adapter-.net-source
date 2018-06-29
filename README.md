@@ -13,11 +13,11 @@ For further processing by [Jenkins Test Management plugin](https://github.com/te
 1. **Download & Build** solution or **Download Ready to Use TTMNAdapter.NUnit** assembly
 2. Make sure your **Test Project** is based on NUnit Testing Framework
 3. Add **TMNAdapter.NUnit** and **TMNAdapter.Core** references to your **Test Project**
-4. Mark your test with `JiraIssueKey` attribute to link it with Jira issue
+4. Mark your test with `JiraTestMethod` attribute to link it with Jira issue
 5. Use `JiraInfoProvider` to attach additional data for Jira issues
-6. Add `[assembly: AssemblyAction]` line to any test class file in your **Test Project**
+6. Add `[assembly: GenerateTestReportForJIRA]` line to any test class file in your **Test Project**
 	```csharp
-	[assembly: AssemblyAction]
+	[assembly: GenerateTestReportForJIRA]
 	namespace TestProject
 	{
 		[TestFixture]
@@ -32,7 +32,7 @@ For further processing by [Jenkins Test Management plugin](https://github.com/te
 			}
 
 			[Test]
-			[JiraIssueKey("ISSUE-KEY")]
+			[JiraTestMethod("ISSUE-KEY")]
 			public void AwesomeTestMethod()
 			{
 				// use this anywhere in your tests...
