@@ -53,7 +53,7 @@
   <ItemGroup>
     <Compile Include="Common\AttachmentSavingException.cs" />
     <Compile Include="Tracking\Attributes\AnnotationTracker.cs" />
-    <Compile Include="Tracking\Attributes\BaseJiraIssueKeyAttribute.cs" />
+    <Compile Include="Tracking\Attributes\BaseJiraTestMethodAttribute.cs" />
     <Compile Include="Common\FileUtils.cs" />
     <Compile Include="Common\IssueManager.cs" />
     <Compile Include="Common\Models\IssueModel.cs" />
