@@ -24,7 +24,7 @@ namespace TMNAdapter.Utilities
 
         protected override string GetIssue()
         {
-            return AnnotationTracker.GetAttributeInCallStack<JiraIssueKeyAttribute>()?.Key;
+            return AnnotationTracker.GetAttributeInCallStack<JiraTestMethodAttribute>()?.Key;
         }
     }
 }

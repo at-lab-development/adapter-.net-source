@@ -6,7 +6,7 @@ using TMNAdapter.Core.Common;
 namespace TMNAdapter.Tracking.Attributes
 {
     [AttributeUsage(AttributeTargets.Assembly, Inherited = false, AllowMultiple = false)]
-    public class AssemblyActionAttribute : Attribute, ITestAction
+    public class GenerateTestReportForJIRAAttribute : Attribute, ITestAction
     {
         public void BeforeTest(ITest test)
         {

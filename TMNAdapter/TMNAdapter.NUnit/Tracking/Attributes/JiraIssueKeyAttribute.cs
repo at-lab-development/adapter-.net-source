@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
-using TMNAdapter.Core.Common.Validation;
 using TMNAdapter.Core.Tracking.Attributes;
 
 namespace TMNAdapter.Tracking.Attributes
@@ -13,17 +12,17 @@ namespace TMNAdapter.Tracking.Attributes
     /// NUnit implementation
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
-    public class JiraIssueKeyAttribute : BaseJiraIssueKeyAttribute, ITestAction
+    public class JiraTestMethodAttribute : BaseJiraTestMethodAttribute, ITestAction
     {
         public ActionTargets Targets => ActionTargets.Test;
 
         private Stopwatch _stopWatch;
 
         /// <summary>
-        /// Initializes a new instance of <see cref="JiraIssueKeyAttribute"/>
+        /// Initializes a new instance of <see cref="JiraTestMethodAttribute"/>
         /// </summary>
         /// <param name="key">JIRA issue key</param>
-        public JiraIssueKeyAttribute(string key) : base(key)
+        public JiraTestMethodAttribute(string key) : base(key)
         {
         }
 
