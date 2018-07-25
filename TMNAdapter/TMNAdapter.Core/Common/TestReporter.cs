@@ -8,6 +8,8 @@ namespace TMNAdapter.Core.Common
 {
     public static class TestReporter
     {
+        private static readonly string ResultFileName = Constants.RESULT_FILE_NAME;
+
         public static void GenerateTestResultXml()
         {
             List<IssueModel> issueModels = IssueManager.GetIssues();
@@ -17,6 +19,11 @@ namespace TMNAdapter.Core.Common
                 return;
             }
 
+            FileUtils.WriteXml(GetTestResult(issueModels), ResultFileName);
+        }
+
+        private static TestResult GetTestResult(List<IssueModel> issueModels)
+        {
             var testResult = new TestResult() { Issues = new List<Issue>() };
             foreach (var issueModel in issueModels)
             {
@@ -30,8 +37,7 @@ namespace TMNAdapter.Core.Common
                     Parameters = issueModel.Parameters
                 });
             }
-
-            FileUtils.WriteXml(testResult, "tm-testng.xml");
+            return testResult;
         }
 
         private static string FormatTime(long? timeInMilliseconds)

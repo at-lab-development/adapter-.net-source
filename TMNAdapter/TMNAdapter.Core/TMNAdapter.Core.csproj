@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\AttachmentSavingException.cs" />
+    <Compile Include="Common\Constants.cs" />
     <Compile Include="Tracking\Attributes\AnnotationTracker.cs" />
     <Compile Include="Tracking\Attributes\BaseJiraTestMethodAttribute.cs" />
     <Compile Include="Common\FileUtils.cs" />

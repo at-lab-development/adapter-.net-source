@@ -29,7 +29,7 @@ namespace TMNAdapter.Core.Tracking
             try
             {
                 string filePath = file.FullName;
-                bool isOutOfAttachmentsDir = !filePath.StartsWith(currentDirectory + FileUtils.GetAttachmentsDir());
+                bool isOutOfAttachmentsDir = !filePath.StartsWith(currentDirectory + Constants.ATTACHMENTS_DIR);
 
                 targetFilePath = isOutOfAttachmentsDir ?
                                    FileUtils.SaveFile(file) :

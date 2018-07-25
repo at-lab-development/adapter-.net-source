@@ -31,7 +31,7 @@ namespace TMNAdapter.Core.Utilities
             }
 
             string screenshotName = $"screenshot_{DateTime.Now:yyyy-MM-ddTHH-mm-ss.fff}.jpeg";
-            string relativeScreenshotPath = FileUtils.GetAttachmentsDir() + "\\" + screenshotName;
+            string relativeScreenshotPath = Constants.ATTACHMENTS_DIR + "\\" + screenshotName;
             string fullScreenshotPath = FileUtils.Solution_dir + relativeScreenshotPath;
 
             FileUtils.CheckOrCreateDir(Path.GetDirectoryName(fullScreenshotPath));

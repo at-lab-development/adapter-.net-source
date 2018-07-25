@@ -10,8 +10,8 @@ namespace TMNAdapter.Core.Common
     // FileUtils is a util class which provides useful methods for file writing
     public class FileUtils
     {
-        private const string TARGET_DIR = "\\target";
-        private const string ATTACHMENTS_DIR = TARGET_DIR + "\\attachments";
+        private static readonly string TargetDir = Constants.TARGET_DIR;
+        private static readonly string AttachmentsDir = Constants.ATTACHMENTS_DIR;
         public static string Solution_dir { get; set; }
 
         /// <summary>
@@ -37,13 +37,13 @@ namespace TMNAdapter.Core.Common
                 writer.Dispose();
 
                 return targetFilePath;
-            }            
+            }
             catch (IOException exception)
             {
                 Debug.WriteLine($"Message: {exception.Message}\n " +
                                 $"StackTrace: {exception.StackTrace}");
 
-                throw new SaveAttachmentException($"Failed to attach {fileName}");                
+                throw new SaveAttachmentException($"Failed to attach {fileName}");
             }
         }
 
@@ -59,7 +59,7 @@ namespace TMNAdapter.Core.Common
             try
             {
                 string fileName = file.Name;
-                string relativeFilePath = ATTACHMENTS_DIR;
+                string relativeFilePath = AttachmentsDir;
                 string copyPath = Solution_dir + relativeFilePath;
 
                 CheckOrCreateDir(copyPath);
@@ -95,7 +95,7 @@ namespace TMNAdapter.Core.Common
         /// <param name="relativefilePath"> The path to output file </param>
         public static void WriteXml(TestResult result, string relativefilePath)
         {
-            string testResultDir = Solution_dir + TARGET_DIR;
+            string testResultDir = Solution_dir + TargetDir;
             CheckOrCreateDir(testResultDir);
 
             var doc = new XmlDocument();
@@ -123,11 +123,7 @@ namespace TMNAdapter.Core.Common
                 Directory.CreateDirectory(Dir);
             }
         }
-
-        static string GetTargetDir() => TARGET_DIR;
-
-        public static string GetAttachmentsDir() => ATTACHMENTS_DIR;
-
+        
         private static long TimeInMillis() => (long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
     }
 }

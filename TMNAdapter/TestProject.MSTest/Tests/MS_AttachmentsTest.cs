@@ -26,6 +26,7 @@ namespace TestProject.MSTest.Tests
         }
 
         [JiraTestMethod("EPMFARMATS-2471")]
+        [Ignore("Test ignored tests behavior")]
         public void IgnoredTest()
         {
             JiraInfoProvider.SaveParameter("Email", "1@gmail.com");
