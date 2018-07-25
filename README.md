@@ -60,7 +60,7 @@ For further processing by [Jenkins Test Management plugin](https://github.com/te
 	}
 	```
 7. **Build & Run** your tests with **Jenkins** or manual
-8. Check **target** folder with **tm-testing.xml** file and **attachments** folder for **TM Jenkins Plugin**
+8. Check **target** folder with **jira-tm-report.xml** file and **attachments** folder for **TM Jenkins Plugin**
 	```xml
 	<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 	<tests>
@@ -158,7 +158,7 @@ For further processing by [Jenkins Test Management plugin](https://github.com/te
 	}
 	```
 7. **Build & Run** your tests with **Jenkins** or manual
-8. Check **target** folder with **tm-testing.xml** file and **attachments** folder for **TM Jenkins Plugin**
+8. Check **target** folder with **jira-tm-report.xml** file and **attachments** folder for **TM Jenkins Plugin**
 	```xml
 	<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 	<tests>
