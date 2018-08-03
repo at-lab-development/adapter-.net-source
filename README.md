@@ -7,7 +7,7 @@ This is a Testing Adapter based on NUnit Testing Framework, which gathers basic 
 *  screenshots;
 *  stack traces;
 
-For further processing by [Jenkins Test Management plugin](https://github.com/teo-rakan/test-management-jenkins-plugin).
+For further processing by [Jenkins Test Management plugin](https://github.com/at-lab-development/jenkins-test-management-plugin).
 
 # How To Use With NUnit
 1. **Download & Build** solution or **Download Ready to Use TTMNAdapter.NUnit** assembly
@@ -55,7 +55,7 @@ For further processing by [Jenkins Test Management plugin](https://github.com/te
     		public void Cleanup()
     		{
        			Screenshoter.Instance.CloseScreenshoter();
-	    	}
+	    		}
 		}
 	}
 	```
@@ -93,10 +93,10 @@ For further processing by [Jenkins Test Management plugin](https://github.com/te
 		[...]
 	</tests>
 	```
-9. Make sure [**TM Jenkins Plugin**](https://github.com/teo-rakan/test-management-jenkins-plugin) is installed and configured in Jenkins
+9. Make sure [**TM Jenkins Plugin**](https://github.com/at-lab-development/jenkins-test-management-plugin) is installed and configured in Jenkins
 10. Check issue in Jira
 
-![jira-auto-comment](/uploads/25f8de4d7e0e854834c595d2cb4699f6/jira-auto-comment.jpg)
+![jira-auto-comment](/images/jira-auto-comment.jpg)
 
 # How To Use With MSTest
 1. **Download & Build** solution or **Download Ready to Use TMNAdapter.MSTest** assembly
@@ -117,7 +117,7 @@ For further processing by [Jenkins Test Management plugin](https://github.com/te
 			[TestInitialize]
 			public void Initialize()
 			{
-        		Screenshoter.Initialize(Browser.Instance.GetDriver()); 
+        			Screenshoter.Initialize(Browser.Instance.GetDriver()); 
     		}
 
     		[JiraTestMethod("ISSUE-KEY")]
@@ -130,23 +130,23 @@ For further processing by [Jenkins Test Management plugin](https://github.com/te
        	 		JiraInfoProvider.SaveParameter("bool", true);
        			JiraInfoProvider.SaveParameter("int", 42);
 
-        		// attach file to the Jira issue
-        		var fileInfo = new FileInfo("file-path");
-        		JiraInfoProvider.SaveAttachment(fileInfo);
+        			// attach file to the Jira issue
+        			var fileInfo = new FileInfo("file-path");
+        			JiraInfoProvider.SaveAttachment(fileInfo);
 		
 				// attach a screenshot to the Jira issue
 				Screenshoter.Instance.TakeScreenshot();
 
-        		// assert's message also will be recorded
-        		Assert.Fail("You Shall Not Pass! ¯\_(ツ)_/¯");
-	    	}
+        			// assert's message also will be recorded
+        			Assert.Fail("You Shall Not Pass! ¯\_(ツ)_/¯");
+	    		}
 	
 			//if you were using Screenshoter
 			[TestCleanup]
     		public void Cleanup()
     		{
        			Screenshoter.Instance.CloseScreenshoter();
-	    	}
+	    		}
 		
 			//gathering all test results
 			[AssemblyCleanup]
@@ -191,7 +191,7 @@ For further processing by [Jenkins Test Management plugin](https://github.com/te
 		[...]
 	</tests>
 	```
-9. Make sure [**TM Jenkins Plugin**](https://github.com/teo-rakan/test-management-jenkins-plugin) is installed and configured in Jenkins
+9. Make sure [**TM Jenkins Plugin**](https://github.com/at-lab-development/jenkins-test-management-plugin) is installed and configured in Jenkins
 10. Check issue in Jira
 
-![jira-auto-comment](/uploads/25f8de4d7e0e854834c595d2cb4699f6/jira-auto-comment.jpg)
+![jira-auto-comment](/images/jira-auto-comment.jpg)
