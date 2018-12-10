@@ -97,7 +97,7 @@ namespace TMNAdapter.Core.Common
         {
             string testResultDir = Solution_dir + TargetDir;
             CheckOrCreateDir(testResultDir);
-
+            
             var doc = new XmlDocument();
             StringWriter writer = new StringWriter();
             XmlSerializer formatter = new XmlSerializer(typeof(TestResult));

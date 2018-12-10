@@ -1,17 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\SpecRun.Runner.1.8.5\build\SpecRun.Runner.props" Condition="Exists('..\packages\SpecRun.Runner.1.8.5\build\SpecRun.Runner.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DA834DEF-D7F5-4EB2-AE17-EAD30D86E123}</ProjectGuid>
+    <ProjectGuid>{56706202-D662-4DA5-83EB-FE5E560888ED}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TMNAdapter.Core</RootNamespace>
-    <AssemblyName>TMNAdapter.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>TMNAdapter.SpecFlow</RootNamespace>
+    <AssemblyName>TMNAdapter.SpecFlow</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -33,53 +34,54 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.0.5797.27534, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.0.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
+    <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="WebDriver, Version=3.141.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selenium.WebDriver.3.141.0\lib\net45\WebDriver.dll</HintPath>
-    </Reference>
-    <Reference Include="WebDriver.Support, Version=3.141.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selenium.Support.3.141.0\lib\net45\WebDriver.Support.dll</HintPath>
+    <Reference Include="TechTalk.SpecFlow, Version=2.4.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpecFlow.2.4.0\lib\net45\TechTalk.SpecFlow.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\AttachmentSavingException.cs" />
-    <Compile Include="Common\Constants.cs" />
-    <Compile Include="Tracking\Attributes\AnnotationTracker.cs" />
-    <Compile Include="Tracking\Attributes\BaseJiraTestMethodAttribute.cs" />
-    <Compile Include="Common\FileUtils.cs" />
-    <Compile Include="Common\IssueManager.cs" />
-    <Compile Include="Common\Models\IssueModel.cs" />
-    <Compile Include="Common\TestReporter.cs" />
-    <Compile Include="Common\Validation\ValidationHelper.cs" />
-    <Compile Include="Entities\Issue.cs" />
-    <Compile Include="Entities\Status.cs" />
-    <Compile Include="Entities\TestParameters.cs" />
-    <Compile Include="Entities\TestResult.cs" />
-    <Compile Include="Tracking\BaseJiraInfoProvider.cs" />
+    <Compile Include="Common\ExecutionTracker.cs" />
+    <Compile Include="Common\JiraInfoProvider.cs" />
+    <Compile Include="JiraTestMethodTagHooks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tracking\Interfaces\IJiraIssueKeyAttribute.cs" />
-    <Compile Include="Utilities\BaseScreenshoter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TMNAdapter.Core\TMNAdapter.Core.csproj">
+      <Project>{da834def-d7f5-4eb2-ae17-ead30d86e123}</Project>
+      <Name>TMNAdapter.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\SpecFlow.2.4.0\build\SpecFlow.targets" Condition="Exists('..\packages\SpecFlow.2.4.0\build\SpecFlow.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
+    <Error Condition="!Exists('..\packages\SpecFlow.2.4.0\build\SpecFlow.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecFlow.2.4.0\build\SpecFlow.targets'))" />
+    <Error Condition="!Exists('..\packages\SpecRun.Runner.1.8.5\build\SpecRun.Runner.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecRun.Runner.1.8.5\build\SpecRun.Runner.props'))" />
     <Error Condition="!Exists('..\packages\Selenium.WebDriver.ChromeDriver.2.44.0\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.WebDriver.ChromeDriver.2.44.0\build\Selenium.WebDriver.ChromeDriver.targets'))" />
+    <Error Condition="!Exists('..\packages\Selenium.Chrome.WebDriver.2.43\build\Selenium.Chrome.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.Chrome.WebDriver.2.43\build\Selenium.Chrome.WebDriver.targets'))" />
   </Target>
   <Import Project="..\packages\Selenium.WebDriver.ChromeDriver.2.44.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('..\packages\Selenium.WebDriver.ChromeDriver.2.44.0\build\Selenium.WebDriver.ChromeDriver.targets')" />
+  <Import Project="..\packages\Selenium.Chrome.WebDriver.2.43\build\Selenium.Chrome.WebDriver.targets" Condition="Exists('..\packages\Selenium.Chrome.WebDriver.2.43\build\Selenium.Chrome.WebDriver.targets')" />
 </Project>
