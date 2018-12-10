@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMNAdapter.MSTest", "TMNAda
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject.MSTest", "TestProject.MSTest\TestProject.MSTest.csproj", "{27EF99B2-90D3-4047-853F-ABDBFE142AB2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject.SpecFlow", "..\..\BDD_test_plugin\TMNAdapter.SpecFlow\TestProject.SpecFlow\TestProject.SpecFlow.csproj", "{5940C3A9-5986-4925-B5A7-4D541A94473A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMNAdapter.SpecFlow", "..\..\BDD_test_plugin\TMNAdapter.SpecFlow\TMNAdapter.SpecFlow\TMNAdapter.SpecFlow.csproj", "{BAACB0AE-42A3-4ADE-8C22-A330312DAA5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{27EF99B2-90D3-4047-853F-ABDBFE142AB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27EF99B2-90D3-4047-853F-ABDBFE142AB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27EF99B2-90D3-4047-853F-ABDBFE142AB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5940C3A9-5986-4925-B5A7-4D541A94473A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5940C3A9-5986-4925-B5A7-4D541A94473A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5940C3A9-5986-4925-B5A7-4D541A94473A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5940C3A9-5986-4925-B5A7-4D541A94473A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAACB0AE-42A3-4ADE-8C22-A330312DAA5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAACB0AE-42A3-4ADE-8C22-A330312DAA5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAACB0AE-42A3-4ADE-8C22-A330312DAA5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAACB0AE-42A3-4ADE-8C22-A330312DAA5D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
