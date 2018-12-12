@@ -1,9 +1,9 @@
 ﻿using System.IO;
-using TMNAdapter.Core.Common.Models;
-using TMNAdapter.Core.Tracking;
+using System.Linq;
 using TechTalk.SpecFlow;
 using TMNAdapter.Core.Common;
-using System.Linq;
+using TMNAdapter.Core.Common.Models;
+using TMNAdapter.Core.Tracking;
 
 namespace TMNAdapter.SpecFlow.Common
 {
@@ -16,9 +16,10 @@ namespace TMNAdapter.SpecFlow.Common
 
         public static IssueModel SaveAttachment(FileInfo file, ScenarioContext context)
         {
-            string issueKey = context.ScenarioInfo.Tags.Where(t => JiraTestMethodTagHooks.issueTemplate.IsMatch(t)).FirstOrDefault();
+            var issueKey =
+                context.ScenarioInfo.Tags.FirstOrDefault(t => JiraTestMethodTagHooks.issueTemplate.IsMatch(t));
 
-            IssueModel issue = SaveAttachment(issueKey, file);
+            var issue = SaveAttachment(issueKey, file);
 
             IssueManager.AddIssue(issue);
 
@@ -27,9 +28,10 @@ namespace TMNAdapter.SpecFlow.Common
 
         public static IssueModel SaveParameter<T>(string title, T value, ScenarioContext context)
         {
-            string issueKey = context.ScenarioInfo.Tags.Where(t => JiraTestMethodTagHooks.issueTemplate.IsMatch(t)).FirstOrDefault();
+            var issueKey =
+                context.ScenarioInfo.Tags.FirstOrDefault(t => JiraTestMethodTagHooks.issueTemplate.IsMatch(t));
 
-            IssueModel issue = SaveParameter(issueKey, title, value);
+            var issue = SaveParameter(issueKey, title, value);
 
             IssueManager.AddIssue(issue);
 

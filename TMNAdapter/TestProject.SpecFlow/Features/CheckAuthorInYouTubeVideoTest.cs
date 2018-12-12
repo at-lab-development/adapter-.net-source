@@ -19,7 +19,7 @@ namespace TestProject.SpecFlow.Features
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("CheckAuthorAndTitleInYouTubeVideoTest")]
-    public partial class CheckAuthorAndTitleInYouTubeVideoTestFeature
+    public partial class CheckAuthorInYouTubeVideoTestFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;

@@ -1,14 +1,11 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using TestProject.SpecFlow.BaseObject;
 using TestProject.SpecFlow.Common;
 using TMNAdapter.SpecFlow.Common;
+using TMNAdapter.SpecFlow.Utilities;
 
 namespace TestProject.SpecFlow.Steps
 {
@@ -17,11 +14,13 @@ namespace TestProject.SpecFlow.Steps
     {
         private readonly ScenarioContext scenarioContext;
         private YouTubePage page;
+        private Screenshoter screenshoter;
 
         public CheckAuthorAndTitleInYoutubeVideo(ScenarioContext scenarioContext)
         {
             if (scenarioContext == null) throw new ArgumentNullException("scenarioContext");
             this.scenarioContext = scenarioContext;
+            screenshoter = new Screenshoter(scenarioContext, BrowserContainer.GetBrowser(scenarioContext.ScenarioInfo.Title).Driver);
             page = new YouTubePage(BrowserContainer.GetBrowser(scenarioContext.ScenarioInfo.Title));
         }
 
@@ -36,6 +35,7 @@ namespace TestProject.SpecFlow.Steps
         {
             JiraInfoProvider.SaveParameter("authorName", page.GetAuthorName(), scenarioContext);
             string name = page.GetAuthorName();
+            screenshoter.GetScreenshot();
             Assert.AreEqual(name, authorName);
         }
 
@@ -45,6 +45,7 @@ namespace TestProject.SpecFlow.Steps
             JiraInfoProvider.SaveAttachment(new FileInfo($@"{AppDomain.CurrentDomain.BaseDirectory}\..\..\Resources\jenkins-oops.jpg"), scenarioContext);
             JiraInfoProvider.SaveParameter("authorName", page.GetAuthorName(), scenarioContext);
             string name = page.GetVideoTitle();
+            screenshoter.GetScreenshot();
             Assert.AreEqual(name, titleName);
         }
     }

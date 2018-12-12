@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using TechTalk.SpecFlow;
 using TMNAdapter.Core.Common;
 using TMNAdapter.Core.Common.Models;
 using TMNAdapter.Core.Entities;
-using System.Diagnostics;
 
 namespace TMNAdapter.SpecFlow.Common
 {
-    public class ExecutionTracker
+    internal class ExecutionTracker
     {
-        private static Dictionary<string, string> trackedIssues = new Dictionary<string, string>();
-        private static Dictionary<string, Stopwatch> testTime = new Dictionary<string, Stopwatch>();
+        private static readonly Dictionary<string, string> trackedIssues = new Dictionary<string, string>();
+        private static readonly Dictionary<string, Stopwatch> testTime = new Dictionary<string, Stopwatch>();
 
         public static void AddTracked(string epamJiraTag, string title)
         {
@@ -22,7 +22,7 @@ namespace TMNAdapter.SpecFlow.Common
         public static void SendTestResult(string epamJiraTag, ScenarioContext context)
         {
             testTime[epamJiraTag].Stop();
-            var issueModel = new IssueModel()
+            var issueModel = new IssueModel
             {
                 Key = epamJiraTag,
                 Time = testTime[epamJiraTag].ElapsedMilliseconds,
@@ -80,6 +80,4 @@ namespace TMNAdapter.SpecFlow.Common
             IssueManager.AddIssue(issueModel);
         }
     }
-
-
 }

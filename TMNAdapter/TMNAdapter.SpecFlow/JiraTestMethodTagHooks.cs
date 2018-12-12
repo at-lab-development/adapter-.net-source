@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using TechTalk.SpecFlow;
 using TMNAdapter.Core.Common;
@@ -23,7 +22,7 @@ namespace TMNAdapter.SpecFlow
         [BeforeScenario]
         public static void JiraScenarioInit(ScenarioContext scenarioContext)
         {
-            string issueTag = scenarioContext.ScenarioInfo.Tags.Where(t => issueTemplate.IsMatch(t)).FirstOrDefault();
+            var issueTag = scenarioContext.ScenarioInfo.Tags.Where(t => issueTemplate.IsMatch(t)).FirstOrDefault();
             if (issueTag != null)
             {
                 ValidationHelper.MatchPattern(issueTag, nameof(issueTag), issueTemplate.ToString());
@@ -35,7 +34,7 @@ namespace TMNAdapter.SpecFlow
         [AfterScenario]
         public static void JiraScenarioCleanUp(ScenarioContext scenarioContext)
         {
-            string issueTag = scenarioContext.ScenarioInfo.Tags.Where(t => issueTemplate.IsMatch(t)).FirstOrDefault();
+            var issueTag = scenarioContext.ScenarioInfo.Tags.Where(t => issueTemplate.IsMatch(t)).FirstOrDefault();
             if (issueTag != null) ExecutionTracker.SendTestResult(issueTag, scenarioContext);
         }
 

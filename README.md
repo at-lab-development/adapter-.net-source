@@ -1,4 +1,4 @@
-# Test Management NAdapter
+﻿# Test Management NAdapter
 This is a Testing Adapter based on NUnit Testing Framework, which gathers basic build information and useful artifacts:
 *  test status;
 *  test execution time
@@ -193,5 +193,80 @@ For further processing by [Jenkins Test Management plugin](https://github.com/at
 	```
 9. Make sure [**TM Jenkins Plugin**](https://github.com/at-lab-development/jenkins-test-management-plugin) is installed and configured in Jenkins
 10. Check issue in Jira
+
+![jira-auto-comment](/images/jira-auto-comment.jpg)
+
+# How To Use With SpecFlow
+1. **Download & Build** solution or **Download Ready to Use TTMNAdapter.SpecFlow** assembly
+2. Make sure your **Test Project** is based on SpecFlow Testing Framework
+3. Add **TMNAdapter.SpecFlow** and **TMNAdapter.Core** references to your **Test Project**
+4. Mark your feature tag to link it with Jira issue
+5. Use `JiraInfoProvider` to attach additional data for Jira issues
+6. Your **Feature file** should look something like this:
+	```csharp
+	Feature: CheckAuthorAndTitleInYouTubeVideoTest
+
+	@ISSUE-KEY
+	Scenario Outline: Check author name in youtube video
+		Given I navigate to https://www.youtube.com/watch?v=UKKYpdWPSL8
+		Then the author name "EPAM Systems Global" should be correct
+	```
+7. Your **Steps** should look something like this:
+	```csharp
+	[Binding]
+    public class CheckAuthorAndTitleInYoutubeVideo
+    {
+        private readonly ScenarioContext scenarioContext;
+        private YouTubePage page;
+
+		// each your class with steps should contains ScenarioContext
+        public CheckAuthorAndTitleInYoutubeVideo(ScenarioContext scenarioContext)
+        {
+            if (scenarioContext == null) throw new ArgumentNullException("scenarioContext");
+            this.scenarioContext = scenarioContext;
+            page = new YouTubePage(BrowserContainer.GetBrowser(scenarioContext.ScenarioInfo.Title));
+        }
+
+        [Given("I navigate to (.*)")]
+        public void INavigateToMainPage(string mainPage)
+        {
+            JiraInfoProvider.SaveParameter("title", page.GetVideoTitle(), scenarioContext);
+        }
+
+        [Then("the (.*) should be correct")]
+        public void TheAuthorNameShouldBeCorrect(string authorName)
+        {
+            JiraInfoProvider.SaveParameter("authorName", page.GetAuthorName(), scenarioContext);
+            string name = page.GetAuthorName();
+            Assert.AreEqual(name, authorName);
+        }
+	```
+		
+8. **Build & Run** your tests with **Jenkins** or manual
+9. Check **target** folder with **jira-tm-report.xml** file and **attachments** folder for **TM Jenkins Plugin**
+```xml
+<tests>
+  <test>
+    <key>ISSUE-KEY</key>
+    <status>Passed</status>
+    <time>00m:04s:640ms</time>
+    <attachments>
+      <attachment>\target\attachments\screenshot_2018-12-11T19-07-17.512.jpeg</attachment>
+    </attachments>
+    <parameters>
+      <parameter>
+        <title>title</title>
+        <value>At the End of the Day</value>
+      </parameter>
+      <parameter>
+        <title>authorName</title>
+        <value>EPAM Systems Global</value>
+      </parameter>
+    </parameters>
+  </test>
+</tests>
+```
+10. Make sure [**TM Jenkins Plugin**](https://github.com/at-lab-development/jenkins-test-management-plugin) is installed and configured in Jenkins
+11. Check issue in Jira
 
 ![jira-auto-comment](/images/jira-auto-comment.jpg)

@@ -18,20 +18,20 @@ namespace TestProject.SpecFlow.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.4.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("CheckAuthorAndTitleInYouTubeVideoTest")]
-    public partial class CheckAuthorAndTitleInYouTubeVideoTestFeature
+    [NUnit.Framework.DescriptionAttribute("CheckTitleInYoutubeVideo")]
+    public partial class CheckTitleInYoutubeVideoFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "CheckAuthorAndTitleInYouTubeVideoTest.feature"
+#line 1 "CheckTitleInYouTubeVideoTest.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "CheckAuthorAndTitleInYouTubeVideoTest", null, ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "CheckTitleInYoutubeVideo", null, ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -70,25 +70,25 @@ namespace TestProject.SpecFlow.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Check author name in youtube video")]
-        [NUnit.Framework.CategoryAttribute("EPMFARMATS-2466")]
+        [NUnit.Framework.DescriptionAttribute("Check title name in youtube video")]
+        [NUnit.Framework.CategoryAttribute("EPMFARMATS-2470")]
         [NUnit.Framework.TestCaseAttribute("https://www.youtube.com/watch?v=UKKYpdWPSL8", "EPAM Systems Global", null)]
-        public virtual void CheckAuthorNameInYoutubeVideo(string mainPage, string authorName, string[] exampleTags)
+        public virtual void CheckTitleNameInYoutubeVideo(string mainPage, string titleName, string[] exampleTags)
         {
             string[] @__tags = new string[] {
-                    "EPMFARMATS-2466"};
+                    "EPMFARMATS-2470"};
             if ((exampleTags != null))
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Check author name in youtube video", null, @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Check title name in youtube video", null, @__tags);
 #line 4
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 5
  testRunner.Given(string.Format("I navigate to {0}", mainPage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 6
- testRunner.Then(string.Format("the {0} should be correct", authorName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("the {0} should be wrong", titleName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

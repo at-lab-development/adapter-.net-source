@@ -1,4 +1,4 @@
-﻿Feature: CheckAuthorAndTitleInYouTubeVideoTest
+﻿Feature: CheckAuthorInYoutubeVideo
 
 @EPMFARMATS-2466
 Scenario Outline: Check author name in youtube video
