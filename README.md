@@ -269,4 +269,4 @@ For further processing by [Jenkins Test Management plugin](https://github.com/at
 10. Make sure [**TM Jenkins Plugin**](https://github.com/at-lab-development/jenkins-test-management-plugin) is installed and configured in Jenkins
 11. Check issue in Jira
 
-![jira-auto-comment](/images/jira-auto-comment.jpg)
+![jira-auto-comment](/images/jira-auto-comment-BDD.jpg)
