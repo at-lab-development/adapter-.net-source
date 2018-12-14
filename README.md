@@ -202,14 +202,14 @@ For further processing by [Jenkins Test Management plugin](https://github.com/at
 3. Add **TMNAdapter.SpecFlow** and **TMNAdapter.Core** references to your **Test Project**
 4. Add step definitions in App.congig
 ```
-	<specFlow>
+  <specFlow>
     <!-- For additional details on SpecFlow configuration options see http://go.specflow.org/doc-config -->
     <stepAssemblies>
       <stepAssembly assembly="TMNAdapter.SpecFlow" />
     </stepAssemblies>
   </specFlow>
   ```
-5. Mark your feature **tag** to link it with Jira issue
+5. Mark your feature **Tag** to link it with Jira issue
 6. Use `JiraInfoProvider` to attach additional data for Jira issues
 7. Your **Feature file** should look something like this:
 
