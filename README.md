@@ -200,7 +200,7 @@ For further processing by [Jenkins Test Management plugin](https://github.com/at
 1. **Download & Build** solution or **Download Ready to Use TTMNAdapter.SpecFlow** assembly
 2. Make sure your **Test Project** is based on SpecFlow Testing Framework
 3. Add **TMNAdapter.SpecFlow** and **TMNAdapter.Core** references to your **Test Project**
-4. Add step definitions in App.congig
+4. Add step definitions in **App.config**
 ```
   <specFlow>
     <!-- For additional details on SpecFlow configuration options see http://go.specflow.org/doc-config -->
