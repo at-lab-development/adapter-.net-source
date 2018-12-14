@@ -212,20 +212,17 @@ For further processing by [Jenkins Test Management plugin](https://github.com/at
 5. Mark your feature **Tag** to link it with Jira issue
 6. Use `JiraInfoProvider` to attach additional data for Jira issues
 7. Your **Feature file** should look something like this:
-
+```
 	Feature: CheckAuthorAndTitleInYouTubeVideoTest
 
 	@ISSUE-KEY
 	Scenario Outline: Check author name in youtube video
-		Given I navigate to <mainPage>
-		Then the <authorName> should be correct
-
-		Examples: 
-	| mainPage                                    | authorName |
-	| https://www.youtube.com/watch?v=UKKYpdWPSL8 | EPAM Systems Global|
-
+		Given I navigate to https://www.youtube.com/watch?v=UKKYpdWPSL8
+		Then the author name "EPAM Systems Global" should be correct
+```
 
 8. Your **Steps** should look something like this:
+```
 	[Binding]
     public class CheckAuthorAndTitleInYoutubeVideo
     {
@@ -253,7 +250,7 @@ For further processing by [Jenkins Test Management plugin](https://github.com/at
             string name = page.GetAuthorName();
             Assert.AreEqual(name, authorName);
         }
-		
+```		
 9. **Build & Run** your tests with **Jenkins** or manual
 10. Check **target** folder with **jira-tm-report.xml** file and **attachments** folder for **TM Jenkins Plugin**
 ```xml
