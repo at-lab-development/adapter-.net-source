@@ -200,19 +200,32 @@ For further processing by [Jenkins Test Management plugin](https://github.com/at
 1. **Download & Build** solution or **Download Ready to Use TTMNAdapter.SpecFlow** assembly
 2. Make sure your **Test Project** is based on SpecFlow Testing Framework
 3. Add **TMNAdapter.SpecFlow** and **TMNAdapter.Core** references to your **Test Project**
-4. Mark your feature tag to link it with Jira issue
-5. Use `JiraInfoProvider` to attach additional data for Jira issues
-6. Your **Feature file** should look something like this:
-	```csharp
+4. Add step definitions in App.congig
+```
+	<specFlow>
+    <!-- For additional details on SpecFlow configuration options see http://go.specflow.org/doc-config -->
+    <stepAssemblies>
+      <stepAssembly assembly="TMNAdapter.SpecFlow" />
+    </stepAssemblies>
+  </specFlow>
+  ```
+5. Mark your feature **tag** to link it with Jira issue
+6. Use `JiraInfoProvider` to attach additional data for Jira issues
+7. Your **Feature file** should look something like this:
+
 	Feature: CheckAuthorAndTitleInYouTubeVideoTest
 
 	@ISSUE-KEY
 	Scenario Outline: Check author name in youtube video
-		Given I navigate to https://www.youtube.com/watch?v=UKKYpdWPSL8
-		Then the author name "EPAM Systems Global" should be correct
-	```
-7. Your **Steps** should look something like this:
-	```csharp
+		Given I navigate to <mainPage>
+		Then the <authorName> should be correct
+
+		Examples: 
+	| mainPage                                    | authorName |
+	| https://www.youtube.com/watch?v=UKKYpdWPSL8 | EPAM Systems Global|
+
+
+8. Your **Steps** should look something like this:
 	[Binding]
     public class CheckAuthorAndTitleInYoutubeVideo
     {
@@ -240,10 +253,9 @@ For further processing by [Jenkins Test Management plugin](https://github.com/at
             string name = page.GetAuthorName();
             Assert.AreEqual(name, authorName);
         }
-	```
 		
-8. **Build & Run** your tests with **Jenkins** or manual
-9. Check **target** folder with **jira-tm-report.xml** file and **attachments** folder for **TM Jenkins Plugin**
+9. **Build & Run** your tests with **Jenkins** or manual
+10. Check **target** folder with **jira-tm-report.xml** file and **attachments** folder for **TM Jenkins Plugin**
 ```xml
 <tests>
   <test>
@@ -266,7 +278,7 @@ For further processing by [Jenkins Test Management plugin](https://github.com/at
   </test>
 </tests>
 ```
-10. Make sure [**TM Jenkins Plugin**](https://github.com/at-lab-development/jenkins-test-management-plugin) is installed and configured in Jenkins
-11. Check issue in Jira
+11. Make sure [**TM Jenkins Plugin**](https://github.com/at-lab-development/jenkins-test-management-plugin) is installed and configured in Jenkins
+12. Check issue in Jira
 
 ![jira-auto-comment](/images/jira-auto-comment-BDD.jpg)
